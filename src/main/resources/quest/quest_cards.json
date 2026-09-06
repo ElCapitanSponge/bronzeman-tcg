@@ -1713,6 +1713,27 @@
 								"Coins"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Tiny net",
+							"cards": [
+								"Tiny net"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Mayor of Catherby",
+							"cards": [
+								"Mayor of Catherby"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Current Duck",
+							"cards": [
+								"Current Duck"
+							],
+							"type": "item"
 						}
 					]
 				}
