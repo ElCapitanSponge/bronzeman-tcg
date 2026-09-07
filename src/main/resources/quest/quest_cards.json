@@ -859,6 +859,152 @@
 			"miniquest": true,
 			"sections": [
 				{
+					"label": "Items",
+					"requirements": [
+						{
+							"label": "Spade",
+							"cards": [
+								"spade"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Any Axe",
+							"cards": [
+								"Bronze axe",
+								"Iron axe",
+								"Steel axe",
+								"Black axe",
+								"Mithril axe",
+								"Adamant axe",
+								"Rune axe",
+								"Dragon axe"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Any Herb Seed",
+							"cards": [
+								"Guam seed",
+								"Marrentill seed",
+								"Tarromin seed",
+								"Harralander seed",
+								"Ranarr seed",
+								"Toadflax seed",
+								"Irit seed",
+								"Avantoe seed",
+								"Kwuarm seed",
+								"Snapdragon seed",
+								"Cadentine seed",
+								"Lantadyme seed",
+								"Dwarf weed seed",
+								"Torstol seed",
+								"Potato seed",
+								"Onion seed",
+								"Cabbage seed",
+								"Tomato seed",
+								"Sweetcorn seed",
+								"Strawberry seed",
+								"Watermelon seed",
+								"Snap dragon seed"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Any Bow",
+							"cards": [
+								"Shortbow",
+								"Longbow",
+								"Oak shortbow",
+								"Oak longbow",
+								"Willow shortbow",
+								"Willow longbow",
+								"Maple shortbow",
+								"Maple longbow",
+								"Yew shortbow",
+								"Yew longbow",
+								"Magic shortbow",
+								"Magic longbow"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Oak Logs",
+							"cards": [
+								"Oak logs"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Tinderbox",
+							"cards": [
+								"Tinderbox"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Knife",
+							"cards": [
+								"Knife"
+							],
+							"type": "item"
+						},
+						{
+							"label": "bait/feathers",
+							"cards": [
+								"Fishing bait",
+								"Feather"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Hammer",
+							"cards": [
+								"Hammer"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Two metal bars",
+							"cards": [
+								"Bronze bar",
+								"Iron bar",
+								"Steel bar",
+								"Mithril bar",
+								"Adamant bar",
+								"Rune bar"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Logs for bars",
+							"cards": [
+								"Logs",
+								"Oak logs",
+								"Willow logs",
+								"Maple logs",
+								"Yew logs",
+								"Magic logs"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Attack Potion",
+							"cards": [
+								"Attack potion"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Roe",
+							"cards": [
+								"Roe"
+							],
+							"type": "item"
+						}
+					]
+				},
+				{
 					"label": "Enemies",
 					"requirements": [
 						{
@@ -867,6 +1013,18 @@
 								"Mithril dragon"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Otto Godblessed",
+							"cards": [
+								"Otto godblessed"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -1768,6 +1926,13 @@
 								"Knife"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Ghostspeak Amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
 						}
 					]
 				}
@@ -1789,9 +1954,16 @@
 							"type": "item"
 						},
 						{
-							"label": "Steel nails",
+							"label": "Any nails",
 							"cards": [
-								"Steel nails"
+								"Bronze nails",
+								"Iron nails",
+								"Steel nails",
+								"Black nails",
+								"Mithril nails",
+								"Adamant nails",
+								"Rune nails",
+								"Dragon nails"
 							],
 							"type": "item"
 						},
@@ -1806,6 +1978,13 @@
 							"label": "Saw",
 							"cards": [
 								"Saw"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Bolt of Cloth",
+							"cards": [
+								"Bolt of cloth"
 							],
 							"type": "item"
 						}
@@ -3992,8 +4171,35 @@
 		{
 			"name": "Enter the Abyss",
 			"miniquest": true,
-			"sections": [],
-			"notes": ""
+			"sections": [
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Mage of Zamorak",
+							"cards": [
+								"Zamorak mage"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Aubury (optional)",
+							"cards": [
+								"Aubury"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Archmage Sedridor (optional)",
+							"cards": [
+								"Archmage sedridor"
+							],
+							"type": "npc"
+						}
+					]
+				}
+			],
+			"notes": "Brimstail and Wizard Distentor (wizrds guild) can also be used for teleports"
 		},
 		{
 			"name": "Ernest the Chicken",
@@ -4290,7 +4496,20 @@
 		{
 			"name": "Family Pest",
 			"miniquest": true,
-			"sections": [],
+			"sections": [
+				{
+					"label": "Items",
+					"requirements": [
+						{
+							"label": "Coins",
+							"cards": [
+								"coins"
+							],
+							"type": "item"
+						}
+					]
+				}
+			],
 			"notes": ""
 		},
 		{
@@ -5260,6 +5479,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Strange Old Man",
+							"cards": [
+								"Strange old man"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -5291,9 +5522,25 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Morytania legs",
+							"label": "Ghostspeak Amulet / Morytania legs",
 							"cards": [
+								"Ghostspeak amulet",
 								"Morytania legs"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ring of Shadows (optional)",
+							"cards": [
+								"Ring of shadows"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Dramen/Lunar Staff",
+							"cards": [
+								"Dramen staff",
+								"Lunar staff"
 							],
 							"type": "item"
 						}
@@ -5340,7 +5587,7 @@
 					]
 				}
 			],
-			"notes": ""
+			"notes": "Ring of Shadows is not required if you have a Ring of Visibility"
 		},
 		{
 			"name": "Horror from the Deep",
@@ -5826,6 +6073,52 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "Enemies",
+					"requirements": [
+						{
+							"label": "Any of the following",
+							"logic": "ANY",
+							"children": [
+								{
+									"label": "Temple Spider",
+									"cards": [
+										"Temple spider"
+									],
+									"type": "enemy"
+								},
+								{
+									"label": "Baby Red Dragon",
+									"cards": [
+										"Baby red dragon"
+									],
+									"type": "enemy"
+								},
+								{
+									"label": "Red Dragon",
+									"cards": [
+										"Red dragon"
+									],
+									"type": "enemy"
+								},
+								{
+									"label": "Sarachnis",
+									"cards": [
+										"Sarachnis"
+									],
+									"type": "enemy"
+								},
+								{
+									"label": "Undead Druid",
+									"cards": [
+										"Undead druid"
+									],
+									"type": "enemy"
+								}
+							]
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -5965,6 +6258,18 @@
 								"The Wardens"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Maisa",
+							"cards": [
+								"Maisa"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -6761,10 +7066,19 @@
 								"Bronze sword",
 								"Iron sword",
 								"Steel sword",
+								"Black sword",
 								"Mithril sword",
 								"Adamant sword",
 								"Rune sword",
 								"Dragon sword",
+								"Bronze Longsword",
+								"Iron Longsword",
+								"Steel Longsword",
+								"Black longsword",
+								"Mithril longsword",
+								"Adamant longsword",
+								"Rune longsword",
+								"Dragon longsword",
 								"Bronze scimitar",
 								"Iron scimitar",
 								"Steel scimitar",
@@ -6772,7 +7086,15 @@
 								"Adamant scimitar",
 								"Rune scimitar",
 								"Dragon scimitar",
-								"Wilderness sword"
+								"Wilderness sword",
+								"Bronze dagger",
+								"Iron dagger",
+								"Steel dagger",
+								"Black dagger",
+								"Mithirl dagger",
+								"Adamant dagger",
+								"Rune dagger",
+								"Dragon dagger"
 							],
 							"type": "item"
 						}
@@ -6785,6 +7107,13 @@
 							"label": "Black demon",
 							"cards": [
 								"Black demon"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Kolodian",
+							"cards": [
+								"Kolodian"
 							],
 							"type": "enemy"
 						}
@@ -6865,6 +7194,18 @@
 								"Derwen"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Kolodion",
+							"cards": [
+								"Kolodion"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -8331,7 +8672,7 @@
 						{
 							"label": "Yellow dye",
 							"cards": [
-								"Yellow dye",
+								"Yellow dye"
 							],
 							"type": "item"
 						},
@@ -13108,9 +13449,10 @@
 							"type": "item"
 						},
 						{
-							"label": "Hammer",
+							"label": "Hammer / Dragon Warhammer",
 							"cards": [
-								"Hammer"
+								"Hammer",
+								"Dragon warhammer"
 							],
 							"type": "item"
 						}
@@ -13232,6 +13574,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Ashuelot Reis",
+							"cards": [
+								"Ashuelot reis"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -13268,6 +13622,55 @@
 								"Coins"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Goshtspeak Amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ghostly Boots",
+							"cards": [
+								"Ghostly boots"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ghostly Cloak",
+							"cards": [
+								"Ghostly cloak"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ghostly Gloves",
+							"cards": [
+								"Ghostly gloves"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ghostly Hood",
+							"cards": [
+								"Ghostly hood"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Shostly Robe",
+							"cards": [
+								"Ghostly robe"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Severed Leg",
+							"cards": [
+								"Severed leg"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -13280,6 +13683,25 @@
 								"Bouncer"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "General Khazard",
+							"cards": [
+								"General khazard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sin Seer",
+							"cards": [
+								"Sin seer"
+							],
+							"type": "npc"
 						}
 					]
 				}
