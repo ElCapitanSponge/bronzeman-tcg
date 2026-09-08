@@ -3336,7 +3336,8 @@
 						{
 							"label": "Needle",
 							"cards": [
-								"Needle"
+								"Needle",
+								"Costume needle"
 							],
 							"type": "item"
 						},
