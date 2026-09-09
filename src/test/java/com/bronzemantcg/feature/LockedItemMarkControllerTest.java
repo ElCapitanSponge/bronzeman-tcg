@@ -23,6 +23,21 @@ public class LockedItemMarkControllerTest
 	}
 
 	@Test
+	public void onlyFadeAndIconModeEnablesTheBankFillerBadge()
+	{
+		assertFalse(LockedItemMarkController.isIconActive(
+			LockState.LOCKED, LockedItemMarkMode.TRANSPARENT, false));
+		assertTrue(LockedItemMarkController.isIconActive(
+			LockState.LOCKED, LockedItemMarkMode.TRANSPARENT_ICON, false));
+		assertFalse(LockedItemMarkController.isIconActive(
+			LockState.LOCKED, LockedItemMarkMode.OFF, false));
+		assertFalse(LockedItemMarkController.isIconActive(
+			LockState.UNLOCKED, LockedItemMarkMode.TRANSPARENT_ICON, false));
+		assertFalse(LockedItemMarkController.isIconActive(
+			LockState.LOCKED, LockedItemMarkMode.TRANSPARENT_ICON, true));
+	}
+
+	@Test
 	public void offAndBypassDisableMarking()
 	{
 		assertFalse(LockedItemMarkController.isMarkingActive(

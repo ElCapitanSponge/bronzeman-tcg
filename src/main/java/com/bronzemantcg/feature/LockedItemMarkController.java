@@ -118,10 +118,10 @@ public final class LockedItemMarkController
 		}
 	}
 
-	/** Shared by opacity marking and the drawing-only icon overlay. */
-	public boolean shouldMarkItem(int itemId)
+	/** Used only by the drawing overlay; fading is handled independently by {@link #applyMarks()}. */
+	public boolean shouldDrawIcon(int itemId)
 	{
-		return running && isMarkingActive(config.itemUsageMode(), config.lockedItemMarkMode(),
+		return running && isIconActive(config.itemUsageMode(), config.lockedItemMarkMode(),
 			restrictionDecisionService.isEnforcementBypassed())
 			&& itemId > 0 && restrictionDecisionService.isItemLocked(itemId);
 	}
@@ -201,6 +201,13 @@ public final class LockedItemMarkController
 		return itemUsageMode == LockState.LOCKED
 			&& markMode != LockedItemMarkMode.OFF
 			&& !enforcementBypassed;
+	}
+
+	static boolean isIconActive(LockState itemUsageMode,
+		LockedItemMarkMode markMode, boolean enforcementBypassed)
+	{
+		return isMarkingActive(itemUsageMode, markMode, enforcementBypassed)
+			&& markMode == LockedItemMarkMode.TRANSPARENT_ICON;
 	}
 
 	static int resolveOpacity(boolean markItem, int currentOpacity)
