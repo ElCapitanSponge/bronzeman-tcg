@@ -106,6 +106,7 @@ public class BronzemanPresetTest
 			"npcVisibilityMode", "groundItemsMode", "itemUsageMode", "foodSettingsMode",
 			"bankingMode", "grandExchangeMode", "coinMode", "acceptSharedUnlocks",
 			"lootExemptNames", "showLockedMenuOptions", "showBetaCollectionTab",
+			"allowBetaCardLookup",
 			"woodcuttingMode", "miningMode",
 			"fishingMode", "cookingMode", "tinderboxMode",
 			"smeltingMode", "smithingMode", "craftingMode", "restrictEnchanting",
@@ -147,23 +148,25 @@ public class BronzemanPresetTest
 	}
 
 	@Test
-	public void betaVisibilityLivesInBetaSettingsWithoutExportingSnapshotState()
+	public void betaControlsLiveInBetaSettingsWithoutExportingPrivateState()
 	{
 		SidePanelSettingMetadata.Entry visibility = SidePanelSettingMetadata.all().stream()
 			.filter(entry -> entry.key.equals("showBetaCollectionTab")).findFirst().orElseThrow();
 		assertEquals(SidePanelSettingMetadata.Section.BETA_CARDS, visibility.section);
-		assertEquals(SidePanelSettingMetadata.Category.BETA_IMPORTS, visibility.section.category);
-		assertEquals("Beta Card Imports", visibility.section.category.label);
+		assertEquals(SidePanelSettingMetadata.Category.BETA_CARDS, visibility.section.category);
+		assertEquals("Beta Cards", visibility.section.category.label);
 		assertEquals(SidePanelSettingMetadata.Category.OTHER.ordinal() + 1,
 			visibility.section.category.ordinal());
 		Map<String, String> settings = new LinkedHashMap<>();
 		settings.put("betaCollectionManualV1", "private Beta names");
 		settings.put("betaCollectionSnapshotV1", "private legacy snapshot");
+		settings.put("allowBetaCardLookup", "true");
 		settings.put("bankingMode", BankingMode.FULL.name());
 		Map<String, String> exported = BronzemanSettingsManager.decodeSettings(GSON,
 			BronzemanSettingsManager.encodeSettings(GSON, settings));
 		assertFalse(exported.containsKey("betaCollectionManualV1"));
 		assertFalse(exported.containsKey("betaCollectionSnapshotV1"));
+		assertFalse(exported.containsKey("allowBetaCardLookup"));
 	}
 
 	@Test

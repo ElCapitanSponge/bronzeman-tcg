@@ -56,7 +56,6 @@ public class PanelCollectionLayoutTest
 			.filter(card -> card.getKind() == CardEntityKind.NPC).count());
 		assertFalse(layout.getCollectionPlacements().stream()
 			.anyMatch(card -> card.getCategoryIds().isEmpty()));
-		assertEquals(5561, layout.getLegacyBetaCollectionCards().size());
 		assertEquals(5562, layout.getBetaCollectionCards().size());
 		assertEquals(6362, layout.getBetaCollectionCards().stream()
 			.mapToInt(card -> card.getVariants().size()).sum());
@@ -82,8 +81,7 @@ public class PanelCollectionLayoutTest
 		assertEquals("Fish chunks", fish.getVariants().get(0).getName());
 		assertTrue(fish.getVariants().get(0).getEntityIds().isEmpty());
 		assertTrue(layout.isBetaVariantNameUnique("fish chunks"));
-		assertFalse(layout.getLegacyBetaCollectionCards().contains(fish));
-		assertTrue(new PanelCollectionOwnership(layout).isBetaVariantInSnapshot(
+		assertTrue(new PanelCollectionOwnership(layout).isBetaVariantOwnedByNames(
 			fish.getVariants().get(0), Set.of("fish chunks")));
 	}
 
@@ -93,7 +91,8 @@ public class PanelCollectionLayoutTest
 		PanelCollectionLayout layout = new PanelCollectionLayout(new Gson(),
 			"/panel/test_collection_layout.json", true);
 		assertFalse(layout.getBetaCollectionCards().isEmpty());
-		assertEquals(layout.getLegacyBetaCollectionCards(), layout.getBetaCollectionCards());
+		assertFalse(layout.getBetaCollectionCards().stream()
+			.anyMatch(card -> card.getParentName().equals("Fish chunks")));
 	}
 
 	@Test
@@ -124,8 +123,8 @@ public class PanelCollectionLayoutTest
 			layout, CardEntityKind.NPC, "Manta ray", "Manta ray");
 
 		assertFalse(layout.isBetaVariantNameUnique("Manta ray"));
-		assertFalse(ownership.isBetaVariantInSnapshot(item, Set.of("manta ray")));
-		assertFalse(ownership.isBetaVariantInSnapshot(npc, Set.of("manta ray")));
+		assertFalse(ownership.isBetaVariantOwnedByNames(item, Set.of("manta ray")));
+		assertFalse(ownership.isBetaVariantOwnedByNames(npc, Set.of("manta ray")));
 		assertFalse(layout.isBetaEntityIdUnique(CardEntityKind.NPC, 14706));
 	}
 

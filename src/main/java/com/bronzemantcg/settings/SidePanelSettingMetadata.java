@@ -22,7 +22,7 @@ final class SidePanelSettingMetadata
 		GATHERING("Gathering"),
 		PRODUCTION("Production"),
 		OTHER("Other"),
-		BETA_IMPORTS("Beta Card Imports");
+		BETA_CARDS("Beta Cards");
 
 		final String label;
 
@@ -35,7 +35,7 @@ final class SidePanelSettingMetadata
 	enum Section
 	{
 		GENERAL(Category.SETTINGS, "General"),
-		BETA_CARDS(Category.BETA_IMPORTS, "Beta Card Imports"),
+		BETA_CARDS(Category.BETA_CARDS, "Beta Cards"),
 		VISUALS(Category.SETTINGS, "Visuals"),
 		EXTERNAL_PLUGINS(Category.SETTINGS, "External Plugins"),
 		FARMING(Category.GATHERING, "Farming"),
@@ -135,8 +135,13 @@ final class SidePanelSettingMetadata
 				+ "<br>Ordinary NPC options remain controlled by NPC Locks."
 				+ "<br>The click is still blocked and chat explains which cards are missing."));
 		entries.add(setting(Section.BETA_CARDS, "showBetaCollectionTab", "Show Beta tab",
-			"Show the personal Beta collection snapshot in the side panel."
-				+ "<br>Hiding the tab does not delete or change the saved snapshot."));
+			"Show the confirmed personal Beta collection in the side panel."
+				+ "<br>Hiding the tab does not delete or change the cached Beta names."));
+		entries.add(setting(Section.BETA_CARDS, "allowBetaCardLookup",
+			"Allow Beta player lookup",
+			"Privacy notice: an explicit refresh sends your connection IP address and "
+				+ "RuneScape display name to osrs-tcg.net."
+				+ "<br>No player lookup is made automatically."));
 
 		entries.add(setting(Section.VISUALS, "lockedItemMarkMode", "Locked Item Indicator",
 			"Fade items in your inventory and bank while their card is uncollected."

@@ -64,6 +64,7 @@ final class BronzemanSettingRegistry
 			stringSetting("lootExemptNames", BronzemanTcgConfig::lootExemptNames),
 			booleanSetting("showLockedMenuOptions", BronzemanTcgConfig::showLockedMenuOptions),
 			booleanSetting("showBetaCollectionTab", BronzemanTcgConfig::showBetaCollectionTab),
+			booleanSetting("allowBetaCardLookup", BronzemanTcgConfig::allowBetaCardLookup),
 
 			enumSetting("woodcuttingMode", BronzemanTcgConfig::woodcuttingMode,
 				WoodcuttingMode.values()),

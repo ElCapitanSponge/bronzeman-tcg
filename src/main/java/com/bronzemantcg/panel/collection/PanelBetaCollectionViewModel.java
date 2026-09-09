@@ -1,6 +1,7 @@
 package com.bronzemantcg.panel.collection;
 
 import com.bronzemantcg.ownership.CardEntityKind;
+import com.bronzemantcg.ownership.BetaCardCacheService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -147,23 +148,23 @@ public final class PanelBetaCollectionViewModel
 		return matches;
 	}
 
-	public State prepare(Set<String> betaSnapshotNames,
-		BetaCollectionSnapshotService.Status snapshotStatus)
+	public State prepare(Set<String> confirmedBetaNames,
+		BetaCardCacheService.Status cacheStatus)
 	{
 		Map<PanelCollectionLayout.BetaCollectionCard, PanelCollectionViewModel.Status>
 			parentStates = new LinkedHashMap<>();
 		Map<PanelCollectionLayout.BetaVariant, PanelCollectionViewModel.Status>
 			variantStates = new LinkedHashMap<>();
 		int ownedParents = 0;
-		Set<String> unmatched = new java.util.TreeSet<>(betaSnapshotNames);
+		Set<String> unmatched = new java.util.TreeSet<>(confirmedBetaNames);
 		for (PanelCollectionLayout.BetaCollectionCard parent : parents)
 		{
 			boolean parentOwned = false;
 			for (PanelCollectionLayout.BetaVariant variant : parent.getVariants())
 			{
 				unmatched.remove(normalize(variant.getName()));
-				boolean variantOwned = ownership.isBetaVariantInSnapshot(
-					variant, betaSnapshotNames);
+				boolean variantOwned = ownership.isBetaVariantOwnedByNames(
+					variant, confirmedBetaNames);
 				PanelCollectionViewModel.Status status = variantOwned
 					? PanelCollectionViewModel.Status.OWNED
 					: PanelCollectionViewModel.Status.LOCKED;
@@ -179,7 +180,7 @@ public final class PanelBetaCollectionViewModel
 			}
 			parentStates.put(parent, parentStatus);
 		}
-		return new State(parentStates, variantStates, ownedParents, snapshotStatus, unmatched);
+		return new State(parentStates, variantStates, ownedParents, cacheStatus, unmatched);
 	}
 
 	private static Map<PanelCollectionLayout.BetaCollectionCard, String> buildDisplayNames(
@@ -215,20 +216,20 @@ public final class PanelBetaCollectionViewModel
 		private final Map<PanelCollectionLayout.BetaVariant,
 			PanelCollectionViewModel.Status> variantStates;
 		private final int ownedParents;
-		private final BetaCollectionSnapshotService.Status snapshotStatus;
+		private final BetaCardCacheService.Status cacheStatus;
 		private final Set<String> unmatchedNames;
 
 		private State(Map<PanelCollectionLayout.BetaCollectionCard,
 			PanelCollectionViewModel.Status> parentStates,
 			Map<PanelCollectionLayout.BetaVariant,
 				PanelCollectionViewModel.Status> variantStates,
-			int ownedParents, BetaCollectionSnapshotService.Status snapshotStatus,
+			int ownedParents, BetaCardCacheService.Status cacheStatus,
 			Set<String> unmatchedNames)
 		{
 			this.parentStates = Collections.unmodifiableMap(new LinkedHashMap<>(parentStates));
 			this.variantStates = Collections.unmodifiableMap(new LinkedHashMap<>(variantStates));
 			this.ownedParents = ownedParents;
-			this.snapshotStatus = snapshotStatus;
+			this.cacheStatus = cacheStatus;
 			this.unmatchedNames = Collections.unmodifiableSet(new LinkedHashSet<>(unmatchedNames));
 		}
 
@@ -254,9 +255,9 @@ public final class PanelBetaCollectionViewModel
 			return ownedParents;
 		}
 
-		public BetaCollectionSnapshotService.Status getSnapshotStatus()
+		public BetaCardCacheService.Status getCacheStatus()
 		{
-			return snapshotStatus;
+			return cacheStatus;
 		}
 
 		@Override
@@ -272,7 +273,7 @@ public final class PanelBetaCollectionViewModel
 			}
 			State state = (State) other;
 			return ownedParents == state.ownedParents
-				&& snapshotStatus == state.snapshotStatus
+				&& cacheStatus == state.cacheStatus
 				&& unmatchedNames.equals(state.unmatchedNames)
 				&& parentStates.equals(state.parentStates)
 				&& variantStates.equals(state.variantStates);
@@ -284,7 +285,7 @@ public final class PanelBetaCollectionViewModel
 			int result = parentStates.hashCode();
 			result = 31 * result + variantStates.hashCode();
 			result = 31 * result + ownedParents;
-			result = 31 * result + snapshotStatus.hashCode();
+			result = 31 * result + cacheStatus.hashCode();
 			return 31 * result + unmatchedNames.hashCode();
 		}
 	}

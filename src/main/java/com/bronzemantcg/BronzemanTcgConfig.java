@@ -373,13 +373,30 @@ public interface BronzemanTcgConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "allowBetaCardLookup",
+		name = "Allow Beta player lookup",
+		description = "Allows the Refresh Beta Cards button to look up your public OSRS TCG album."
+			+ "<br>No request is made automatically. You may disable public album sharing again after "
+			+ "Bronzeman confirms the names were saved.",
+		warning = "When you click Refresh Beta Cards, this sends your connection IP address and "
+			+ "RuneScape display name to osrs-tcg.net, a 3rd-party server not controlled or "
+			+ "verified by RuneLite developers.",
+		section = externalPluginsSection,
+		position = 1
+	)
+	default boolean allowBetaCardLookup()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "acceptSharedUnlocks",
 		name = "TCG Locked Party Sharing",
 		description = "Toggle on for group play while using TCG Locked."
 			+ "<br>Use the `Party` plugin to share the cards you pull with your group members."
 			+ "<br>Use the TCG Locked side panel to sync your group.",
 		section = externalPluginsSection,
-		position = 1
+		position = 2
 	)
 	default boolean acceptSharedUnlocks()
 	{
@@ -433,8 +450,8 @@ public interface BronzemanTcgConfig extends Config
 	@ConfigItem(
 		keyName = "showBetaCollectionTab",
 		name = "Show Beta tab",
-		description = "Show the personal Beta collection snapshot in the side panel."
-			+ "<br>Hiding the tab does not delete or change the saved snapshot.",
+		description = "Show the confirmed personal Beta collection in the side panel."
+			+ "<br>Hiding the tab does not delete or change the cached Beta names.",
 		section = generalSettings,
 		position = 11
 	)

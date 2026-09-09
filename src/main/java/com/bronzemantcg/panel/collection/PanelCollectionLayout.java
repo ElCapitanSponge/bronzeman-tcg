@@ -38,7 +38,6 @@ public final class PanelCollectionLayout
 	private final List<Section> sections;
 	private final List<CollectionPlacement> collectionPlacements;
 	private final List<BetaCollectionCard> betaCollectionCards;
-	private final List<BetaCollectionCard> legacyBetaCollectionCards;
 	private final Map<CardEntityKind, Map<Integer, Integer>> betaIdUseCounts;
 	private final Map<String, Integer> betaNameUseCounts;
 	private final String organiserFingerprint;
@@ -58,7 +57,6 @@ public final class PanelCollectionLayout
 	PanelCollectionLayout(Gson gson, String resourcePath, boolean correctFishChunks)
 	{
 		Loaded loaded = load(gson, resourcePath);
-		legacyBetaCollectionCards = loaded.betaCollectionCards;
 		if (correctFishChunks)
 		{
 			loaded = correctFishChunksHistory(loaded);
@@ -87,16 +85,10 @@ public final class PanelCollectionLayout
 		return betaCollectionCards;
 	}
 
-	/** Frozen schema-1 bit positions; presentation corrections must never reorder this set. */
-	public List<BetaCollectionCard> getLegacyBetaCollectionCards()
-	{
-		return legacyBetaCollectionCards;
-	}
-
 	/**
-	 * Fish chunks is present in the reviewed v1 catalogue and a migrated Beta save, but missing
-	 * from the frozen Beta source. Add its historical name using the existing placement only.
-	 * Keep the original rows separately for schema-1 snapshot decoding; do not invent entity IDs.
+	 * Fish chunks is present in the reviewed v1 catalogue and Beta history, but missing from the
+	 * original reviewed Beta source. Add its historical name using the existing placement only;
+	 * do not invent entity IDs.
 	 */
 	private static Loaded correctFishChunksHistory(Loaded base)
 	{

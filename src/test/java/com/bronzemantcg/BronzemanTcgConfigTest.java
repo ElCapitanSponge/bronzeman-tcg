@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class BronzemanTcgConfigTest
 {
@@ -19,5 +21,19 @@ public class BronzemanTcgConfigTest
 		ConfigItem item = method.getAnnotation(ConfigItem.class);
 		assertNotNull(item);
 		assertFalse(item.warning().trim().isEmpty());
+	}
+
+	@Test
+	public void betaPlayerLookupIsExplicitOptInAndWarned() throws Exception
+	{
+		BronzemanTcgConfig defaults = new BronzemanTcgConfig() { };
+		assertFalse(defaults.allowBetaCardLookup());
+
+		Method method = BronzemanTcgConfig.class.getMethod("allowBetaCardLookup");
+		ConfigItem item = method.getAnnotation(ConfigItem.class);
+		assertNotNull(item);
+		assertEquals("allowBetaCardLookup", item.keyName());
+		assertFalse(item.warning().trim().isEmpty());
+		assertTrue(item.description().contains("No request is made automatically"));
 	}
 }

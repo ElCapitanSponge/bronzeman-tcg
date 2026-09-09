@@ -45,8 +45,6 @@ public class TcgCollectionReader
 	private Set<String> cachedOwnedLowerCaseNames = Collections.emptySet();
 	private TcgOwnershipSnapshot cachedFallbackOwnership =
 		TcgOwnershipSnapshot.namesOnly(Collections.emptySet());
-	private PersistedBetaCollection cachedPersistedBetaCollection =
-		PersistedBetaCollection.unavailable();
 	private boolean stateAvailable;
 	private long lastRefreshMs = 0L;
 	// Null until the first API payload lands; non-null means the API path is live.
@@ -96,27 +94,6 @@ public class TcgCollectionReader
 		return apiOwnership != null
 			&& apiOwnership.hasEntityIds(CardEntityKind.ITEM)
 			&& apiOwnership.hasEntityIds(CardEntityKind.NPC);
-	}
-
-	/** Force the persisted-state fallback to refresh for an explicit user snapshot save. */
-	public synchronized void refreshNow()
-	{
-		if (apiOwnership == null)
-		{
-			lastRefreshMs = 0L;
-			refresh();
-		}
-	}
-
-	/**
-	 * Exact beta provenance retained in osrs-tcg's profile-scoped persisted state.
-	 * This remains readable after the live API takes ownership precedence and is used
-	 * only to repair/protect the historical Beta Collection snapshot.
-	 */
-	public synchronized PersistedBetaCollection getPersistedBetaCollection()
-	{
-		ensureFresh();
-		return cachedPersistedBetaCollection;
 	}
 
 	/**
@@ -171,7 +148,6 @@ public class TcgCollectionReader
 		{
 			String raw = configManager.getRSProfileConfiguration(TCG_CONFIG_GROUP, TCG_STATE_KEY);
 			PersistedState parsed = parsePersistedState(raw, gson);
-			cachedPersistedBetaCollection = parsed.betaCollection;
 			String json = parsed.json;
 			if (json.isEmpty())
 			{
@@ -202,7 +178,6 @@ public class TcgCollectionReader
 			cachedOwnedLowerCaseNames = Collections.emptySet();
 			cachedFallbackOwnership = TcgOwnershipSnapshot.namesOnly(cachedOwnedLowerCaseNames);
 			stateAvailable = false;
-			cachedPersistedBetaCollection = PersistedBetaCollection.unavailable();
 		}
 	}
 
@@ -221,7 +196,6 @@ public class TcgCollectionReader
 		}
 
 		Set<String> ownedNames = new HashSet<>();
-		Set<String> betaNames = new HashSet<>();
 		boolean collectionPresent;
 		if (dto.cardEntries != null
 			&& (!dto.cardEntries.isEmpty() || dto.cardInstances == null))
@@ -235,7 +209,6 @@ public class TcgCollectionReader
 					continue;
 				}
 				boolean owned = false;
-				boolean beta = false;
 				for (TcgStateDto.CardVariantDto variant : entry.variants)
 				{
 					if (variant == null || (variant.quantity != null && variant.quantity <= 0))
@@ -243,30 +216,16 @@ public class TcgCollectionReader
 						continue;
 					}
 					owned = true;
-					beta |= Boolean.TRUE.equals(variant.beta);
 				}
 				if (owned)
 				{
 					ownedNames.add(name);
-				}
-				if (beta)
-				{
-					betaNames.add(name);
 				}
 			}
 		}
 		else if (dto.cardInstances != null)
 		{
 			collectionPresent = true;
-			boolean betaMetadataPresent = false;
-			for (TcgStateDto.OwnedCardInstanceDto instance : dto.cardInstances)
-			{
-				if (instance != null && instance.beta != null)
-				{
-					betaMetadataPresent = true;
-					break;
-				}
-			}
 			for (TcgStateDto.OwnedCardInstanceDto instance : dto.cardInstances)
 			{
 				String name = normalizedName(instance == null ? null : instance.cardName);
@@ -275,11 +234,6 @@ public class TcgCollectionReader
 					continue;
 				}
 				ownedNames.add(name);
-				if (betaMetadataPresent ? Boolean.TRUE.equals(instance.beta)
-					: raw != null && raw.startsWith(TcgStateDecoder.STORAGE_PREFIX_V2))
-				{
-					betaNames.add(name);
-				}
 			}
 		}
 		else
@@ -287,10 +241,7 @@ public class TcgCollectionReader
 			collectionPresent = false;
 		}
 
-		PersistedBetaCollection betaCollection = collectionPresent
-			? PersistedBetaCollection.available(betaNames)
-			: PersistedBetaCollection.unavailable();
-		return new PersistedState(json, collectionPresent, ownedNames, betaCollection);
+		return new PersistedState(json, collectionPresent, ownedNames);
 	}
 
 	private static String normalizedName(String value)
@@ -307,21 +258,18 @@ public class TcgCollectionReader
 		private final String json;
 		private final boolean collectionPresent;
 		private final Set<String> ownedNames;
-		private final PersistedBetaCollection betaCollection;
 
 		private PersistedState(String json, boolean collectionPresent,
-			Set<String> ownedNames, PersistedBetaCollection betaCollection)
+			Set<String> ownedNames)
 		{
 			this.json = json;
 			this.collectionPresent = collectionPresent;
 			this.ownedNames = Collections.unmodifiableSet(new HashSet<>(ownedNames));
-			this.betaCollection = betaCollection;
 		}
 
 		private static PersistedState unavailable()
 		{
-			return new PersistedState("", false, Collections.emptySet(),
-				PersistedBetaCollection.unavailable());
+			return new PersistedState("", false, Collections.emptySet());
 		}
 
 		boolean isCollectionPresent()
@@ -334,42 +282,5 @@ public class TcgCollectionReader
 			return ownedNames;
 		}
 
-		PersistedBetaCollection getBetaCollection()
-		{
-			return betaCollection;
-		}
-	}
-
-	public static final class PersistedBetaCollection
-	{
-		private final boolean available;
-		private final Set<String> ownedNamesLowerCase;
-
-		private PersistedBetaCollection(boolean available, Set<String> ownedNamesLowerCase)
-		{
-			this.available = available;
-			this.ownedNamesLowerCase = Collections.unmodifiableSet(
-				new HashSet<>(ownedNamesLowerCase));
-		}
-
-		private static PersistedBetaCollection available(Set<String> names)
-		{
-			return new PersistedBetaCollection(true, names);
-		}
-
-		private static PersistedBetaCollection unavailable()
-		{
-			return new PersistedBetaCollection(false, Collections.emptySet());
-		}
-
-		public boolean isAvailable()
-		{
-			return available;
-		}
-
-		public Set<String> getOwnedNamesLowerCase()
-		{
-			return ownedNamesLowerCase;
-		}
 	}
 }
