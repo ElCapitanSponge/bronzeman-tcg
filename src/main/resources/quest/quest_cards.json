@@ -727,6 +727,39 @@
 								"Hard leather"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Ghostspeak Amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Holy Symbol",
+							"cards": [
+								"Holy symbol"
+							],
+							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Ava",
+							"cards": [
+								"Ava"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Turael",
+							"cards": [
+								"Turael"
+							],
+							"type": "npc"
 						}
 					]
 				}
