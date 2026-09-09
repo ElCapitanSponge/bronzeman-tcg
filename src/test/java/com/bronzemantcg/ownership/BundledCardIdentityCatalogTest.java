@@ -14,7 +14,7 @@ public class BundledCardIdentityCatalogTest
 	public void productionBetaFallbackHasReviewedCountsAndDiagnostics()
 	{
 		BundledCardIdentityCatalog catalog = new BundledCardIdentityCatalog(new Gson());
-		assertEquals(5561, catalog.size());
+		assertEquals(5576, catalog.size());
 		assertEquals(0, catalog.getAmbiguousIdCount(CardEntityKind.ITEM));
 		assertEquals(1, catalog.getAmbiguousIdCount(CardEntityKind.NPC));
 	}
@@ -82,10 +82,21 @@ public class BundledCardIdentityCatalogTest
 	}
 
 	@Test
-	public void unreviewedV1ParentsRemainAbsent()
+	public void finalizedBetaOnlyParentsRemainAvailableInTheOfflineFallback()
 	{
 		BundledCardIdentityCatalog catalog = new BundledCardIdentityCatalog(new Gson());
-		assertTrue(catalog.findByCardName(CardEntityKind.ITEM, "Brewer's folly").isEmpty());
+		assertSingleCard(catalog.findByCardName(CardEntityKind.ITEM, "Brewer's folly"),
+			"Brewer's folly");
+		assertTrue(catalog.findByCardName(CardEntityKind.ITEM, "Brewer's folly").get(0)
+			.getEntityIds().isEmpty());
+	}
+
+	@Test
+	public void finalizedVariantIdsResolveToTheirReviewedFallbackParents()
+	{
+		BundledCardIdentityCatalog catalog = new BundledCardIdentityCatalog(new Gson());
+		assertSingleCard(catalog.findById(CardEntityKind.ITEM, 22818), "Fish chunks");
+		assertSingleCard(catalog.findById(CardEntityKind.NPC, 12063), "Phantom Muspah");
 	}
 
 	@Test

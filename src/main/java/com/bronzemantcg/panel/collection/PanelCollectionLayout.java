@@ -51,16 +51,7 @@ public final class PanelCollectionLayout
 
 	PanelCollectionLayout(Gson gson, String resourcePath)
 	{
-		this(gson, resourcePath, DEFAULT_RESOURCE.equals(resourcePath));
-	}
-
-	PanelCollectionLayout(Gson gson, String resourcePath, boolean correctFishChunks)
-	{
 		Loaded loaded = load(gson, resourcePath);
-		if (correctFishChunks)
-		{
-			loaded = correctFishChunksHistory(loaded);
-		}
 		sections = loaded.sections;
 		collectionPlacements = loaded.collectionPlacements;
 		betaCollectionCards = loaded.betaCollectionCards;
@@ -83,38 +74,6 @@ public final class PanelCollectionLayout
 	public List<BetaCollectionCard> getBetaCollectionCards()
 	{
 		return betaCollectionCards;
-	}
-
-	/**
-	 * Fish chunks is present in the reviewed v1 catalogue and Beta history, but missing from the
-	 * original reviewed Beta source. Add its historical name using the existing placement only;
-	 * do not invent entity IDs.
-	 */
-	private static Loaded correctFishChunksHistory(Loaded base)
-	{
-		String name = "Fish chunks";
-		String normalized = normalize(name);
-		if (base.betaNameUseCounts.containsKey(normalized)
-			|| base.betaCollectionCards.stream().anyMatch(row -> row.kind == CardEntityKind.ITEM
-				&& normalize(row.parentName).equals(normalized)))
-		{
-			return base;
-		}
-		CollectionPlacement placement = base.collectionPlacements.stream()
-			.filter(row -> row.kind == CardEntityKind.ITEM && normalize(row.cardName).equals(normalized))
-			.findFirst().orElse(null);
-		if (placement == null)
-		{
-			return base;
-		}
-		List<BetaCollectionCard> cards = new ArrayList<>(base.betaCollectionCards);
-		cards.add(new BetaCollectionCard("beta-correction:ITEM:fish chunks", CardEntityKind.ITEM,
-			name, false, true, placement.categoryIds,
-			List.of(new BetaVariant(CardEntityKind.ITEM, name, Collections.emptySet()))));
-		Map<String, Integer> names = new LinkedHashMap<>(base.betaNameUseCounts);
-		names.put(normalized, 1);
-		return new Loaded(base.sections, base.collectionPlacements, cards, base.betaIdUseCounts,
-			Collections.unmodifiableMap(names), base.organiserFingerprint, base.organiserProjectSha256);
 	}
 
 	public String getOrganiserFingerprint()

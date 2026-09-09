@@ -184,7 +184,7 @@ public class CardOwnershipServiceTest
 		assertStatus(CardOwnershipService.Status.EXEMPT,
 			service.decideCard("Attack potion", empty,
 				null, Collections.singleton("Attack potion")));
-		assertAllowedStatus(CardOwnershipService.Status.UNTRACKED,
+		assertStatus(CardOwnershipService.Status.LOCKED,
 			service.decideCard("Brewer's folly", empty, null, null));
 	}
 

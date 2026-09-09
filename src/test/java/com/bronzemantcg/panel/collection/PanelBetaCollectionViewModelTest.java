@@ -33,9 +33,9 @@ public class PanelBetaCollectionViewModelTest
 		Set<PanelCollectionLayout.BetaCollectionCard> displayed = new HashSet<>();
 		view.getSections().forEach(section -> displayed.addAll(section.getCards()));
 
-		assertEquals(5562, view.getParentTotal());
-		assertEquals(6362, view.getVariantTotal());
-		assertEquals(5562, displayed.size());
+		assertEquals(5576, view.getParentTotal());
+		assertEquals(6376, view.getVariantTotal());
+		assertEquals(5576, displayed.size());
 		assertTrue(view.getSections().stream()
 			.anyMatch(section -> section.getId().equals(
 				PanelCollectionViewModel.BETA_ONLY_SECTION_ID)));
