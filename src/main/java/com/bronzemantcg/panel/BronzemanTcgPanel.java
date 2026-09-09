@@ -96,6 +96,7 @@ import net.runelite.client.util.ImageUtil;
 public class BronzemanTcgPanel extends PluginPanel
 {
 	private static final int MAX_SEARCH_RESULTS = 20;
+	private static final int SEARCH_VISIBLE_ROWS = 10;
 	private static final Color UNLOCKED = ColorScheme.PROGRESS_COMPLETE_COLOR;
 	private static final Color LOCKED = ColorScheme.PROGRESS_ERROR_COLOR;
 	private static final DateTimeFormatter UNLOCK_TIME_FORMAT = DateTimeFormatter
@@ -196,6 +197,8 @@ public class BronzemanTcgPanel extends PluginPanel
 
 	private final IconTextField searchBar = new IconTextField();
 	private final JPanel searchResults = sectionBody();
+	private final JScrollPane searchResultsScroll =
+		new SearchResultsScrollPane(searchResults, SEARCH_VISIBLE_ROWS);
 	private final JPanel contentControls = sectionBody();
 	private final JPanel navigationGrid = sectionBody();
 	private final JLabel progressHeader = progressHeader();
@@ -374,7 +377,11 @@ public class BronzemanTcgPanel extends PluginPanel
 		});
 
 		searchBar.setAlignmentX(Component.LEFT_ALIGNMENT);
-		searchResults.setAlignmentX(Component.LEFT_ALIGNMENT);
+		searchResultsScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
+		searchResultsScroll.setBorder(null);
+		searchResultsScroll.getViewport().setBackground(ColorScheme.DARK_GRAY_COLOR);
+		searchResultsScroll.getVerticalScrollBar().setUnitIncrement(16);
+		searchResultsScroll.setVisible(false);
 		progressList.setAlignmentX(Component.LEFT_ALIGNMENT);
 		tabDisplay.setAlignmentX(Component.LEFT_ALIGNMENT);
 		tabDisplay.setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -507,7 +514,7 @@ public class BronzemanTcgPanel extends PluginPanel
 
 		contentControls.add(searchBar);
 		contentControls.add(Box.createVerticalStrut(4));
-		contentControls.add(searchResults);
+		contentControls.add(searchResultsScroll);
 		contentControls.add(Box.createVerticalStrut(6));
 		contentControls.add(navigationGrid);
 		JPanel header = sectionBody();
@@ -3395,8 +3402,7 @@ public class BronzemanTcgPanel extends PluginPanel
 			if (snapshot == null)
 			{
 				searchResults.add(mutedRow("Loading card index..."));
-				searchResults.revalidate();
-				searchResults.repaint();
+				finishSearchRefresh();
 				return;
 			}
 
@@ -3425,8 +3431,23 @@ public class BronzemanTcgPanel extends PluginPanel
 				searchResults.add(mutedRow("No v1 card matches"));
 			}
 		}
+		finishSearchRefresh();
+	}
+
+	private void finishSearchRefresh()
+	{
+		boolean visible = searchResults.getComponentCount() > 0;
+		searchResultsScroll.setVisible(visible);
+		if (visible)
+		{
+			searchResultsScroll.getVerticalScrollBar().setValue(0);
+		}
 		searchResults.revalidate();
 		searchResults.repaint();
+		searchResultsScroll.revalidate();
+		searchResultsScroll.repaint();
+		contentControls.revalidate();
+		contentControls.repaint();
 	}
 
 	// ------------------------------------------------------------------ progress
@@ -3529,6 +3550,21 @@ public class BronzemanTcgPanel extends PluginPanel
 		panel.setBackground(ColorScheme.DARK_GRAY_COLOR);
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		return panel;
+	}
+
+	static int visibleSearchResultsHeight(JPanel results, int visibleRows)
+	{
+		if (results == null || visibleRows <= 0)
+		{
+			return 0;
+		}
+		Component[] rows = results.getComponents();
+		int height = 0;
+		for (int i = 0; i < Math.min(rows.length, visibleRows); i++)
+		{
+			height += Math.max(0, rows[i].getPreferredSize().height);
+		}
+		return height;
 	}
 
 	private static JLabel progressHeader()
@@ -3823,6 +3859,36 @@ public class BronzemanTcgPanel extends PluginPanel
 		public boolean getScrollableTracksViewportHeight()
 		{
 			return false;
+		}
+	}
+
+	static final class SearchResultsScrollPane extends JScrollPane
+	{
+		private final JPanel results;
+		private final int visibleRows;
+
+		SearchResultsScrollPane(JPanel results, int visibleRows)
+		{
+			super(results, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			this.results = results;
+			this.visibleRows = visibleRows;
+		}
+
+		@Override
+		public Dimension getPreferredSize()
+		{
+			Dimension preferred = super.getPreferredSize();
+			Insets insets = getInsets();
+			int height = visibleSearchResultsHeight(results, visibleRows)
+				+ insets.top + insets.bottom;
+			return new Dimension(preferred.width, height);
+		}
+
+		@Override
+		public Dimension getMaximumSize()
+		{
+			return new Dimension(Integer.MAX_VALUE, getPreferredSize().height);
 		}
 	}
 
