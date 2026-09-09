@@ -62,7 +62,8 @@ public final class BetaCardsSettings
 			&& !config.allowBetaCardLookup())
 		{
 			status("<html><body style='width:190px'>Enable <b>Allow Beta player lookup</b> "
-				+ "below, then refresh from OSRS TCG.</body></html>");
+				+ "in RuneLite's Bronzeman TCG plugin settings, then refresh from OSRS TCG."
+				+ "</body></html>");
 		}
 		panel.add(Box.createVerticalStrut(4));
 		boolean refreshing = state.getStatus() == BetaCardCacheService.Status.REFRESHING;

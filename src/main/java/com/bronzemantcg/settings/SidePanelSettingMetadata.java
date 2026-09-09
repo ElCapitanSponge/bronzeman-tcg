@@ -137,11 +137,6 @@ final class SidePanelSettingMetadata
 		entries.add(setting(Section.BETA_CARDS, "showBetaCollectionTab", "Show Beta tab",
 			"Show the confirmed personal Beta collection in the side panel."
 				+ "<br>Hiding the tab does not delete or change the cached Beta names."));
-		entries.add(setting(Section.BETA_CARDS, "allowBetaCardLookup",
-			"Allow Beta player lookup",
-			"Privacy notice: an explicit refresh sends your connection IP address and "
-				+ "RuneScape display name to osrs-tcg.net."
-				+ "<br>No player lookup is made automatically."));
 
 		entries.add(setting(Section.VISUALS, "lockedItemMarkMode", "Locked Item Indicator",
 			"Fade items in your inventory and bank while their card is uncollected."

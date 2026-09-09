@@ -106,7 +106,6 @@ public class BronzemanPresetTest
 			"npcVisibilityMode", "groundItemsMode", "itemUsageMode", "foodSettingsMode",
 			"bankingMode", "grandExchangeMode", "coinMode", "acceptSharedUnlocks",
 			"lootExemptNames", "showLockedMenuOptions", "showBetaCollectionTab",
-			"allowBetaCardLookup",
 			"woodcuttingMode", "miningMode",
 			"fishingMode", "cookingMode", "tinderboxMode",
 			"smeltingMode", "smithingMode", "craftingMode", "restrictEnchanting",
@@ -148,7 +147,7 @@ public class BronzemanPresetTest
 	}
 
 	@Test
-	public void betaControlsLiveInBetaSettingsWithoutExportingPrivateState()
+	public void betaControlsKeepLookupConsentOutOfCompactSettingsAndExports()
 	{
 		SidePanelSettingMetadata.Entry visibility = SidePanelSettingMetadata.all().stream()
 			.filter(entry -> entry.key.equals("showBetaCollectionTab")).findFirst().orElseThrow();
@@ -157,6 +156,10 @@ public class BronzemanPresetTest
 		assertEquals("Beta Cards", visibility.section.category.label);
 		assertEquals(SidePanelSettingMetadata.Category.OTHER.ordinal() + 1,
 			visibility.section.category.ordinal());
+		assertFalse(SidePanelSettingMetadata.all().stream()
+			.anyMatch(entry -> entry.key.equals("allowBetaCardLookup")));
+		assertFalse(BronzemanSettingRegistry.all().stream()
+			.anyMatch(definition -> definition.getKey().equals("allowBetaCardLookup")));
 		Map<String, String> settings = new LinkedHashMap<>();
 		settings.put("betaCollectionManualV1", "private Beta names");
 		settings.put("betaCollectionSnapshotV1", "private legacy snapshot");
