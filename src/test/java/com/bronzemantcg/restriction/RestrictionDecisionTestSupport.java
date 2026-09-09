@@ -114,6 +114,12 @@ public final class RestrictionDecisionTestSupport
 			return this;
 		}
 
+		public Harness canonicalItemId(int runtimeId, int canonicalId)
+		{
+			sources.canonicalItemIds.put(runtimeId, canonicalId);
+			return this;
+		}
+
 		public int getItemNameCalls()
 		{
 			return sources.itemNameCalls;
@@ -133,6 +139,7 @@ public final class RestrictionDecisionTestSupport
 		private int lmsState;
 		private int[] mapRegions;
 		private final Map<Integer, String> itemNames = new HashMap<>();
+		private final Map<Integer, Integer> canonicalItemIds = new HashMap<>();
 		private int itemNameCalls;
 
 		@Override
@@ -187,6 +194,12 @@ public final class RestrictionDecisionTestSupport
 		public int[] getMapRegions()
 		{
 			return mapRegions;
+		}
+
+		@Override
+		public int canonicalizeItemId(int itemId)
+		{
+			return canonicalItemIds.getOrDefault(itemId, itemId);
 		}
 
 		@Override
