@@ -1481,6 +1481,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Rantz",
+							"cards": [
+								"Rantz"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
