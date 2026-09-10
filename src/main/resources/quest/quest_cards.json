@@ -1671,6 +1671,18 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Veos",
+							"cards": [
+								"Veos"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
