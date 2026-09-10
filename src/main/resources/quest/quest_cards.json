@@ -12696,6 +12696,53 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Vanescula Drakan",
+							"cards": [
+								"Vanescula drakan"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Safalaan Hallow",
+							"cards": [
+								"Safalaan hallow"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wyrd",
+							"cards": [
+								"Wyrd"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Veliaf Hurtz",
+							"cards": [
+								"Veliaf hurtz"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Drezel",
+							"cards": [
+								"Drezel"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Efaritay Hallow",
+							"cards": [
+								"Efaritay hallow"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
