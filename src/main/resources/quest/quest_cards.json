@@ -883,6 +883,18 @@
 							]
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Guildmaster Apatura",
+							"cards": [
+								"Guildmaster apatura"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": "Toy mouse — Card required: Item is used mid-quest"
