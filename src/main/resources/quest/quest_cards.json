@@ -1254,6 +1254,39 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Maisa",
+							"cards": [
+								"Maisa"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Zahur",
+							"cards": [
+								"Zahur"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Osman",
+							"cards": [
+								"Osman"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Pharaoh Kemesis",
+							"cards": [
+								"Pharaoh kemesis"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
