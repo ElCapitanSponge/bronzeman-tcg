@@ -1697,7 +1697,10 @@
 						{
 							"label": "Bucket of water",
 							"cards": [
-								"Bucket of water"
+								"Bucket of water",
+								"Jug of water",
+								"Ice gloves",
+								"Smiths gloves"
 							],
 							"type": "item"
 						}
