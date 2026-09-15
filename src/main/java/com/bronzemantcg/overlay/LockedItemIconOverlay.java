@@ -40,7 +40,7 @@ public class LockedItemIconOverlay extends WidgetItemOverlay
 	@Override
 	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem widgetItem)
 	{
-		if (!lockedItemMarkController.shouldMarkItem(itemId))
+		if (!lockedItemMarkController.shouldDrawIcon(itemId))
 		{
 			return;
 		}

@@ -16,7 +16,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
@@ -42,43 +41,53 @@ public class OsrsTcgCatalogClientTest
 
 		assertArrayEquals(json.getBytes(StandardCharsets.UTF_8), response.getBody());
 		assertEquals("version-7", response.getVersion());
-		assertFalse(response.isServedFromCache());
+		assertEquals("\"version-7\"", response.getEtag());
 	}
 
 	@Test
-	public void fallsBackToRuneliteCacheAfterNetworkFailure() throws Exception
+	public void bypassesSharedHttpCacheAndUsesEtagValidation() throws Exception
 	{
 		AtomicInteger requests = new AtomicInteger();
 		OkHttpClient httpClient = new OkHttpClient.Builder()
 			.addInterceptor(chain ->
 			{
 				requests.incrementAndGet();
-				if (!chain.request().cacheControl().onlyIfCached())
-				{
-					throw new IOException("offline");
-				}
-				return response(chain.request(), 200, "cached", null);
+				assertTrue(chain.request().cacheControl().noCache());
+				assertTrue(chain.request().cacheControl().noStore());
+				assertEquals("\"etag-7\"", chain.request().header("If-None-Match"));
+				return response(chain.request(), 304, "", null);
 			})
 			.build();
 		OsrsTcgCatalogClient client = new OsrsTcgCatalogClient(httpClient, ENDPOINT, 1024);
 
-		OsrsTcgCatalogClient.CatalogResponse response = fetch(client);
+		OsrsTcgCatalogClient.CatalogResponse response = fetch(client, "\"etag-7\"");
 
-		assertEquals(2, requests.get());
-		assertTrue(response.isServedFromCache());
-		assertArrayEquals("cached".getBytes(StandardCharsets.UTF_8), response.getBody());
+		assertEquals(1, requests.get());
+		assertTrue(response.isNotModified());
+		assertEquals(0, response.getBody().length);
 	}
 
 	@Test
-	public void reportsFailureWhenNetworkAndCacheAreUnavailable()
+	public void rejectsNotModifiedWithoutAValidator()
 	{
+		OsrsTcgCatalogClient client = new OsrsTcgCatalogClient(
+			clientReturning(304, "", null), ENDPOINT, 1024);
+
+		ExecutionException exception = assertThrows(ExecutionException.class,
+			() -> fetch(client));
+
+		assertTrue(exception.getCause().getMessage().contains(
+			"304 without a cached catalogue validator"));
+	}
+
+	@Test
+	public void reportsNetworkFailureWithoutASecondCacheRequest()
+	{
+		AtomicInteger requests = new AtomicInteger();
 		OkHttpClient httpClient = new OkHttpClient.Builder()
 			.addInterceptor(chain ->
 			{
-				if (chain.request().cacheControl().onlyIfCached())
-				{
-					return response(chain.request(), 504, "", null);
-				}
+				requests.incrementAndGet();
 				throw new IOException("offline");
 			})
 			.build();
@@ -87,7 +96,7 @@ public class OsrsTcgCatalogClientTest
 		ExecutionException exception = assertThrows(ExecutionException.class,
 			() -> fetch(client));
 		assertTrue(exception.getCause().getMessage().contains("offline"));
-		assertTrue(exception.getCause().getMessage().contains("HTTP 504"));
+		assertEquals(1, requests.get());
 	}
 
 	@Test
@@ -141,8 +150,15 @@ public class OsrsTcgCatalogClientTest
 	private static OsrsTcgCatalogClient.CatalogResponse fetch(OsrsTcgCatalogClient client)
 		throws InterruptedException, ExecutionException, TimeoutException
 	{
+		return fetch(client, null);
+	}
+
+	private static OsrsTcgCatalogClient.CatalogResponse fetch(OsrsTcgCatalogClient client,
+		String currentEtag)
+		throws InterruptedException, ExecutionException, TimeoutException
+	{
 		CompletableFuture<OsrsTcgCatalogClient.CatalogResponse> future = new CompletableFuture<>();
-		client.fetch(listener(future));
+		client.fetch(currentEtag, listener(future));
 		return future.get(2, TimeUnit.SECONDS);
 	}
 
@@ -184,6 +200,7 @@ public class OsrsTcgCatalogClientTest
 		if (version != null)
 		{
 			builder.header("X-Catalog-Version", version);
+			builder.header("ETag", "\"" + version + "\"");
 		}
 		return builder.build();
 	}

@@ -205,18 +205,6 @@ public final class PanelCollectionViewModel
 
 	public State prepare(TcgOwnershipSnapshot personalOwnership, Set<String> sharedCardNames)
 	{
-		return prepare(personalOwnership, sharedCardNames, Collections.emptySet(), false);
-	}
-
-	public State prepare(TcgOwnershipSnapshot personalOwnership, Set<String> sharedCardNames,
-		Set<String> frozenBetaNames)
-	{
-		return prepare(personalOwnership, sharedCardNames, frozenBetaNames, false);
-	}
-
-	public State prepare(TcgOwnershipSnapshot personalOwnership, Set<String> sharedCardNames,
-		Set<String> frozenBetaNames, boolean hideBetaProgress)
-	{
 		Prepared current = currentPrepared();
 		Map<PanelCollectionLayout.CollectionCard, Status> states = new LinkedHashMap<>();
 		int ownedItems = 0;
@@ -225,12 +213,8 @@ public final class PanelCollectionViewModel
 		{
 			PanelCollectionLayout.CollectionCard card = searchCard.getCard();
 			Status status;
-			boolean collectedThroughBeta = hideBetaProgress
-				&& ownership.isPersonallyCollected(card, null, frozenBetaNames,
-					current.projection);
-			if (!collectedThroughBeta
-				&& ownership.isPersonallyCollected(card, personalOwnership, frozenBetaNames,
-					current.projection))
+			if (ownership.isPersonallyCollected(card, personalOwnership,
+				current.projection))
 			{
 				status = Status.OWNED;
 				if (card.getKind() == CardEntityKind.ITEM)

@@ -19,6 +19,7 @@ import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.gameval.VarbitID;
 import net.runelite.api.gameval.VarPlayerID;
+import net.runelite.api.ItemComposition;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
 import net.runelite.api.WorldView;
@@ -33,6 +34,7 @@ import net.runelite.client.util.Text;
 @Singleton
 public final class RestrictionDecisionService
 {
+	private static final int NOTE_TEMPLATE_ID = 799;
 	private static final Set<Integer> LMS_REGIONS = Set.of(
 		13658, 13659, 13660, 13914, 13915, 13916, 13918, 13919, 13920,
 		14174, 14175, 14176, 14430, 14431, 14432);
@@ -154,10 +156,17 @@ public final class RestrictionDecisionService
 			return null;
 		}
 		CardOwnershipService.Decision decision = ownershipService.decide(
-			CardEntityKind.ITEM, itemId, itemName,
+			CardEntityKind.ITEM, sources.canonicalizeItemId(itemId), itemName,
 			context.ownership, context.shared, context.exempt);
 		return !decision.isAllowed() && decision.getIdentity() != null
 			? decision.getIdentity().getCardName() : null;
+	}
+
+	/** Noted inventory IDs inherit the reviewed identity of their linked unnoted item. */
+	static int canonicalizeNotedItemId(int itemId, int noteTemplateId, int linkedNoteId)
+	{
+		return noteTemplateId == NOTE_TEMPLATE_ID && linkedNoteId >= 0
+			? linkedNoteId : itemId;
 	}
 
 	/** Cached item-ID path used by widget fading and the item-icon overlay. */
@@ -280,6 +289,7 @@ public final class RestrictionDecisionService
 		int getTutorialProgress();
 		int getLmsState();
 		int[] getMapRegions();
+		int canonicalizeItemId(int itemId);
 		String getItemName(int itemId);
 	}
 
@@ -357,6 +367,18 @@ public final class RestrictionDecisionService
 		{
 			WorldView worldView = client.getTopLevelWorldView();
 			return worldView == null ? null : worldView.getMapRegions();
+		}
+
+		@Override
+		public int canonicalizeItemId(int itemId)
+		{
+			if (itemId < 0)
+			{
+				return itemId;
+			}
+			ItemComposition composition = itemManager.getItemComposition(itemId);
+			return composition == null ? itemId : canonicalizeNotedItemId(itemId,
+				composition.getNote(), composition.getLinkedNoteId());
 		}
 
 		@Override

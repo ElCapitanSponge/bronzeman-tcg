@@ -20,16 +20,11 @@ public final class PanelCollectionOwnership
 	}
 
 	boolean isPersonallyCollected(PanelCollectionLayout.CollectionCard card,
-		TcgOwnershipSnapshot personalOwnership, Set<String> frozenBetaNames,
-		PanelCollectionProjection projection)
+		TcgOwnershipSnapshot personalOwnership, PanelCollectionProjection projection)
 	{
 		if (card == null)
 		{
 			return false;
-		}
-		if (containsUniqueCollectionName(card, frozenBetaNames, projection))
-		{
-			return true;
 		}
 		if (personalOwnership == null)
 		{
@@ -50,10 +45,11 @@ public final class PanelCollectionOwnership
 				return true;
 			}
 		}
-		return false;
+		return containsUniqueLegacyCollectionName(card,
+			personalOwnership.getOwnedCardNamesLowerCase(), projection);
 	}
 
-	public boolean isBetaVariantInSnapshot(PanelCollectionLayout.BetaVariant variant,
+	public boolean isBetaVariantOwnedByNames(PanelCollectionLayout.BetaVariant variant,
 		Set<String> betaNames)
 	{
 		if (variant == null)
@@ -102,6 +98,24 @@ public final class PanelCollectionOwnership
 		for (String acceptedName : card.getAcceptedNamesLowerCase())
 		{
 			if (isCollectionAcceptedNameUnique(projection, acceptedName)
+				&& containsName(names, acceptedName))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/** Mirrors the accepted gameplay bridge: a canonical v1 name cannot override an ID miss. */
+	private boolean containsUniqueLegacyCollectionName(
+		PanelCollectionLayout.CollectionCard card, Set<String> names,
+		PanelCollectionProjection projection)
+	{
+		String canonicalName = normalize(card.getCardName());
+		for (String acceptedName : card.getAcceptedNamesLowerCase())
+		{
+			if (!canonicalName.equals(acceptedName)
+				&& isCollectionAcceptedNameUnique(projection, acceptedName)
 				&& containsName(names, acceptedName))
 			{
 				return true;

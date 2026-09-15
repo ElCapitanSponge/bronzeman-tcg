@@ -148,6 +148,33 @@ public class RestrictionDecisionServiceTest
 	}
 
 	@Test
+	public void notedItemsUseTheirLinkedUnnotedIdentity()
+	{
+		int notedDragonAxe = 900_001;
+		RestrictionDecisionTestSupport.Harness harness =
+			RestrictionDecisionTestSupport.harness()
+				.canonicalItemId(notedDragonAxe, 6739)
+				.ownership(emptyIds());
+		RestrictionDecisionService service = harness.getService();
+
+		assertTrue(service.isItemLocked(notedDragonAxe, "Dragon axe"));
+		harness.ownership(TcgOwnershipSnapshot.fromApi(Collections.emptyList(),
+			List.of(6739), Collections.emptyList(), null));
+		assertFalse(service.isItemLocked(notedDragonAxe, "Dragon axe"));
+	}
+
+	@Test
+	public void onlyConfirmedNotesCanonicalizeToTheirLinkedItem()
+	{
+		assertEquals(6739,
+			RestrictionDecisionService.canonicalizeNotedItemId(900_001, 799, 6739));
+		assertEquals(900_001,
+			RestrictionDecisionService.canonicalizeNotedItemId(900_001, -1, 6739));
+		assertEquals(900_001,
+			RestrictionDecisionService.canonicalizeNotedItemId(900_001, 799, -1));
+	}
+
+	@Test
 	public void ambiguousEntitiesAndParentRequirementsFailOpen()
 	{
 		CardOwnershipService ownershipService = new CardOwnershipService(

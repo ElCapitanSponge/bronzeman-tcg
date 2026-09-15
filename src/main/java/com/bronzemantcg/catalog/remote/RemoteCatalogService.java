@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
@@ -22,6 +23,7 @@ public final class RemoteCatalogService
 	private final RemoteCatalogValidator validator;
 	private final BundledCardIdentityCatalog bundledCatalog;
 	private final ActiveCardIdentityCatalog activeCatalog;
+	private final RemoteCatalogCacheStore cacheStore;
 	private final AtomicLong generation = new AtomicLong();
 	private final AtomicReference<OsrsTcgCatalogClient.FetchHandle> activeFetch =
 		new AtomicReference<>();
@@ -32,19 +34,21 @@ public final class RemoteCatalogService
 	private boolean fetchStarted;
 	private OsrsTcgCatalogSnapshot pendingSnapshot;
 	private String pendingVersion;
+	private String pendingEtag;
 	private volatile Listener listener = Listener.NONE;
 
 	@Inject
 	public RemoteCatalogService(OsrsTcgCatalogClient client,
 		OsrsTcgCatalogParser parser, RemoteCatalogValidator validator,
 		BundledCardIdentityCatalog bundledCatalog,
-		ActiveCardIdentityCatalog activeCatalog)
+		ActiveCardIdentityCatalog activeCatalog, RemoteCatalogCacheStore cacheStore)
 	{
 		this.client = client;
 		this.parser = parser;
 		this.validator = validator;
 		this.bundledCatalog = bundledCatalog;
 		this.activeCatalog = activeCatalog;
+		this.cacheStore = cacheStore;
 	}
 
 	public void setListener(Listener listener)
@@ -56,14 +60,35 @@ public final class RemoteCatalogService
 	{
 		generation.incrementAndGet();
 		cancelActiveFetch();
+		OsrsTcgCatalogSnapshot cachedSnapshot = null;
+		String cachedVersion = null;
+		String cachedEtag = null;
+		try
+		{
+			RemoteCatalogCacheStore.CachedCatalog cached = cacheStore.load();
+			if (cached != null)
+			{
+				validator.validate(cached.getSnapshot());
+				cachedSnapshot = cached.getSnapshot()
+					.withLegacyAliases(bundledCatalog.getEntries());
+				cachedVersion = cached.getVersion();
+				cachedEtag = cached.getEtag();
+			}
+		}
+		catch (CatalogValidationException | IOException | RuntimeException ex)
+		{
+			log.warn("Ignoring invalid Bronzeman live-catalogue cache; "
+				+ "bundled fallback remains active.", ex);
+		}
 		synchronized (this)
 		{
 			running = true;
 			enabled = false;
 			v1Capable = false;
 			fetchStarted = false;
-			pendingSnapshot = null;
-			pendingVersion = null;
+			pendingSnapshot = cachedSnapshot;
+			pendingVersion = cachedVersion;
+			pendingEtag = cachedEtag;
 			activeCatalog.useBundled();
 		}
 	}
@@ -86,16 +111,13 @@ public final class RemoteCatalogService
 				{
 					generation.incrementAndGet();
 					cancelFetch = true;
-					if (pendingSnapshot == null)
-					{
-						fetchStarted = false;
-					}
+					fetchStarted = false;
 				}
 			}
 			else
 			{
 				activatePendingIfReady();
-				if (v1Capable && pendingSnapshot == null && !fetchStarted)
+				if (v1Capable && !fetchStarted)
 				{
 					fetchStarted = true;
 					fetchGeneration = generation.get();
@@ -116,7 +138,12 @@ public final class RemoteCatalogService
 
 	private void startFetch(long activeGeneration)
 	{
-		OsrsTcgCatalogClient.FetchHandle handle = client.fetch(
+		String currentEtag;
+		synchronized (this)
+		{
+			currentEtag = pendingEtag;
+		}
+		OsrsTcgCatalogClient.FetchHandle handle = client.fetch(currentEtag,
 			new OsrsTcgCatalogClient.Listener()
 			{
 				@Override
@@ -156,7 +183,7 @@ public final class RemoteCatalogService
 			else if (enabled)
 			{
 				activatePendingIfReady();
-				if (pendingSnapshot == null && !fetchStarted)
+				if (!fetchStarted)
 				{
 					fetchStarted = true;
 					fetchGeneration = generation.get();
@@ -183,6 +210,7 @@ public final class RemoteCatalogService
 			fetchStarted = false;
 			pendingSnapshot = null;
 			pendingVersion = null;
+			pendingEtag = null;
 			activeCatalog.useBundled();
 		}
 	}
@@ -205,6 +233,25 @@ public final class RemoteCatalogService
 		}
 		try
 		{
+			if (response.isNotModified())
+			{
+				long changedRevision;
+				synchronized (this)
+				{
+					if (!running || pendingSnapshot == null
+						|| activeGeneration != generation.get())
+					{
+						return;
+					}
+					long before = activeCatalog.getRevision();
+					activatePendingIfReady();
+					changedRevision = changedRevision(before);
+				}
+				notifyChanged(changedRevision);
+				log.info("Validated cached OSRS TCG catalogue remains current (version={})",
+					pendingVersion);
+				return;
+			}
 			OsrsTcgCatalogSnapshot remote;
 			try (InputStreamReader reader = new InputStreamReader(
 				new ByteArrayInputStream(response.getBody()), StandardCharsets.UTF_8))
@@ -212,6 +259,20 @@ public final class RemoteCatalogService
 				remote = parser.parse(reader);
 			}
 			validator.validate(remote);
+			if (activeGeneration != generation.get())
+			{
+				return;
+			}
+			try
+			{
+				cacheStore.save(remote, response.getVersion(), response.getEtag(),
+					Instant.now().toEpochMilli());
+			}
+			catch (IOException | RuntimeException ex)
+			{
+				log.warn("Could not update the Bronzeman live-catalogue cache; using this "
+					+ "validated response for the current session.", ex);
+			}
 			remote = remote.withLegacyAliases(bundledCatalog.getEntries());
 			long changedRevision;
 			synchronized (this)
@@ -222,19 +283,20 @@ public final class RemoteCatalogService
 				}
 				pendingSnapshot = remote;
 				pendingVersion = response.getVersion();
+				pendingEtag = response.getEtag();
 				long before = activeCatalog.getRevision();
 				activatePendingIfReady();
 				changedRevision = changedRevision(before);
 			}
 			notifyChanged(changedRevision);
-			log.info("Validated OSRS TCG catalogue (version={}, cached={}, active={})",
-				response.getVersion(), response.isServedFromCache(), activeCatalog.isRemoteActive());
+			log.info("Validated OSRS TCG catalogue (version={}, active={})",
+				response.getVersion(), activeCatalog.isRemoteActive());
 		}
 		catch (CatalogValidationException | IOException | RuntimeException exception)
 		{
 			if (activeGeneration == generation.get())
 			{
-				log.warn("Rejected remote OSRS TCG catalogue; Beta fallback remains active.",
+				log.warn("Rejected remote OSRS TCG catalogue; bundled fallback remains active.",
 					exception);
 			}
 		}

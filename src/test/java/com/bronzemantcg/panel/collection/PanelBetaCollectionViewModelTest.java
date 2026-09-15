@@ -1,6 +1,7 @@
 package com.bronzemantcg.panel.collection;
 
 import com.bronzemantcg.ownership.CardEntityKind;
+import com.bronzemantcg.ownership.BetaCardCacheService;
 import com.google.gson.Gson;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,16 +15,16 @@ import static org.junit.Assert.assertTrue;
 public class PanelBetaCollectionViewModelTest
 {
 	@Test
-	public void unmatchedImportedNamesAreVisibleButDoNotInflateParentTotals()
+	public void unmatchedConfirmedNamesAreVisibleButDoNotInflateParentTotals()
 	{
 		PanelBetaCollectionViewModel view = fixtureView();
 		PanelBetaCollectionViewModel.State state = view.prepare(
 			Set.of("water rune", "water rune pack", "fish chunks"),
-			BetaCollectionSnapshotService.Status.IMPORTED);
+			BetaCardCacheService.Status.CACHED);
 		assertEquals(1, state.getOwnedParents());
 		assertEquals(Set.of("fish chunks"), state.getUnmatchedNames());
 		assertFalse(state.equals(view.prepare(Set.of("water rune", "water rune pack"),
-			BetaCollectionSnapshotService.Status.IMPORTED)));
+			BetaCardCacheService.Status.CACHED)));
 	}
 	@Test
 	public void productionViewContainsEveryVisibleBetaParentAndVariant()
@@ -32,9 +33,9 @@ public class PanelBetaCollectionViewModelTest
 		Set<PanelCollectionLayout.BetaCollectionCard> displayed = new HashSet<>();
 		view.getSections().forEach(section -> displayed.addAll(section.getCards()));
 
-		assertEquals(5562, view.getParentTotal());
-		assertEquals(6362, view.getVariantTotal());
-		assertEquals(5562, displayed.size());
+		assertEquals(5576, view.getParentTotal());
+		assertEquals(6376, view.getVariantTotal());
+		assertEquals(5576, displayed.size());
 		assertTrue(view.getSections().stream()
 			.anyMatch(section -> section.getId().equals(
 				PanelCollectionViewModel.BETA_ONLY_SECTION_ID)));
@@ -50,24 +51,24 @@ public class PanelBetaCollectionViewModelTest
 		PanelCollectionLayout.BetaVariant pack = variant(water, "Water rune pack");
 		PanelBetaCollectionViewModel.State state = view.prepare(
 			Collections.singleton("water rune pack"),
-			BetaCollectionSnapshotService.Status.FROZEN_CAPTURED);
+			BetaCardCacheService.Status.CACHED);
 
 		assertEquals(1, state.getOwnedParents());
-		assertEquals(BetaCollectionSnapshotService.Status.FROZEN_CAPTURED,
-			state.getSnapshotStatus());
+		assertEquals(BetaCardCacheService.Status.CACHED,
+			state.getCacheStatus());
 		assertEquals(PanelCollectionViewModel.Status.OWNED, state.getParentStatus(water));
 		assertEquals(PanelCollectionViewModel.Status.LOCKED, state.getVariantStatus(rune));
 		assertEquals(PanelCollectionViewModel.Status.OWNED, state.getVariantStatus(pack));
 	}
 
 	@Test
-	public void betaCollectionUsesOnlyPersonalSnapshotNames()
+	public void betaCollectionUsesOnlyConfirmedPersonalNames()
 	{
 		PanelBetaCollectionViewModel view = fixtureView();
 		PanelCollectionLayout.BetaCollectionCard betaOnly = parent(
 			view, CardEntityKind.ITEM, "Beta-only item");
 		PanelBetaCollectionViewModel.State state = view.prepare(
-			Collections.emptySet(), BetaCollectionSnapshotService.Status.PROVISIONAL);
+			Collections.emptySet(), BetaCardCacheService.Status.NO_CACHE);
 
 		assertEquals(0, state.getOwnedParents());
 		assertEquals(PanelCollectionViewModel.Status.LOCKED,

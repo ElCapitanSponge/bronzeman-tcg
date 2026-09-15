@@ -21,7 +21,7 @@ public class TcgPersistedStateTest
 	};
 
 	@Test
-	public void decodesLegacyV2AndTreatsPreV1InstancesAsBeta() throws Exception
+	public void decodesLegacyV2InstancesForNamesOnlyOwnership() throws Exception
 	{
 		String json = "{\"schemaVersion\":3,\"cardInstances\":["
 			+ "{\"cardName\":\"Water rune pack\",\"foil\":false},"
@@ -33,13 +33,10 @@ public class TcgPersistedStateTest
 			TcgCollectionReader.parsePersistedState(stored, new Gson());
 		assertTrue(parsed.isCollectionPresent());
 		assertEquals(Set.of("water rune pack", "manta ray"), parsed.getOwnedNames());
-		assertTrue(parsed.getBetaCollection().isAvailable());
-		assertEquals(Set.of("water rune pack", "manta ray"),
-			parsed.getBetaCollection().getOwnedNamesLowerCase());
 	}
 
 	@Test
-	public void respectsExplicitLegacyInstanceBetaMetadata() throws Exception
+	public void legacyBetaMetadataDoesNotChangeNamesOnlyOwnership() throws Exception
 	{
 		String stored = encode("{\"cardInstances\":["
 			+ "{\"cardName\":\"Water rune\",\"beta\":true},"
@@ -48,12 +45,10 @@ public class TcgPersistedStateTest
 		TcgCollectionReader.PersistedState parsed =
 			TcgCollectionReader.parsePersistedState(stored, new Gson());
 		assertEquals(Set.of("water rune", "manta ray"), parsed.getOwnedNames());
-		assertEquals(Set.of("water rune"),
-			parsed.getBetaCollection().getOwnedNamesLowerCase());
 	}
 
 	@Test
-	public void decodesV3CardEntriesAndExtractsOnlyBetaVariants() throws Exception
+	public void decodesV3CardEntriesAndCountsOnlyPositiveVariants() throws Exception
 	{
 		String json = "{\"schemaVersion\":6,\"cardEntries\":["
 			+ "{\"cardName\":\"Water rune\",\"variants\":["
@@ -66,8 +61,6 @@ public class TcgPersistedStateTest
 		TcgCollectionReader.PersistedState parsed =
 			TcgCollectionReader.parsePersistedState(stored, new Gson());
 		assertEquals(Set.of("water rune", "manta ray"), parsed.getOwnedNames());
-		assertEquals(Set.of("water rune"),
-			parsed.getBetaCollection().getOwnedNamesLowerCase());
 	}
 
 	@Test
@@ -77,14 +70,11 @@ public class TcgPersistedStateTest
 			encode("{\"cardEntries\":[]}", false), new Gson());
 		assertTrue(empty.isCollectionPresent());
 		assertTrue(empty.getOwnedNames().isEmpty());
-		assertTrue(empty.getBetaCollection().isAvailable());
-		assertTrue(empty.getBetaCollection().getOwnedNamesLowerCase().isEmpty());
 
 		assertEquals("", TcgStateDecoder.decode("not-osrs-tcg-state"));
 		TcgCollectionReader.PersistedState malformed =
 			TcgCollectionReader.parsePersistedState("RLTCG_v3:not-base64", new Gson());
 		assertFalse(malformed.isCollectionPresent());
-		assertFalse(malformed.getBetaCollection().isAvailable());
 	}
 
 	@Test

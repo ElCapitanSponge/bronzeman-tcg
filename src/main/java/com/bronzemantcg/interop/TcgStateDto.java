@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Deliberately minimal mirror of the legacy and current osrs-tcg persisted
  * collection shapes. Gson ignores fields with no matching Java field, so only
- * ownership and beta-provenance fields are declared here.
+ * names-only ownership fields are declared here.
  */
 public class TcgStateDto
 {
@@ -16,7 +16,6 @@ public class TcgStateDto
 	{
 		public String cardName;
 		public boolean foil;
-		public Boolean beta;
 	}
 
 	public static class CardEntryDto
@@ -27,7 +26,6 @@ public class TcgStateDto
 
 	public static class CardVariantDto
 	{
-		public Boolean beta;
 		public Integer quantity;
 	}
 }

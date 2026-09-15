@@ -2,7 +2,9 @@ package com.bronzemantcg.ownership;
 
 import com.bronzemantcg.support.SimulatedV1CardIdentityCatalog;
 import com.google.gson.Gson;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -182,12 +184,12 @@ public class CardOwnershipServiceTest
 		assertStatus(CardOwnershipService.Status.EXEMPT,
 			service.decideCard("Attack potion", empty,
 				null, Collections.singleton("Attack potion")));
-		assertAllowedStatus(CardOwnershipService.Status.UNTRACKED,
+		assertStatus(CardOwnershipService.Status.LOCKED,
 			service.decideCard("Brewer's folly", empty, null, null));
 	}
 
 	@Test
-	public void legacyParentAliasesPreserveIdAuthorityForEnforcement()
+	public void reviewedLegacyPluginMessageAliasBridgesMissingCurrentIds()
 	{
 		CardOwnershipService v1Service = new CardOwnershipService(
 			new CardResolver(new SimulatedV1CardIdentityCatalog()));
@@ -201,14 +203,96 @@ public class CardOwnershipServiceTest
 		TcgOwnershipSnapshot idsSayNotOwned = TcgOwnershipSnapshot.fromApi(
 			Collections.singletonList("Water rune pack"), Collections.emptyList(),
 			Collections.emptyList(), null);
-		assertStatus(CardOwnershipService.Status.LOCKED,
+		assertStatus(CardOwnershipService.Status.OWNED,
 			v1Service.decideCard("Water rune", idsSayNotOwned, null, null));
+		assertTrue(v1Service.isCollectedCard(CardEntityKind.ITEM,
+			"Water rune", idsSayNotOwned, null));
+
+		TcgOwnershipSnapshot canonicalNameCannotOverrideIds = TcgOwnershipSnapshot.fromApi(
+			Collections.singletonList("Water rune"), Collections.emptyList(),
+			Collections.emptyList(), null);
+		assertStatus(CardOwnershipService.Status.LOCKED,
+			v1Service.decideCard("Water rune", canonicalNameCannotOverrideIds, null, null));
+		assertFalse(v1Service.isCollectedCard(CardEntityKind.ITEM,
+			"Water rune", canonicalNameCannotOverrideIds, null));
+
+		TcgOwnershipSnapshot empty = TcgOwnershipSnapshot.fromApi(
+			Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), null);
 		assertStatus(CardOwnershipService.Status.SHARED,
-			v1Service.decideCard("Water rune", idsSayNotOwned,
+			v1Service.decideCard("Water rune", empty,
 				Collections.singleton("Water rune pack"), null));
 		assertStatus(CardOwnershipService.Status.EXEMPT,
 			v1Service.decideCard("Water rune", idsSayNotOwned,
 				null, Collections.singleton("Water rune pack")));
+	}
+
+	@Test
+	public void uncutSapphirePluginMessageNameOwnsReviewedSapphireIdentity()
+	{
+		TcgOwnershipSnapshot legacyBetaName = TcgOwnershipSnapshot.fromApi(
+			Collections.singletonList("Uncut sapphire"), Collections.emptyList(),
+			Collections.emptyList(), null);
+		assertStatus(CardOwnershipService.Status.OWNED,
+			service.decide(CardEntityKind.ITEM, 1607, "Sapphire",
+				legacyBetaName, null, null));
+		assertStatus(CardOwnershipService.Status.OWNED,
+			service.decide(CardEntityKind.ITEM, 1623, "Uncut sapphire",
+				legacyBetaName, null, null));
+		assertStatus(CardOwnershipService.Status.OWNED,
+			service.decideCard(CardEntityKind.ITEM, "Sapphire",
+				legacyBetaName, null, null));
+		assertTrue(service.isCollectedCard(CardEntityKind.ITEM,
+			"Sapphire", legacyBetaName, null));
+
+		TcgOwnershipSnapshot canonicalNameWithoutId = TcgOwnershipSnapshot.fromApi(
+			Collections.singletonList("Sapphire"), Collections.emptyList(),
+			Collections.emptyList(), null);
+		assertStatus(CardOwnershipService.Status.LOCKED,
+			service.decide(CardEntityKind.ITEM, 1607, "Sapphire",
+				canonicalNameWithoutId, null, null));
+		assertFalse(service.isCollectedCard(CardEntityKind.ITEM,
+			"Sapphire", canonicalNameWithoutId, null));
+	}
+
+	@Test
+	public void ambiguousLegacyAndEntityNamesCannotBridgeMissingIds()
+	{
+		CardIdentity firstItem = new CardIdentity(CardEntityKind.ITEM, "First item",
+			new LinkedHashSet<>(Arrays.asList("Same-kind legacy", "Cross-kind legacy")),
+			Collections.singleton(91001));
+		CardIdentity secondItem = new CardIdentity(CardEntityKind.ITEM, "Second item",
+			Collections.singleton("Same-kind legacy"), Collections.singleton(91002));
+		CardIdentity npc = new CardIdentity(CardEntityKind.NPC, "NPC parent",
+			Collections.singleton("Cross-kind legacy"), Collections.singleton(92001));
+		CardIdentity entityAliasOnly = new CardIdentity(CardEntityKind.ITEM, "Coins",
+			Collections.singleton(995));
+		ImmutableCardIdentityCatalog catalog = new ImmutableCardIdentityCatalog(Arrays.asList(
+			new ImmutableCardIdentityCatalog.Entry(firstItem, Collections.singleton("First item")),
+			new ImmutableCardIdentityCatalog.Entry(secondItem, Collections.singleton("Second item")),
+			new ImmutableCardIdentityCatalog.Entry(npc, Collections.singleton("NPC parent")),
+			new ImmutableCardIdentityCatalog.Entry(entityAliasOnly,
+				Collections.singleton("Coin pouch"))));
+		CardOwnershipService guarded = new CardOwnershipService(new CardResolver(catalog));
+
+		TcgOwnershipSnapshot sameKind = TcgOwnershipSnapshot.fromApi(
+			Collections.singletonList("Same-kind legacy"), Collections.emptyList(),
+			Collections.emptyList(), null);
+		assertStatus(CardOwnershipService.Status.LOCKED,
+			guarded.decide(CardEntityKind.ITEM, 91001, "First item", sameKind, null, null));
+
+		TcgOwnershipSnapshot crossKind = TcgOwnershipSnapshot.fromApi(
+			Collections.singletonList("Cross-kind legacy"), Collections.emptyList(),
+			Collections.emptyList(), null);
+		assertStatus(CardOwnershipService.Status.LOCKED,
+			guarded.decide(CardEntityKind.ITEM, 91001, "First item", crossKind, null, null));
+		assertStatus(CardOwnershipService.Status.LOCKED,
+			guarded.decide(CardEntityKind.NPC, 92001, "NPC parent", crossKind, null, null));
+
+		TcgOwnershipSnapshot entityAlias = TcgOwnershipSnapshot.fromApi(
+			Collections.singletonList("Coin pouch"), Collections.emptyList(),
+			Collections.emptyList(), null);
+		assertStatus(CardOwnershipService.Status.LOCKED,
+			guarded.decide(CardEntityKind.ITEM, 995, "Coins", entityAlias, null, null));
 	}
 
 	@Test

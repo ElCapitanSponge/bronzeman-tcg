@@ -147,7 +147,7 @@ public final class PanelSharedCardsViewModel
 					{
 						String normalized = normalize(variant.getName());
 						if (remaining.contains(normalized) && placed.add(normalized)
-							&& ownership.isBetaVariantInSnapshot(variant, remaining))
+							&& ownership.isBetaVariantOwnedByNames(variant, remaining))
 						{
 							cards.add(variant.getName());
 							remaining.remove(normalized);

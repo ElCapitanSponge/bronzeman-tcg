@@ -4,10 +4,10 @@ import com.bronzemantcg.BronzemanTcgConfig;
 import com.bronzemantcg.catalog.QuestCatalog;
 import com.bronzemantcg.catalog.QuestRequirementCatalog;
 import com.bronzemantcg.interop.TcgCollectionReader;
+import com.bronzemantcg.ownership.BetaCardCacheService;
 import com.bronzemantcg.ownership.CardEntityKind;
 import com.bronzemantcg.ownership.SharedUnlockStore;
 import com.bronzemantcg.ownership.TcgOwnershipSnapshot;
-import com.bronzemantcg.panel.collection.BetaCollectionSnapshotService;
 import com.bronzemantcg.panel.collection.PanelBetaCollectionViewModel;
 import com.bronzemantcg.panel.collection.PanelCollectionLayout;
 import com.bronzemantcg.panel.collection.PanelCollectionViewModel;
@@ -16,7 +16,6 @@ import com.bronzemantcg.restriction.ExemptionList;
 import com.bronzemantcg.restriction.LockState;
 import com.bronzemantcg.settings.SidePanelSettings;
 import com.bronzemantcg.settings.BetaCardsSettings;
-import com.bronzemantcg.interop.BetaSaveImporter;
 import com.google.gson.Gson;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -97,14 +96,13 @@ import net.runelite.client.util.ImageUtil;
 public class BronzemanTcgPanel extends PluginPanel
 {
 	private static final int MAX_SEARCH_RESULTS = 20;
+	private static final int SEARCH_VISIBLE_ROWS = 10;
 	private static final Color UNLOCKED = ColorScheme.PROGRESS_COMPLETE_COLOR;
 	private static final Color LOCKED = ColorScheme.PROGRESS_ERROR_COLOR;
 	private static final DateTimeFormatter UNLOCK_TIME_FORMAT = DateTimeFormatter
 		.ofPattern("d MMM, HH:mm").withZone(ZoneId.systemDefault());
 	private static final String COLLECTION_SHOW_LOCKED_KEY = "importantShowLocked";
 	private static final String COLLECTION_SHOW_UNLOCKED_KEY = "importantShowUnlocked";
-	private static final String COLLECTION_HIDE_BETA_PROGRESS_KEY =
-		"collectionHideBetaProgress";
 	private static final String BETA_COLLECTION_SHOW_LOCKED_KEY = "betaCollectionShowLocked";
 	private static final String BETA_COLLECTION_SHOW_UNLOCKED_KEY = "betaCollectionShowUnlocked";
 	private static final String QUEST_HIDE_COMPLETED_KEY = "questHideCompleted";
@@ -130,7 +128,7 @@ public class BronzemanTcgPanel extends PluginPanel
 	private final PanelCollectionViewModel collectionViewModel;
 	private final PanelBetaCollectionViewModel betaCollectionViewModel;
 	private final PanelSharedCardsViewModel sharedCardsViewModel;
-	private final BetaCollectionSnapshotService betaCollectionSnapshotService;
+	private final BetaCardCacheService betaCardCacheService;
 	private final V1PresentationState v1PresentationState;
 	private final SpriteManager spriteManager;
 	private final BronzemanTcgConfig config;
@@ -199,6 +197,8 @@ public class BronzemanTcgPanel extends PluginPanel
 
 	private final IconTextField searchBar = new IconTextField();
 	private final JPanel searchResults = sectionBody();
+	private final JScrollPane searchResultsScroll =
+		new SearchResultsScrollPane(searchResults, SEARCH_VISIBLE_ROWS);
 	private final JPanel contentControls = sectionBody();
 	private final JPanel navigationGrid = sectionBody();
 	private final JLabel progressHeader = progressHeader();
@@ -276,8 +276,6 @@ public class BronzemanTcgPanel extends PluginPanel
 	private final JCheckBox showLockedCollection = new JCheckBox("Show locked");
 
 	private final JCheckBox showUnlockedCollection = new JCheckBox("Show unlocked");
-	private final JCheckBox hideBetaCardProgress =
-		new JCheckBox("Hide beta card progress");
 
 	private final JPanel collectionList = sectionBody();
 	private final Set<String> expandedCollectionSections = new HashSet<>();
@@ -286,9 +284,6 @@ public class BronzemanTcgPanel extends PluginPanel
 	private final IconTextField betaCollectionSearchBar = new IconTextField();
 	private final JCheckBox showLockedBetaCollection = new JCheckBox("Show locked");
 	private final JCheckBox showUnlockedBetaCollection = new JCheckBox("Show unlocked");
-	private final JButton saveBetaCollectionButton = new JButton("Save Beta Collection");
-	private final JLabel betaCollectionSaveStatus = mutedRow("No beta collection saved yet");
-	private final JPanel betaCollectionSaveControls = sectionBody();
 	private final JPanel betaCollectionList = sectionBody();
 	private final Set<String> expandedBetaCollectionSections = new HashSet<>();
 	private final Set<String> expandedBetaCollectionCategories = new HashSet<>();
@@ -307,7 +302,7 @@ public class BronzemanTcgPanel extends PluginPanel
 			PanelCollectionViewModel collectionViewModel,
 			PanelBetaCollectionViewModel betaCollectionViewModel,
 			PanelSharedCardsViewModel sharedCardsViewModel,
-			BetaCollectionSnapshotService betaCollectionSnapshotService,
+			BetaCardCacheService betaCardCacheService,
 			V1PresentationState v1PresentationState,
 			SpriteManager spriteManager,
 			BronzemanTcgConfig config,
@@ -327,7 +322,7 @@ public class BronzemanTcgPanel extends PluginPanel
 		this.collectionViewModel = collectionViewModel;
 		this.betaCollectionViewModel = betaCollectionViewModel;
 		this.sharedCardsViewModel = sharedCardsViewModel;
-		this.betaCollectionSnapshotService = betaCollectionSnapshotService;
+		this.betaCardCacheService = betaCardCacheService;
 		this.v1PresentationState = v1PresentationState;
 		this.spriteManager = spriteManager;
 		this.config = config;
@@ -335,8 +330,7 @@ public class BronzemanTcgPanel extends PluginPanel
 		this.executor = executor;
 		this.sidePanelSettings = new SidePanelSettings(gson, config, configManager,
 			presetOnboardingRequired, () -> selectContentTab(PanelTab.ACTIVITIES),
-			new BetaCardsSettings(betaCollectionSnapshotService, new BetaSaveImporter(gson),
-				betaCollectionViewModel, executor, () -> disposed, this::requestRefresh));
+			new BetaCardsSettings(betaCardCacheService, config, this::requestRefresh));
 
 		JPanel activitiesPanel = sectionBody();
 		JPanel questPanel = sectionBody();
@@ -383,7 +377,11 @@ public class BronzemanTcgPanel extends PluginPanel
 		});
 
 		searchBar.setAlignmentX(Component.LEFT_ALIGNMENT);
-		searchResults.setAlignmentX(Component.LEFT_ALIGNMENT);
+		searchResultsScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
+		searchResultsScroll.setBorder(null);
+		searchResultsScroll.getViewport().setBackground(ColorScheme.DARK_GRAY_COLOR);
+		searchResultsScroll.getVerticalScrollBar().setUnitIncrement(16);
+		searchResultsScroll.setVisible(false);
 		progressList.setAlignmentX(Component.LEFT_ALIGNMENT);
 		tabDisplay.setAlignmentX(Component.LEFT_ALIGNMENT);
 		tabDisplay.setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -494,16 +492,6 @@ public class BronzemanTcgPanel extends PluginPanel
 			PanelTab.BETA_COLLECTION);
 		betaCollectionPanel.add(betaCollectionFilters);
 		betaCollectionPanel.add(Box.createVerticalStrut(4));
-		saveBetaCollectionButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-		saveBetaCollectionButton.setFocusable(false);
-		saveBetaCollectionButton.setToolTipText(
-			"Save your current personal OSRS TCG beta collection before migrating to v1");
-		saveBetaCollectionButton.addActionListener(event -> saveBetaCollectionSnapshot());
-		betaCollectionSaveControls.add(saveBetaCollectionButton);
-		betaCollectionSaveControls.add(Box.createVerticalStrut(2));
-		betaCollectionSaveControls.add(betaCollectionSaveStatus);
-		betaCollectionSaveControls.add(Box.createVerticalStrut(4));
-		betaCollectionPanel.add(betaCollectionSaveControls);
 		betaCollectionPanel.add(betaCollectionList);
 
 		configureTabSearchBar(sharedCardsSearchBar, "Search shared cards",
@@ -526,7 +514,7 @@ public class BronzemanTcgPanel extends PluginPanel
 
 		contentControls.add(searchBar);
 		contentControls.add(Box.createVerticalStrut(4));
-		contentControls.add(searchResults);
+		contentControls.add(searchResultsScroll);
 		contentControls.add(Box.createVerticalStrut(6));
 		contentControls.add(navigationGrid);
 		JPanel header = sectionBody();
@@ -635,83 +623,6 @@ public class BronzemanTcgPanel extends PluginPanel
 			}
 		}
 		return new int[]{have, total};
-	}
-
-	private void saveBetaCollectionSnapshot()
-	{
-		saveBetaCollectionButton.setEnabled(false);
-		betaCollectionSaveStatus.setText("Saving beta collection...");
-		executor.execute(() ->
-		{
-			collectionReader.refreshNow();
-			BetaCollectionSnapshotService.SaveResult result =
-				betaCollectionSnapshotService.saveCurrent(
-					collectionReader.getOwnershipSnapshot(),
-					collectionReader.isStateAvailable());
-			SwingUtilities.invokeLater(() -> applyBetaSnapshotSaveResult(result));
-		});
-	}
-
-	private void applyBetaSnapshotSaveResult(
-		BetaCollectionSnapshotService.SaveResult result)
-	{
-		if (disposed)
-		{
-			return;
-		}
-		switch (result.getOutcome())
-		{
-			case UNAVAILABLE:
-				betaCollectionSaveStatus.setText("OSRS TCG collection unavailable");
-				betaCollectionSaveStatus.setToolTipText(
-					"Nothing changed because the personal OSRS TCG collection could not be read.");
-				saveBetaCollectionButton.setEnabled(true);
-				break;
-			case PERSISTENCE_FAILED:
-				betaCollectionSaveStatus.setText("Save failed; nothing changed");
-				betaCollectionSaveStatus.setToolTipText(
-					"Bronzeman could not store the snapshot, so the earlier copy was kept.");
-				saveBetaCollectionButton.setEnabled(true);
-				break;
-			default:
-				applyBetaSnapshotControls(result.getSnapshot());
-				requestRefresh();
-		}
-	}
-
-	private void applyBetaSnapshotControls(
-		BetaCollectionSnapshotService.SnapshotView view)
-	{
-		int count = view.getOwnedNamesLowerCase().size();
-		betaCollectionSaveStatus.setToolTipText(null);
-		switch (view.getStatus())
-		{
-			case PROVISIONAL:
-				betaCollectionSaveStatus.setText("Saved " + count + " unique beta "
-					+ (count == 1 ? "card" : "cards"));
-				saveBetaCollectionButton.setEnabled(true);
-				break;
-			case FROZEN_CAPTURED:
-			case FROZEN_INFERRED:
-			case IMPORTED:
-				betaCollectionSaveStatus.setText("Beta collection secured · " + count
-					+ " " + (count == 1 ? "card" : "cards"));
-				saveBetaCollectionButton.setEnabled(false);
-				break;
-			case CLEARED:
-				betaCollectionSaveStatus.setText("Beta history cleared; use Beta Card Imports");
-				saveBetaCollectionButton.setEnabled(false);
-				break;
-			case INCOMPATIBLE:
-				betaCollectionSaveStatus.setText("Saved beta data is incompatible");
-				betaCollectionSaveStatus.setToolTipText(
-					"The existing snapshot was left untouched because it does not match this release.");
-				saveBetaCollectionButton.setEnabled(false);
-				break;
-			default:
-				betaCollectionSaveStatus.setText("No beta collection saved yet");
-				saveBetaCollectionButton.setEnabled(true);
-		}
 	}
 
 	private void addView(JPanel content, PanelTab panelTab)
@@ -1208,19 +1119,15 @@ public class BronzemanTcgPanel extends PluginPanel
 		boolean includeSlayerSuperiors = config.restrictSlayerSuperiors();
 		Set<String> completed = completedQuestNames;
 		QuestCatalog.RouteSelection route = questRoute;
-		BetaCollectionSnapshotService.SnapshotView betaSnapshot =
-			betaCollectionSnapshotService.getView();
-		Set<String> frozenBetaNames = betaSnapshot.getStatus().isFrozen()
-			? new HashSet<>(betaSnapshot.getOwnedNamesLowerCase()) : new HashSet<>();
-		// Unreviewed imported names remain historical evidence, not live-parent assignments.
-		frozenBetaNames.removeAll(betaCollectionSnapshotService.unmatchedNames(frozenBetaNames));
-		boolean hideBetaProgress = getSavedProfileBoolean(
-			COLLECTION_HIDE_BETA_PROGRESS_KEY, false);
+		BetaCardCacheService.State betaCache = betaCardCacheService.getState();
+		// The endpoint classifies Beta provenance; the PluginMessage remains the sole
+		// ownership source. Neither input can populate the Beta tab by itself.
+		Set<String> confirmedBetaNames = betaCardCacheService.confirmedOwnedNames(
+			personalOwnership, collectionReader.hasApiData());
 		PanelCollectionViewModel.State collection = collectionViewModel.prepare(
-			personalOwnership, visibleShared, frozenBetaNames,
-			hideBetaProgress);
+			personalOwnership, visibleShared);
 		PanelBetaCollectionViewModel.State betaCollection = betaCollectionViewModel.prepare(
-			betaSnapshot.getOwnedNamesLowerCase(), betaSnapshot.getStatus());
+			confirmedBetaNames, betaCache.getStatus());
 		PanelSharedCardsViewModel.State sharedCards = sharedCardsViewModel.prepare(
 			visibleShared, collection);
 
@@ -1229,7 +1136,7 @@ public class BronzemanTcgPanel extends PluginPanel
 			Collections.unmodifiableSet(usableCards), includeSlayerSuperiors, completed, route,
 			realSkillLevels, questPoints, collection, betaCollection, sharedCards,
 			v1Presentation, currentNavigationState(v1Presentation),
-			hideBetaProgress);
+			collectionReader.hasApiData());
 	}
 
 	private PreparedData prepareStaticData(boolean v1Capable)
@@ -1296,8 +1203,6 @@ public class BronzemanTcgPanel extends PluginPanel
 			|| !java.util.Arrays.equals(previous.realSkillLevels, next.realSkillLevels)
 			|| previous.questPoints != next.questPoints;
 		snapshot = next;
-		hideBetaCardProgress.setSelected(next.hideBetaProgress);
-		betaCollectionSaveControls.setVisible(!next.v1Presentation);
 		// Party-sharing controls whether this view exists. The Recent Unlocks
 		// "Show shared" preference only filters that tab and must not affect this one.
 		applyNavigationState(next.navigation);
@@ -2702,16 +2607,12 @@ public class BronzemanTcgPanel extends PluginPanel
 			getSavedBoolean(COLLECTION_SHOW_LOCKED_KEY, true));
 		showUnlockedCollection.setSelected(
 			getSavedBoolean(COLLECTION_SHOW_UNLOCKED_KEY, true));
-		hideBetaCardProgress.setSelected(
-			getSavedProfileBoolean(COLLECTION_HIDE_BETA_PROGRESS_KEY, false));
-
 		collectionFilters.setOpaque(false);
 		collectionFilters.setAlignmentX(Component.LEFT_ALIGNMENT);
-		collectionFilters.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
+		collectionFilters.setMaximumSize(new Dimension(Integer.MAX_VALUE, 48));
 		collectionFilters.setLayout(new BoxLayout(collectionFilters, BoxLayout.Y_AXIS));
 
-		JCheckBox[] checkBoxes = {
-			showLockedCollection, showUnlockedCollection, hideBetaCardProgress};
+		JCheckBox[] checkBoxes = {showLockedCollection, showUnlockedCollection};
 		for (JCheckBox checkBox : checkBoxes)
 		{
 			checkBox.setOpaque(false);
@@ -2736,39 +2637,8 @@ public class BronzemanTcgPanel extends PluginPanel
 			COLLECTION_SHOW_LOCKED_KEY, showLockedCollection.isSelected());
 		configManager.setConfiguration(BronzemanTcgConfig.GROUP,
 			COLLECTION_SHOW_UNLOCKED_KEY, showUnlockedCollection.isSelected());
-		setSavedProfileBoolean(COLLECTION_HIDE_BETA_PROGRESS_KEY,
-			hideBetaCardProgress.isSelected());
-
 		dirtyTabs.add(PanelTab.COLLECTION);
 		requestRefresh();
-	}
-
-	private boolean getSavedProfileBoolean(String key, boolean defaultValue)
-	{
-		try
-		{
-			String stored = configManager.getRSProfileConfiguration(
-				BronzemanTcgConfig.GROUP, key);
-			return stored == null ? defaultValue : Boolean.parseBoolean(stored);
-		}
-		catch (RuntimeException ex)
-		{
-			log.warn("Unable to read profile-scoped panel preference {}", key, ex);
-			return defaultValue;
-		}
-	}
-
-	private void setSavedProfileBoolean(String key, boolean value)
-	{
-		try
-		{
-			configManager.setRSProfileConfiguration(
-				BronzemanTcgConfig.GROUP, key, Boolean.toString(value));
-		}
-		catch (RuntimeException ex)
-		{
-			log.warn("Unable to save profile-scoped panel preference {}", key, ex);
-		}
 	}
 
 	private boolean shouldShowCollectionCard(PanelCollectionViewModel.Status status)
@@ -2936,7 +2806,6 @@ public class BronzemanTcgPanel extends PluginPanel
 	private void refreshBetaCollection()
 	{
 		betaCollectionList.removeAll();
-		applyBetaSnapshotControls(betaCollectionSnapshotService.getView());
 		String query = searchText(betaCollectionSearchBar);
 		boolean searching = !query.isEmpty();
 		if (!showLockedBetaCollection.isSelected()
@@ -2949,13 +2818,13 @@ public class BronzemanTcgPanel extends PluginPanel
 		}
 		betaCollectionList.add(mutedRow(String.format("%d/%d beta parents collected",
 			snapshot.betaCollection.getOwnedParents(), betaCollectionViewModel.getParentTotal())));
-		betaCollectionList.add(betaSnapshotStatusRow(
-			snapshot.betaCollection.getSnapshotStatus()));
+		betaCollectionList.add(betaCacheStatusRow(
+			snapshot.betaCollection.getCacheStatus(), snapshot.pluginMessageAvailable));
 		Set<String> unmatchedBetaNames = snapshot.betaCollection.getUnmatchedNames();
 		if (!unmatchedBetaNames.isEmpty() && showUnlockedBetaCollection.isSelected())
 		{
 			betaCollectionList.add(mutedRow(unmatchedBetaNames.size()
-				+ " imported names outside the catalogue (not in totals)"));
+				+ " confirmed Beta names outside the catalogue (not in totals)"));
 			int shown = 0;
 			for (String name : unmatchedBetaNames)
 			{
@@ -3178,43 +3047,36 @@ public class BronzemanTcgPanel extends PluginPanel
 		}
 	}
 
-	private static JLabel betaSnapshotStatusRow(BetaCollectionSnapshotService.Status status)
+	private static JLabel betaCacheStatusRow(BetaCardCacheService.Status status,
+		boolean pluginMessageAvailable)
 	{
+		if (!pluginMessageAvailable)
+		{
+			return mutedRow("Beta ownership: waiting for OSRS TCG PluginMessage");
+		}
 		String text;
-		String detail;
 		switch (status)
 		{
-			case PROVISIONAL:
-				text = "Beta snapshot: preparing (not frozen)";
-				detail = "";
+			case CACHED:
+				text = "Beta names: confirmed by OSRS TCG";
 				break;
-			case FROZEN_CAPTURED:
-				text = "Beta snapshot: saved from pre-v1";
-				detail = "";
+			case REFRESHING:
+				text = "Beta names: refreshing; saved result remains active";
 				break;
-			case FROZEN_INFERRED:
-				text = "Beta snapshot: estimated from v1";
-				detail = "";
+			case FAILED:
+				text = "Beta names: refresh failed; check Beta Cards settings";
 				break;
-			case INCOMPATIBLE:
-				text = "Beta snapshot: saved data incompatible";
-				detail = "";
+			case CORRUPT:
+				text = "Beta names: cached data invalid; refresh required";
 				break;
-			case IMPORTED:
-				text = "Beta snapshot: imported from save";
-				detail = "";
+			case NO_PROFILE:
+				text = "Beta names: log in to select a profile";
 				break;
-			case CLEARED:
-				text = "Beta snapshot: cleared by you";
-				detail = "";
-				break;
+			case NO_CACHE:
 			default:
-				text = "Beta snapshot: waiting for collection";
-				detail = "";
+				text = "Beta names: refresh from Beta Cards settings";
 		}
-		JLabel row = mutedRow(text);
-		row.setToolTipText(detail);
-		return row;
+		return mutedRow(text);
 	}
 
 	private static String importantSubcategoryKey(String category, String subcategory)
@@ -3540,8 +3402,7 @@ public class BronzemanTcgPanel extends PluginPanel
 			if (snapshot == null)
 			{
 				searchResults.add(mutedRow("Loading card index..."));
-				searchResults.revalidate();
-				searchResults.repaint();
+				finishSearchRefresh();
 				return;
 			}
 
@@ -3570,8 +3431,23 @@ public class BronzemanTcgPanel extends PluginPanel
 				searchResults.add(mutedRow("No v1 card matches"));
 			}
 		}
+		finishSearchRefresh();
+	}
+
+	private void finishSearchRefresh()
+	{
+		boolean visible = searchResults.getComponentCount() > 0;
+		searchResultsScroll.setVisible(visible);
+		if (visible)
+		{
+			searchResultsScroll.getVerticalScrollBar().setValue(0);
+		}
 		searchResults.revalidate();
 		searchResults.repaint();
+		searchResultsScroll.revalidate();
+		searchResultsScroll.repaint();
+		contentControls.revalidate();
+		contentControls.repaint();
 	}
 
 	// ------------------------------------------------------------------ progress
@@ -3674,6 +3550,21 @@ public class BronzemanTcgPanel extends PluginPanel
 		panel.setBackground(ColorScheme.DARK_GRAY_COLOR);
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		return panel;
+	}
+
+	static int visibleSearchResultsHeight(JPanel results, int visibleRows)
+	{
+		if (results == null || visibleRows <= 0)
+		{
+			return 0;
+		}
+		Component[] rows = results.getComponents();
+		int height = 0;
+		for (int i = 0; i < Math.min(rows.length, visibleRows); i++)
+		{
+			height += Math.max(0, rows[i].getPreferredSize().height);
+		}
+		return height;
 	}
 
 	private static JLabel progressHeader()
@@ -3971,6 +3862,36 @@ public class BronzemanTcgPanel extends PluginPanel
 		}
 	}
 
+	static final class SearchResultsScrollPane extends JScrollPane
+	{
+		private final JPanel results;
+		private final int visibleRows;
+
+		SearchResultsScrollPane(JPanel results, int visibleRows)
+		{
+			super(results, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			this.results = results;
+			this.visibleRows = visibleRows;
+		}
+
+		@Override
+		public Dimension getPreferredSize()
+		{
+			Dimension preferred = super.getPreferredSize();
+			Insets insets = getInsets();
+			int height = visibleSearchResultsHeight(results, visibleRows)
+				+ insets.top + insets.bottom;
+			return new Dimension(preferred.width, height);
+		}
+
+		@Override
+		public Dimension getMaximumSize()
+		{
+			return new Dimension(Integer.MAX_VALUE, getPreferredSize().height);
+		}
+	}
+
 	/** Immutable catalog-derived data built once on the background executor. */
 	private static class PreparedData
 	{
@@ -4098,7 +4019,7 @@ public class BronzemanTcgPanel extends PluginPanel
 		private final PanelSharedCardsViewModel.State sharedCards;
 		private final boolean v1Presentation;
 		private final PanelNavigationModel.State navigation;
-		private final boolean hideBetaProgress;
+		private final boolean pluginMessageAvailable;
 
 		private PanelSnapshot(PreparedData data, Set<String> owned, Set<String> shared,
 			List<RecentUnlocksTracker.Unlock> recentUnlocks,
@@ -4110,7 +4031,7 @@ public class BronzemanTcgPanel extends PluginPanel
 			PanelBetaCollectionViewModel.State betaCollection,
 			PanelSharedCardsViewModel.State sharedCards,
 			boolean v1Presentation, PanelNavigationModel.State navigation,
-			boolean hideBetaProgress)
+			boolean pluginMessageAvailable)
 		{
 			this.realSkillLevels = realSkillLevels;
 			this.questPoints = questPoints;
@@ -4128,7 +4049,7 @@ public class BronzemanTcgPanel extends PluginPanel
 			this.sharedCards = sharedCards;
 			this.v1Presentation = v1Presentation;
 			this.navigation = navigation;
-			this.hideBetaProgress = hideBetaProgress;
+			this.pluginMessageAvailable = pluginMessageAvailable;
 		}
 	}
 
