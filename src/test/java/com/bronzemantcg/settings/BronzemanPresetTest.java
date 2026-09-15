@@ -147,23 +147,29 @@ public class BronzemanPresetTest
 	}
 
 	@Test
-	public void betaVisibilityLivesInBetaSettingsWithoutExportingSnapshotState()
+	public void betaControlsKeepLookupConsentOutOfCompactSettingsAndExports()
 	{
 		SidePanelSettingMetadata.Entry visibility = SidePanelSettingMetadata.all().stream()
 			.filter(entry -> entry.key.equals("showBetaCollectionTab")).findFirst().orElseThrow();
 		assertEquals(SidePanelSettingMetadata.Section.BETA_CARDS, visibility.section);
-		assertEquals(SidePanelSettingMetadata.Category.BETA_IMPORTS, visibility.section.category);
-		assertEquals("Beta Card Imports", visibility.section.category.label);
+		assertEquals(SidePanelSettingMetadata.Category.BETA_CARDS, visibility.section.category);
+		assertEquals("Beta Cards", visibility.section.category.label);
 		assertEquals(SidePanelSettingMetadata.Category.OTHER.ordinal() + 1,
 			visibility.section.category.ordinal());
+		assertFalse(SidePanelSettingMetadata.all().stream()
+			.anyMatch(entry -> entry.key.equals("allowBetaCardLookup")));
+		assertFalse(BronzemanSettingRegistry.all().stream()
+			.anyMatch(definition -> definition.getKey().equals("allowBetaCardLookup")));
 		Map<String, String> settings = new LinkedHashMap<>();
 		settings.put("betaCollectionManualV1", "private Beta names");
 		settings.put("betaCollectionSnapshotV1", "private legacy snapshot");
+		settings.put("allowBetaCardLookup", "true");
 		settings.put("bankingMode", BankingMode.FULL.name());
 		Map<String, String> exported = BronzemanSettingsManager.decodeSettings(GSON,
 			BronzemanSettingsManager.encodeSettings(GSON, settings));
 		assertFalse(exported.containsKey("betaCollectionManualV1"));
 		assertFalse(exported.containsKey("betaCollectionSnapshotV1"));
+		assertFalse(exported.containsKey("allowBetaCardLookup"));
 	}
 
 	@Test

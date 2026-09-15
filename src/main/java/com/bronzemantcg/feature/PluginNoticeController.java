@@ -1,5 +1,6 @@
 package com.bronzemantcg.feature;
 
+import com.bronzemantcg.BronzemanTcgConfig;
 import com.bronzemantcg.interop.TcgCollectionReader;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -16,10 +17,9 @@ public final class PluginNoticeController
 	// is often enough to notice, rare enough not to nag.
 	private static final int WELCOME_DELAY_TICKS = 15;
 	private static final int REMINDER_TICKS = 3000;
-	// ~60s. Checked far more often than the other notices: switching OSRS TCG off is a
-	// quieter way to dodge restrictions than switching this plugin off, so it should
-	// surface quickly rather than sit unnoticed for half an hour.
-	private static final int REQUIRED_PLUGIN_TICKS = 100;
+	// ~60s. Required-plugin and live-catalogue settings can quietly leave the player on
+	// stale or fallback data, so surface them faster than the general health reminder.
+	private static final int HEALTH_NOTICE_TICKS = 100;
 	// OSRS TCG's PluginDescriptor name. Checking PluginManager keeps this independent
 	// from whichever collection transport is currently available.
 	private static final String REQUIRED_PLUGIN = "OSRS TCG";
@@ -28,21 +28,24 @@ public final class PluginNoticeController
 	private final ChatFeedbackService chatFeedbackService;
 	private final TcgCollectionReader collectionReader;
 	private final PluginManager pluginManager;
+	private final BronzemanTcgConfig config;
 
 	private boolean welcomeShown;
 	// Countdowns in game ticks; negative means idle.
 	private int welcomeDelayTicks = -1;
 	private int reminderTicks = -1;
-	private int requiredPluginTicks = -1;
+	private int healthNoticeTicks = -1;
 
 	@Inject
 	public PluginNoticeController(Client client, ChatFeedbackService chatFeedbackService,
-		TcgCollectionReader collectionReader, PluginManager pluginManager)
+		TcgCollectionReader collectionReader, PluginManager pluginManager,
+		BronzemanTcgConfig config)
 	{
 		this.client = client;
 		this.chatFeedbackService = chatFeedbackService;
 		this.collectionReader = collectionReader;
 		this.pluginManager = pluginManager;
+		this.config = config;
 	}
 
 	public void startUp()
@@ -50,7 +53,7 @@ public final class PluginNoticeController
 		welcomeShown = false;
 		welcomeDelayTicks = -1;
 		reminderTicks = -1;
-		requiredPluginTicks = -1;
+		healthNoticeTicks = -1;
 		scheduleWelcome();
 	}
 
@@ -88,10 +91,10 @@ public final class PluginNoticeController
 		{
 			postPeriodicNotices();
 		}
-		if (requiredPluginTicks >= 0 && --requiredPluginTicks < 0)
+		if (healthNoticeTicks >= 0 && --healthNoticeTicks < 0)
 		{
-			requiredPluginTicks = REQUIRED_PLUGIN_TICKS;
-			warnRequiredPluginDisabled();
+			healthNoticeTicks = HEALTH_NOTICE_TICKS;
+			postHealthNotices();
 		}
 	}
 
@@ -115,7 +118,7 @@ public final class PluginNoticeController
 	{
 		welcomeShown = true;
 		reminderTicks = REMINDER_TICKS;
-		requiredPluginTicks = REQUIRED_PLUGIN_TICKS;
+		healthNoticeTicks = HEALTH_NOTICE_TICKS;
 
 		if (collectionReader.isStateAvailable())
 		{
@@ -134,7 +137,7 @@ public final class PluginNoticeController
 			// Greeting with zero collected would misreport an unread collection as empty.
 			warnCollectionUnreadable();
 		}
-		warnRequiredPluginDisabled();
+		postHealthNotices();
 	}
 
 	/** Re-checks periodically so the collection warning keeps surfacing while it applies. */
@@ -142,7 +145,13 @@ public final class PluginNoticeController
 	{
 		reminderTicks = REMINDER_TICKS;
 		warnCollectionUnreadable();
-		// warnRequiredPluginDisabled() deliberately absent - it has its own faster timer.
+		// Configuration health notices deliberately use their own faster timer.
+	}
+
+	private void postHealthNotices()
+	{
+		warnRequiredPluginDisabled();
+		warnLiveCatalogDisabled();
 	}
 
 	/**
@@ -174,6 +183,16 @@ public final class PluginNoticeController
 		chatFeedbackService.queueChat("[Bronzeman TCG] - The OSRS TCG plugin is turned off. Restrictions are still "
 			+ "active using your last known collection, but you won't earn any new cards until "
 			+ "you turn it back on.");
+	}
+
+	private void warnLiveCatalogDisabled()
+	{
+		if (config.allowRemoteCatalog())
+		{
+			return;
+		}
+		chatFeedbackService.queueChat("[Bronzeman TCG] - Download live catalogue is turned off. "
+			+ "Enable it in the Bronzeman TCG settings to use the current OSRS TCG catalogue.");
 	}
 
 	/**

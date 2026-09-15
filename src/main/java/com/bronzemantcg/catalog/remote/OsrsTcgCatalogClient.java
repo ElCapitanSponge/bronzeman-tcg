@@ -16,7 +16,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-/** Downloads the public OSRS TCG catalogue using RuneLite's shared HTTP client and cache. */
+/** Downloads the public OSRS TCG catalogue without retaining its raw response in OkHttp's cache. */
 @Singleton
 public class OsrsTcgCatalogClient
 {
@@ -54,26 +54,32 @@ public class OsrsTcgCatalogClient
 
 	public FetchHandle fetch(Listener listener)
 	{
+		return fetch(null, listener);
+	}
+
+	public FetchHandle fetch(String currentEtag, Listener listener)
+	{
 		if (listener == null)
 		{
 			throw new IllegalArgumentException("listener is required");
 		}
 		FetchHandle handle = new FetchHandle();
-		enqueue(handle, listener, false, null);
+		enqueue(handle, currentEtag, listener);
 		return handle;
 	}
 
-	private void enqueue(FetchHandle handle, Listener listener, boolean cacheOnly,
-		String precedingFailure)
+	private void enqueue(FetchHandle handle, String currentEtag, Listener listener)
 	{
 		if (handle.isCancelled())
 		{
 			return;
 		}
-		Request.Builder builder = new Request.Builder().url(endpoint).get();
-		if (cacheOnly)
+		CacheControl cacheControl = new CacheControl.Builder().noCache().noStore().build();
+		Request.Builder builder = new Request.Builder().url(endpoint).get()
+			.cacheControl(cacheControl);
+		if (currentEtag != null && !currentEtag.trim().isEmpty())
 		{
-			builder.cacheControl(CacheControl.FORCE_CACHE);
+			builder.header("If-None-Match", currentEtag.trim());
 		}
 		Call call = httpClient.newCall(builder.build());
 		handle.setActiveCall(call);
@@ -86,13 +92,7 @@ public class OsrsTcgCatalogClient
 				{
 					return;
 				}
-				String failure = failureMessage(precedingFailure, exception.getMessage());
-				if (!cacheOnly)
-				{
-					enqueue(handle, listener, true, failure);
-					return;
-				}
-				listener.onFailure(failure, exception);
+				listener.onFailure(failureMessage(exception.getMessage()), exception);
 			}
 
 			@Override
@@ -104,18 +104,28 @@ public class OsrsTcgCatalogClient
 					{
 						return;
 					}
+					if (response.code() == 304)
+					{
+						if (currentEtag == null || currentEtag.trim().isEmpty())
+						{
+							listener.onFailure(
+								"HTTP 304 without a cached catalogue validator", null);
+							return;
+						}
+						listener.onSuccess(CatalogResponse.notModified(
+							catalogVersion(response), response.header("ETag")));
+						return;
+					}
 					if (!response.isSuccessful())
 					{
-						handleResponseFailure(handle, listener, cacheOnly, precedingFailure,
-							"HTTP " + response.code());
+						listener.onFailure("HTTP " + response.code(), null);
 						return;
 					}
 
 					ResponseBody body = response.body();
 					if (body == null)
 					{
-						handleResponseFailure(handle, listener, cacheOnly, precedingFailure,
-							"catalogue response has no body");
+						listener.onFailure("catalogue response has no body", null);
 						return;
 					}
 					byte[] bytes;
@@ -125,34 +135,17 @@ public class OsrsTcgCatalogClient
 					}
 					catch (IOException exception)
 					{
-						handleResponseFailure(handle, listener, cacheOnly, precedingFailure,
-							exception.getMessage());
+						listener.onFailure(failureMessage(exception.getMessage()), exception);
 						return;
 					}
 					if (!handle.isCancelled())
 					{
 						listener.onSuccess(new CatalogResponse(bytes,
-							catalogVersion(response), cacheOnly || response.cacheResponse() != null));
+							catalogVersion(response), response.header("ETag")));
 					}
 				}
 			}
 		});
-	}
-
-	private void handleResponseFailure(FetchHandle handle, Listener listener,
-		boolean cacheOnly, String precedingFailure, String currentFailure)
-	{
-		if (handle.isCancelled())
-		{
-			return;
-		}
-		String failure = failureMessage(precedingFailure, currentFailure);
-		if (!cacheOnly)
-		{
-			enqueue(handle, listener, true, failure);
-			return;
-		}
-		listener.onFailure(failure, null);
 	}
 
 	private byte[] readBounded(ResponseBody body) throws IOException
@@ -193,12 +186,10 @@ public class OsrsTcgCatalogClient
 		return version == null ? "unknown" : version.trim();
 	}
 
-	private static String failureMessage(String precedingFailure, String currentFailure)
+	private static String failureMessage(String currentFailure)
 	{
-		String current = currentFailure == null || currentFailure.trim().isEmpty()
+		return currentFailure == null || currentFailure.trim().isEmpty()
 			? "catalogue request failed" : currentFailure.trim();
-		return precedingFailure == null || precedingFailure.isEmpty()
-			? current : precedingFailure + "; cache fallback: " + current;
 	}
 
 	public interface Listener
@@ -246,13 +237,31 @@ public class OsrsTcgCatalogClient
 	{
 		private final byte[] body;
 		private final String version;
-		private final boolean servedFromCache;
+		private final String etag;
+		private final boolean notModified;
 
-		CatalogResponse(byte[] body, String version, boolean servedFromCache)
+		CatalogResponse(byte[] body, String version)
+		{
+			this(body, version, null, false);
+		}
+
+		CatalogResponse(byte[] body, String version, String etag)
+		{
+			this(body, version, etag, false);
+		}
+
+		private CatalogResponse(byte[] body, String version, String etag,
+			boolean notModified)
 		{
 			this.body = body.clone();
 			this.version = version;
-			this.servedFromCache = servedFromCache;
+			this.etag = etag;
+			this.notModified = notModified;
+		}
+
+		static CatalogResponse notModified(String version, String etag)
+		{
+			return new CatalogResponse(new byte[0], version, etag, true);
 		}
 
 		public byte[] getBody()
@@ -265,9 +274,14 @@ public class OsrsTcgCatalogClient
 			return version;
 		}
 
-		public boolean isServedFromCache()
+		public String getEtag()
 		{
-			return servedFromCache;
+			return etag;
+		}
+
+		public boolean isNotModified()
+		{
+			return notModified;
 		}
 	}
 }

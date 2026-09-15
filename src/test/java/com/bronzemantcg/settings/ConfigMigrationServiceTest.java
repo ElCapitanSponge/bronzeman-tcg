@@ -322,6 +322,28 @@ public class ConfigMigrationServiceTest
 		assertFalse(config.writes.contains("set:fishingModeMigrated=true"));
 	}
 
+	@Test
+	public void obsoleteBetaFlowRemovalDoesNotRetirePersistentKeys()
+	{
+		MemoryConfig config = allOneShotMarkers()
+			.with("tcgLockedDefaultsMigrated", true)
+			.with("betaCollectionSnapshotV1", "legacy snapshot")
+			.with("betaCollectionManualV1", "legacy manual names")
+			.with("showBetaCollectionTab", false)
+			.with("collectionHideBetaProgress", true)
+			.with("betaCollectionShowLocked", false)
+			.with("betaCollectionShowUnlocked", true);
+
+		new ConfigMigrationService(config).migrateLegacySettings(false);
+
+		assertEquals("legacy snapshot", config.get("betaCollectionSnapshotV1"));
+		assertEquals("legacy manual names", config.get("betaCollectionManualV1"));
+		assertEquals("false", config.get("showBetaCollectionTab"));
+		assertEquals("true", config.get("collectionHideBetaProgress"));
+		assertEquals("false", config.get("betaCollectionShowLocked"));
+		assertEquals("true", config.get("betaCollectionShowUnlocked"));
+	}
+
 	private static MemoryConfig allOneShotMarkers()
 	{
 		return new MemoryConfig()

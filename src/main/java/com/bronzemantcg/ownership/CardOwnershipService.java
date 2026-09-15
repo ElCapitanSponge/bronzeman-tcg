@@ -116,7 +116,8 @@ public final class CardOwnershipService
 
 	/**
 	 * Collection/readiness lookup for a row whose item or NPC namespace is known. IDs remain
-	 * authoritative when that namespace is present; names are only the legacy fallback.
+	 * authoritative when that namespace is present, apart from the same reviewed legacy-name
+	 * compatibility rule used by enforcement.
 	 */
 	public boolean isCollectedCard(CardEntityKind kind, String cardName,
 		TcgOwnershipSnapshot personalOwnership, Set<String> sharedCardNames)
@@ -133,6 +134,7 @@ public final class CardOwnershipService
 		}
 		CardIdentity identity = resolved.getIdentity();
 		return identity.isOwnedBy(personalOwnership)
+			|| acceptsUnambiguousPersonalLegacyName(identity, personalOwnership)
 			|| acceptsUnambiguousSharedName(identity, sharedCardNames);
 	}
 
@@ -185,7 +187,8 @@ public final class CardOwnershipService
 		{
 			return new Decision(Status.EXEMPT, identity);
 		}
-		if (identity.isOwnedBy(personalOwnership))
+		if (identity.isOwnedBy(personalOwnership)
+			|| acceptsUnambiguousPersonalLegacyName(identity, personalOwnership))
 		{
 			return new Decision(Status.OWNED, identity);
 		}
@@ -194,6 +197,46 @@ public final class CardOwnershipService
 			return new Decision(Status.SHARED, identity);
 		}
 		return new Decision(Status.LOCKED, identity);
+	}
+
+	/**
+	 * The current OSRS TCG payload includes historical Beta-owned card names, but it can only
+	 * publish entity IDs for names which still resolve in its v1 catalogue. Bridge that narrow
+	 * gap without weakening normal v1 ID authority: only a reviewed legacy card-name alias may
+	 * satisfy the already-resolved parent, and only when it is unambiguous across both kinds.
+	 */
+	private boolean acceptsUnambiguousPersonalLegacyName(CardIdentity identity,
+		TcgOwnershipSnapshot personalOwnership)
+	{
+		if (identity == null || personalOwnership == null
+			|| !personalOwnership.hasEntityIds(identity.getKind()))
+		{
+			return false;
+		}
+
+		Set<String> ownedNames = personalOwnership.getOwnedCardNamesLowerCase();
+		CardEntityKind otherKind = identity.getKind() == CardEntityKind.ITEM
+			? CardEntityKind.NPC : CardEntityKind.ITEM;
+		for (String legacyCardName : identity.getLegacyCardNames())
+		{
+			String normalized = normalizeCardName(legacyCardName);
+			if (!containsCardName(ownedNames, normalized))
+			{
+				continue;
+			}
+
+			CardResolver.Result sameKind = resolver.resolveCardName(
+				identity.getKind(), legacyCardName);
+			if (!sameKind.isTracked()
+				|| !sameIdentity(identity, sameKind.getIdentity())
+				|| resolver.resolveCardName(otherKind, legacyCardName).getStatus()
+					!= CardResolver.Status.UNTRACKED)
+			{
+				continue;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	/** Names-only shared ownership cannot safely choose between equal item and NPC card names. */
@@ -243,6 +286,14 @@ public final class CardOwnershipService
 			}
 		}
 		return false;
+	}
+
+	private static boolean sameIdentity(CardIdentity first, CardIdentity second)
+	{
+		return first != null && second != null
+			&& first.getKind() == second.getKind()
+			&& normalizeCardName(first.getCardName())
+				.equals(normalizeCardName(second.getCardName()));
 	}
 
 	private static String normalizeCardName(String cardName)

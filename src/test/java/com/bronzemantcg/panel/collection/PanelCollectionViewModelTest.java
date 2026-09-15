@@ -111,13 +111,14 @@ public class PanelCollectionViewModelTest
 	}
 
 	@Test
-	public void frozenBetaVariantCollectsItsMappedV1Parent()
+	public void pluginMessageLegacyAliasCollectsItsMappedV1Parent()
 	{
 		PanelCollectionViewModel view = view();
 		TcgOwnershipSnapshot v1WithoutMappedIds = TcgOwnershipSnapshot.fromApi(
-			Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), null);
+			Collections.singletonList("water rune pack"),
+			Collections.emptyList(), Collections.emptyList(), null);
 		PanelCollectionViewModel.State state = view.prepare(
-			v1WithoutMappedIds, Collections.emptySet(), Set.of("water rune pack"));
+			v1WithoutMappedIds, Collections.emptySet());
 
 		assertEquals(1, state.getOwnedItems());
 		assertEquals(PanelCollectionViewModel.Status.OWNED,
@@ -125,36 +126,17 @@ public class PanelCollectionViewModelTest
 	}
 
 	@Test
-	public void hiddenBetaProgressDoesNotCountSnapshotParentsOrMaskV1OnlyProgress()
+	public void canonicalV1NameCannotOverrideAnIdMiss()
 	{
 		PanelCollectionViewModel view = view();
-		TcgOwnershipSnapshot personal = TcgOwnershipSnapshot.fromApi(
-			Arrays.asList("Water rune", "New v1 item"),
-			Arrays.asList(555, 99), Collections.emptyList(), null);
+		TcgOwnershipSnapshot missingId = TcgOwnershipSnapshot.fromApi(
+			Collections.singletonList("Water rune"), Collections.emptyList(),
+			Collections.emptyList(), null);
 
-		PanelCollectionViewModel.State state = view.prepare(personal,
-			Collections.emptySet(), Set.of("water rune pack"), true);
+		PanelCollectionViewModel.State state = view.prepare(
+			missingId, Collections.emptySet());
 
-		assertEquals(1, state.getOwnedItems());
 		assertEquals(PanelCollectionViewModel.Status.LOCKED,
-			state.getStatus(card(view, CardEntityKind.ITEM, "Water rune")));
-		assertEquals(PanelCollectionViewModel.Status.OWNED,
-			state.getStatus(card(view, CardEntityKind.ITEM, "New v1 item")));
-	}
-
-	@Test
-	public void hiddenBetaProgressStillAllowsSharedPresentation()
-	{
-		PanelCollectionViewModel view = view();
-		TcgOwnershipSnapshot personal = TcgOwnershipSnapshot.fromApi(
-			Collections.singletonList("Water rune"),
-			Collections.singletonList(555), Collections.emptyList(), null);
-
-		PanelCollectionViewModel.State state = view.prepare(personal,
-			Set.of("water rune"), Set.of("water rune pack"), true);
-
-		assertEquals(0, state.getOwnedItems());
-		assertEquals(PanelCollectionViewModel.Status.SHARED,
 			state.getStatus(card(view, CardEntityKind.ITEM, "Water rune")));
 	}
 
@@ -273,7 +255,7 @@ public class PanelCollectionViewModelTest
 				Set.of("Strange Creature"), Set.of(905)));
 
 		PanelCollectionViewModel.State collision = view.prepare(
-			emptyOwnership(), Set.of("strange creature"), Set.of("strange creature"));
+			emptyOwnership(), Set.of("strange creature"));
 		assertEquals(PanelCollectionViewModel.Status.LOCKED,
 			collision.getStatus(card(collision, CardEntityKind.NPC, "Phantom Muspah")));
 		assertEquals(PanelCollectionViewModel.Status.LOCKED,
@@ -315,7 +297,7 @@ public class PanelCollectionViewModelTest
 	}
 
 	@Test
-	public void frozenBetaVariantCollectsRenamedRemoteParentWithoutAnOwnedId()
+	public void pluginMessageLegacyAliasCollectsRenamedRemoteParentWithoutAnOwnedId()
 	{
 		PanelCollectionLayout catalog = fixtureCatalog();
 		ActiveCardIdentityCatalog active = activeCatalog();
@@ -324,8 +306,11 @@ public class PanelCollectionViewModelTest
 		activate(active, identity(CardEntityKind.ITEM, "Renamed water rune",
 			Set.of("Water rune pack"), Set.of(906)));
 
+		TcgOwnershipSnapshot legacyAlias = TcgOwnershipSnapshot.fromApi(
+			Collections.singletonList("Water rune pack"), Collections.emptyList(),
+			Collections.emptyList(), null);
 		PanelCollectionViewModel.State state = view.prepare(
-			emptyOwnership(), Collections.emptySet(), Set.of("water rune pack"));
+			legacyAlias, Collections.emptySet());
 
 		assertEquals(1, state.getOwnedItems());
 		assertEquals(PanelCollectionViewModel.Status.OWNED,

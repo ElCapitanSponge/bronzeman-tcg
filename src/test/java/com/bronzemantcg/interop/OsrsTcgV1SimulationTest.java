@@ -51,13 +51,19 @@ public class OsrsTcgV1SimulationTest
 	}
 
 	@Test
-	public void displayRetainsExactBetaNamesWhenPresentIdsAreEmpty()
+	public void reviewedBetaNameUnlocksParentWhenCurrentIdsAreMissing()
 	{
 		accept(payload(Collections.singletonList("Water rune pack"),
 			Collections.emptyList(), Collections.emptyList(), null));
 		TcgOwnershipSnapshot ownership = collectionReader.getOwnershipSnapshot();
-		assertStatus(CardOwnershipService.Status.LOCKED,
+		assertStatus(CardOwnershipService.Status.OWNED,
 			ownershipService.decideCard("Water rune", ownership, null, null));
+		assertStatus(CardOwnershipService.Status.OWNED,
+			ownershipService.decide(CardEntityKind.ITEM, 555, "Water rune",
+				ownership, null, null));
+		assertStatus(CardOwnershipService.Status.OWNED,
+			ownershipService.decide(CardEntityKind.ITEM, 12730, "Water rune pack",
+				ownership, null, null));
 		assertTrue(ownershipService.isCollectedCard("Water rune", ownership, null));
 	}
 

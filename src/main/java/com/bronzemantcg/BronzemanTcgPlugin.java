@@ -17,15 +17,14 @@ import com.bronzemantcg.interop.TcgCollectionReader;
 import com.bronzemantcg.overlay.BronzemanTcgOverlay;
 import com.bronzemantcg.overlay.LockedItemIconOverlay;
 import com.bronzemantcg.ownership.ActiveCardIdentityCatalog;
+import com.bronzemantcg.ownership.BetaCardCacheService;
 import com.bronzemantcg.ownership.CardEntityKind;
 import com.bronzemantcg.ownership.SharedUnlockStore;
-import com.bronzemantcg.ownership.TcgOwnershipSnapshot;
 import com.bronzemantcg.panel.BronzemanTcgPanel;
 import com.bronzemantcg.panel.RecentUnlocksTracker;
 import com.bronzemantcg.panel.PanelPresentationCatalog;
 import com.bronzemantcg.panel.QuestV1Presentation;
 import com.bronzemantcg.panel.V1PresentationState;
-import com.bronzemantcg.panel.collection.BetaCollectionSnapshotService;
 import com.bronzemantcg.panel.collection.PanelBetaCollectionViewModel;
 import com.bronzemantcg.panel.collection.PanelCollectionViewModel;
 import com.bronzemantcg.panel.collection.PanelSharedCardsViewModel;
@@ -197,7 +196,7 @@ public class BronzemanTcgPlugin extends Plugin implements RenderCallback
 	private PanelBetaCollectionViewModel panelBetaCollectionViewModel;
 
 	@Inject
-	private BetaCollectionSnapshotService betaCollectionSnapshotService;
+	private BetaCardCacheService betaCardCacheService;
 
 	@Inject
 	private V1PresentationState v1PresentationState;
@@ -282,14 +281,14 @@ public class BronzemanTcgPlugin extends Plugin implements RenderCallback
 		// Check before the legacy migrations write their markers. That is how a genuinely
 		// fresh install is distinguished from an existing user upgrading this release.
 		presetOnboardingRequired = configMigrationService.preparePresetOnboarding();
-		betaCollectionSnapshotService.reload();
+		betaCardCacheService.setListener(this::onBetaCacheChanged);
+		betaCardCacheService.startUp();
 		remoteCatalogService.setListener(this::onActiveCatalogChanged);
 		remoteCatalogService.startUp();
 		remoteCatalogService.setEnabled(config.allowRemoteCatalog());
 		// Arm the catalogue gate before requesting ownership so even an immediate v1 reply can
 		// start the one permitted conditional fetch when the player has allowed it.
 		osrsTcgInteropService.startUp();
-		observeBetaCollectionSnapshot();
 		recentUnlocksTracker.reload();
 		// Nothing shared survives a restart of this plugin. Sources are asked to re-offer on the
 		// first tick, so a set from before we unloaded can never linger unnoticed.
@@ -320,6 +319,8 @@ public class BronzemanTcgPlugin extends Plugin implements RenderCallback
 	protected void shutDown()
 	{
 		panelGeneration.incrementAndGet();
+		betaCardCacheService.setListener(null);
+		betaCardCacheService.shutDown();
 		remoteCatalogService.setListener(null);
 		remoteCatalogService.shutDown();
 		sharedUnlockStore.clear();
@@ -371,7 +372,7 @@ public class BronzemanTcgPlugin extends Plugin implements RenderCallback
 				panelCollectionViewModel,
 				panelBetaCollectionViewModel,
 				panelSharedCardsViewModel,
-				betaCollectionSnapshotService,
+				betaCardCacheService,
 				v1PresentationState,
 				spriteManager,
 				config,
@@ -535,13 +536,9 @@ public class BronzemanTcgPlugin extends Plugin implements RenderCallback
 	public void onGameTick(GameTick event)
 	{
 		refreshGroundItemLocks();
-		TcgOwnershipSnapshot ownership = collectionReader.getOwnershipSnapshot();
-		boolean stateAvailable = collectionReader.isStateAvailable();
 		boolean newUnlock = recentUnlocksTracker.update(
-			ownership.getOwnedCardNamesLowerCase(), stateAvailable);
-		boolean betaSnapshotChanged = betaCollectionSnapshotService.observe(
-			ownership, stateAvailable);
-		if (newUnlock || betaSnapshotChanged)
+			collectionReader.getOwnedCardNamesLowerCase(), collectionReader.isStateAvailable());
+		if (newUnlock)
 		{
 			refreshVisiblePanel();
 		}
@@ -678,6 +675,12 @@ public class BronzemanTcgPlugin extends Plugin implements RenderCallback
 			remoteCatalogService.setEnabled(config.allowRemoteCatalog());
 		}
 
+		if (BronzemanTcgConfig.GROUP.equals(event.getGroup())
+			&& "allowBetaCardLookup".equals(event.getKey()))
+		{
+			betaCardCacheService.onLookupConsentChanged();
+		}
+
 		if (BronzemanTcgConfig.GROUP.equals(event.getGroup()))
 		{
 			refreshVisibleSettings();
@@ -712,8 +715,7 @@ public class BronzemanTcgPlugin extends Plugin implements RenderCallback
 		// drops any API-provided data too, so re-arm the query for the new profile.
 		osrsTcgInteropService.onProfileChanged();
 		remoteCatalogService.setV1Capable(false);
-		betaCollectionSnapshotService.reload();
-		observeBetaCollectionSnapshot();
+		betaCardCacheService.onProfileChanged();
 		recentUnlocksTracker.reload();
 		// Shared unlocks describe a group this account was in, not this one; ask the sources for
 		// the new profile's picture rather than waiting for one of them to notice.
@@ -786,28 +788,18 @@ public class BronzemanTcgPlugin extends Plugin implements RenderCallback
 		{
 			recentUnlocksTracker.resetBaseline();
 		}
-		boolean betaSnapshotChanged = observeBetaCollectionSnapshot();
 		if (recentUnlocksTracker.update(collectionReader.getOwnedCardNamesLowerCase(), true)
-			|| betaSnapshotChanged || presentationActivated
+			|| presentationActivated
 			|| wasV1Capable != isV1Capable)
 		{
 			refreshVisiblePanel();
 		}
 	}
 
-	private boolean observeBetaCollectionSnapshot()
+	private void onBetaCacheChanged()
 	{
-		boolean changed = false;
-		if (collectionReader.hasLiveV1Capability()
-			&& betaCollectionSnapshotService.canRecoverExact())
-		{
-			TcgCollectionReader.PersistedBetaCollection persisted =
-				collectionReader.getPersistedBetaCollection();
-			changed = betaCollectionSnapshotService.recoverExact(
-				persisted.getOwnedNamesLowerCase(), persisted.isAvailable());
-		}
-		return betaCollectionSnapshotService.observe(collectionReader.getOwnershipSnapshot(),
-			collectionReader.isStateAvailable()) || changed;
+		refreshVisibleSettings();
+		refreshVisiblePanel();
 	}
 
 	private void onActiveCatalogChanged(long revision, boolean v1CatalogAvailable)

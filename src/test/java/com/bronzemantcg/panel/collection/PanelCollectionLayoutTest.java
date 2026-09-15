@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -17,6 +18,12 @@ import static org.junit.Assert.assertTrue;
 
 public class PanelCollectionLayoutTest
 {
+	private static final Set<String> FINALIZED_HISTORICAL_NAMES = Set.of(
+		"Blighted bind sack", "Blighted snare sack", "Blighted wave sack",
+		"Brewer's folly", "Church lectern", "Cook's letter", "Dead person",
+		"Dwarf cake", "Gnome cake", "Goblin cake", "Raisins", "Vyvin's wine",
+		"Emissary Forebearer (unused)", "Golem (unused NPC)");
+
 	@Test
 	public void rejectsInvalidCategoryReferencesAsAnEmptyLayout()
 	{
@@ -46,7 +53,7 @@ public class PanelCollectionLayoutTest
 
 		assertEquals("sha256:062cfd93a66d2b8268c45cd58ae68c63cad4b2dbe9049f8d9cb4626f6b677e77",
 			layout.getOrganiserFingerprint());
-		assertEquals("9D39936DC8C5C65C2D3E0141A7880C2E6C071DAB68D364EFBB6DDC6FFD929EF1",
+		assertEquals("73EB7023F008A64737C20AD9E78F81F57025EA25AD9786E3A0AB2A82214C58D6",
 			layout.getOrganiserProjectSha256());
 		assertEquals(24, layout.getSections().size());
 		assertEquals(4992, layout.getCollectionPlacements().size());
@@ -56,11 +63,10 @@ public class PanelCollectionLayoutTest
 			.filter(card -> card.getKind() == CardEntityKind.NPC).count());
 		assertFalse(layout.getCollectionPlacements().stream()
 			.anyMatch(card -> card.getCategoryIds().isEmpty()));
-		assertEquals(5561, layout.getLegacyBetaCollectionCards().size());
-		assertEquals(5562, layout.getBetaCollectionCards().size());
-		assertEquals(6362, layout.getBetaCollectionCards().stream()
+		assertEquals(5576, layout.getBetaCollectionCards().size());
+		assertEquals(6376, layout.getBetaCollectionCards().stream()
 			.mapToInt(card -> card.getVariants().size()).sum());
-		assertEquals(1075, layout.getBetaCollectionCards().stream()
+		assertEquals(1089, layout.getBetaCollectionCards().stream()
 			.filter(PanelCollectionLayout.BetaCollectionCard::isBetaOnly).count());
 
 		placement(layout, CardEntityKind.NPC, "Akkha");
@@ -72,7 +78,7 @@ public class PanelCollectionLayoutTest
 	}
 
 	@Test
-	public void fishChunksCorrectionUsesReviewedPlacementWithoutInventingEntityIds()
+	public void fishChunksUsesReviewedPlacementAndFinalizedEntityId()
 	{
 		PanelCollectionLayout layout = new PanelCollectionLayout(new Gson());
 		PanelCollectionLayout.BetaCollectionCard fish = betaParent(layout, "Fish chunks");
@@ -80,20 +86,68 @@ public class PanelCollectionLayoutTest
 			fish.getCategoryIds());
 		assertFalse(fish.isBetaOnly());
 		assertEquals("Fish chunks", fish.getVariants().get(0).getName());
-		assertTrue(fish.getVariants().get(0).getEntityIds().isEmpty());
+		assertEquals(Set.of(22818), fish.getVariants().get(0).getEntityIds());
 		assertTrue(layout.isBetaVariantNameUnique("fish chunks"));
-		assertFalse(layout.getLegacyBetaCollectionCards().contains(fish));
-		assertTrue(new PanelCollectionOwnership(layout).isBetaVariantInSnapshot(
+		assertTrue(new PanelCollectionOwnership(layout).isBetaVariantOwnedByNames(
 			fish.getVariants().get(0), Set.of("fish chunks")));
 	}
 
 	@Test
-	public void missingFishChunksPlacementLeavesTheBaseLayoutUntouched()
+	public void finalizedHistoricalRowsHaveExactNamesKindsAndVisiblePlacements()
 	{
-		PanelCollectionLayout layout = new PanelCollectionLayout(new Gson(),
-			"/panel/test_collection_layout.json", true);
-		assertFalse(layout.getBetaCollectionCards().isEmpty());
-		assertEquals(layout.getLegacyBetaCollectionCards(), layout.getBetaCollectionCards());
+		PanelCollectionLayout layout = new PanelCollectionLayout(new Gson());
+		Map<CardEntityKind, List<String>> expected = Map.of(
+			CardEntityKind.ITEM, List.of("Blighted bind sack", "Blighted snare sack",
+				"Blighted wave sack", "Brewer's folly", "Church lectern", "Cook's letter",
+				"Dead person", "Dwarf cake", "Gnome cake", "Goblin cake", "Raisins", "Vyvin's wine"),
+			CardEntityKind.NPC, List.of("Emissary Forebearer (unused)", "Golem (unused NPC)"));
+		expected.forEach((kind, names) -> names.forEach(name ->
+		{
+			PanelCollectionLayout.BetaCollectionCard card = betaParent(layout, name);
+			String category = "category-needs-review-beta-only-"
+				+ (kind == CardEntityKind.ITEM ? "items" : "npcs");
+			assertEquals(kind, card.getKind());
+			assertEquals(Set.of(category), card.getCategoryIds());
+			assertTrue(card.isBetaOnly());
+			assertTrue(card.isVisible());
+			assertEquals(1, card.getVariants().size());
+			assertEquals(name, card.getVariants().get(0).getName());
+			assertEquals(kind, card.getVariants().get(0).getKind());
+			assertTrue(card.getVariants().get(0).getEntityIds().isEmpty());
+			assertTrue(layout.isBetaVariantNameUnique(name));
+			assertTrue(layout.getSections().stream().filter(PanelCollectionLayout.Section::isVisible)
+				.flatMap(section -> section.getCategories().stream())
+				.anyMatch(row -> row.isVisible() && row.getId().equals(category)));
+		}));
+	}
+
+	@Test
+	public void finalizedRowsRemainAlphabeticalWithinEachReviewedCategory()
+	{
+		PanelCollectionLayout layout = new PanelCollectionLayout(new Gson());
+		Map<String, Integer> totals = Map.of("items", 430, "npcs", 45);
+		totals.forEach((suffix, total) ->
+		{
+			List<String> names = layout.getBetaCollectionCards().stream()
+				.filter(card -> card.getCategoryIds().contains("category-needs-review-beta-only-" + suffix))
+				.map(PanelCollectionLayout.BetaCollectionCard::getParentName).collect(Collectors.toList());
+			assertEquals(total.intValue(), names.size());
+			layout.getBetaCollectionCards().stream()
+				.filter(card -> FINALIZED_HISTORICAL_NAMES.contains(card.getParentName())
+					&& card.getCategoryIds().contains(
+						"category-needs-review-beta-only-" + suffix))
+				.forEach(card ->
+				{
+					int index = names.indexOf(card.getParentName());
+					assertTrue(index == 0 || String.CASE_INSENSITIVE_ORDER.compare(
+						names.get(index - 1), card.getParentName()) < 0);
+					assertTrue(index == names.size() - 1
+						|| String.CASE_INSENSITIVE_ORDER.compare(
+							card.getParentName(), names.get(index + 1)) < 0);
+				});
+		});
+		assertEquals(layout.getBetaCollectionCards().size(), layout.getBetaCollectionCards().stream()
+			.map(PanelCollectionLayout.BetaCollectionCard::getKey).distinct().count());
 	}
 
 	@Test
@@ -124,8 +178,8 @@ public class PanelCollectionLayoutTest
 			layout, CardEntityKind.NPC, "Manta ray", "Manta ray");
 
 		assertFalse(layout.isBetaVariantNameUnique("Manta ray"));
-		assertFalse(ownership.isBetaVariantInSnapshot(item, Set.of("manta ray")));
-		assertFalse(ownership.isBetaVariantInSnapshot(npc, Set.of("manta ray")));
+		assertFalse(ownership.isBetaVariantOwnedByNames(item, Set.of("manta ray")));
+		assertFalse(ownership.isBetaVariantOwnedByNames(npc, Set.of("manta ray")));
 		assertFalse(layout.isBetaEntityIdUnique(CardEntityKind.NPC, 14706));
 	}
 
