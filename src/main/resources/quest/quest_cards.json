@@ -1773,9 +1773,10 @@
 							"type": "item"
 						},
 						{
-							"label": "Raw cod",
+							"label": "Raw cod/Ring of Charos",
 							"cards": [
-								"Raw cod"
+								"Raw cod",
+								"Ring of charos"
 							],
 							"type": "item"
 						},
@@ -1818,6 +1819,60 @@
 								"Icelord"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Larry",
+							"cards": [
+								"Larry"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Fred the Farmer",
+							"cards": [
+								"Fred the farmer"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ping",
+							"cards": [
+								"Ping"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Pong",
+							"cards": [
+								"Pong"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Noodle",
+							"cards": [
+								"Noodle"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Penguin",
+							"cards": [
+								"Penguin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sheep",
+							"cards": [
+								"Sheep"
+							],
+							"type": "npc"
 						}
 					]
 				}
