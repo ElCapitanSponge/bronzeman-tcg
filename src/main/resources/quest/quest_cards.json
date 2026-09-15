@@ -1949,6 +1949,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Maisa",
+							"cards": [
+								"Maisa"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Osman",
+							"cards": [
+								"Osman"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
