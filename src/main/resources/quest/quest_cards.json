@@ -2112,6 +2112,27 @@
 								"Coins"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Current Duck",
+							"cards": [
+								"Current duck"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Tiny Net",
+							"cards": [
+								"Tiny net"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Mayor of Catherby",
+							"cards": [
+								"Mayor of catherby"
+							],
+							"type": "item"
 						}
 					]
 				}
