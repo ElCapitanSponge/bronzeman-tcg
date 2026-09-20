@@ -12961,6 +12961,13 @@
 								"Dragon crossbow"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Dwellberries",
+							"cards": [
+								"Dwellberries"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -12980,6 +12987,39 @@
 								"Arrav"
 							],
 							"type": "enemy"
+						},
+						{
+							"label": "Small Scarab",
+							"cards": [
+								"Small scarab"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Armoured Zombie",
+							"cards": [
+								"Armoured zombie"
+							],
+							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Elias White",
+							"cards": [
+								"Elias white"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Killerwatt",
+							"cards": [
+								"Killerwatt"
+							],
+							"type": "npc"
 						}
 					]
 				}
