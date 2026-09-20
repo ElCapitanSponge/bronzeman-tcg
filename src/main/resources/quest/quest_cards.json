@@ -895,18 +895,10 @@
 								"Avantoe seed",
 								"Kwuarm seed",
 								"Snapdragon seed",
-								"Cadentine seed",
+								"Cadantine seed",
 								"Lantadyme seed",
 								"Dwarf weed seed",
-								"Torstol seed",
-								"Potato seed",
-								"Onion seed",
-								"Cabbage seed",
-								"Tomato seed",
-								"Sweetcorn seed",
-								"Strawberry seed",
-								"Watermelon seed",
-								"Snap dragon seed"
+								"Torstol seed"
 							],
 							"type": "item"
 						},
@@ -971,8 +963,8 @@
 								"Iron bar",
 								"Steel bar",
 								"Mithril bar",
-								"Adamant bar",
-								"Rune bar"
+								"Adamantite bar",
+								"Runite bar"
 							],
 							"type": "item"
 						},
@@ -1467,18 +1459,6 @@
 							"type": "npc"
 						}
 					]
-				},
-				{
-					"label": "Enemies",
-					"requirements": [
-						{
-							"label": "Black Knight (optional)",
-							"cards": [
-								"Black knight"
-							],
-							"type": "enemy"
-						}
-					]
 				}
 			],
 			"notes": ""
@@ -1916,18 +1896,23 @@
 							"type": "item"
 						},
 						{
-							"label": "Mayor of Catherby",
-							"cards": [
-								"Mayor of Catherby"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Current Duck",
 							"cards": [
 								"Current Duck"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Mayor of Catherby",
+							"cards": [
+								"Mayor of Catherby"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -1945,13 +1930,6 @@
 							"label": "Knife",
 							"cards": [
 								"Knife"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Ghostspeak Amulet",
-							"cards": [
-								"Ghostspeak amulet"
 							],
 							"type": "item"
 						}
@@ -1982,7 +1960,7 @@
 								"Steel nails",
 								"Black nails",
 								"Mithril nails",
-								"Adamant nails",
+								"Adamantite nails",
 								"Rune nails",
 								"Dragon nails"
 							],
@@ -2968,7 +2946,7 @@
 						{
 							"label": "Oziach",
 							"cards": [
-								"Oziarch"
+								"Oziach"
 							],
 							"type": "npc"
 						},
@@ -4203,25 +4181,11 @@
 								"Zamorak mage"
 							],
 							"type": "npc"
-						},
-						{
-							"label": "Aubury (optional)",
-							"cards": [
-								"Aubury"
-							],
-							"type": "npc"
-						},
-						{
-							"label": "Archmage Sedridor (optional)",
-							"cards": [
-								"Archmage sedridor"
-							],
-							"type": "npc"
 						}
 					]
 				}
 			],
-			"notes": "Brimstail and Wizard Distentor (wizrds guild) can also be used for teleports"
+			"notes": "Aubury, Archmage Sedridor, Brimstail and Wizard Distentor can also be used for teleports. These optional routes do not add card requirements."
 		},
 		{
 			"name": "Ernest the Chicken",
@@ -4236,18 +4200,6 @@
 								"Spade"
 							],
 							"type": "item"
-						}
-					]
-				},
-				{
-					"label": "Enemies",
-					"requirements": [
-						{
-							"label": "Skeleton (optional)",
-							"cards": [
-								"Skeleton"
-							],
-							"type": "enemy"
 						}
 					]
 				},
@@ -5161,13 +5113,6 @@
 								"Goblin generals"
 							],
 							"type": "npc"
-						},
-						{
-							"label": "Wyson the Gardener (optional)",
-							"cards": [
-								"Wyson the gardener"
-							],
-							"type": "npc"
 						}
 					]
 				}
@@ -5544,25 +5489,9 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Ghostspeak Amulet / Morytania legs",
+							"label": "Morytania legs",
 							"cards": [
-								"Ghostspeak amulet",
 								"Morytania legs"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Ring of Shadows (optional)",
-							"cards": [
-								"Ring of shadows"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Dramen/Lunar Staff",
-							"cards": [
-								"Dramen staff",
-								"Lunar staff"
 							],
 							"type": "item"
 						}
@@ -5609,7 +5538,7 @@
 					]
 				}
 			],
-			"notes": "Ring of Shadows is not required if you have a Ring of Visibility"
+			"notes": "Optional and untracked quest items do not add card requirements."
 		},
 		{
 			"name": "Horror from the Deep",
@@ -7113,7 +7042,7 @@
 								"Iron dagger",
 								"Steel dagger",
 								"Black dagger",
-								"Mithirl dagger",
+								"Mithril dagger",
 								"Adamant dagger",
 								"Rune dagger",
 								"Dragon dagger"
@@ -7133,9 +7062,9 @@
 							"type": "enemy"
 						},
 						{
-							"label": "Kolodian",
+							"label": "Kolodion",
 							"cards": [
-								"Kolodian"
+								"Kolodion"
 							],
 							"type": "enemy"
 						}
@@ -8695,20 +8624,6 @@
 							"label": "Yellow dye",
 							"cards": [
 								"Yellow dye"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Onions (optional)",
-							"cards": [
-								"onion"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Coins (optional)",
-							"cards": [
-								"Coins"
 							],
 							"type": "item"
 						},
@@ -13646,48 +13561,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Goshtspeak Amulet",
-							"cards": [
-								"Ghostspeak amulet"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Ghostly Boots",
-							"cards": [
-								"Ghostly boots"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Ghostly Cloak",
-							"cards": [
-								"Ghostly cloak"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Ghostly Gloves",
-							"cards": [
-								"Ghostly gloves"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Ghostly Hood",
-							"cards": [
-								"Ghostly hood"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Shostly Robe",
-							"cards": [
-								"Ghostly robe"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Severed Leg",
 							"cards": [
 								"Severed leg"
@@ -14377,18 +14250,6 @@
 			"name": "The Restless Ghost",
 			"miniquest": false,
 			"sections": [
-				{
-					"label": "Items",
-					"requirements": [
-						{
-							"label": "Ghostspeak Amulet",
-							"cards": [
-								"Ghostspeak amulet"
-							],
-							"type": "item"
-						}
-					]
-				},
 				{
 					"label": "Enemies",
 					"requirements": [

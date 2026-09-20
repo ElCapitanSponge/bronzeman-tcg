@@ -130,6 +130,39 @@ public class QuestCatalogTest
 		Assert.assertTrue(catalog.getQuestsForCard("Ode to eternity").isEmpty());
 	}
 
+	@Test
+	public void indexesExplicitNpcLabelsAndOmitsNonGatingMergedRequirements()
+	{
+		QuestCatalog catalog = new QuestCatalog(new Gson());
+		List<String> dragonSlayerNpcs = catalog.getQuestMonsterCards()
+			.get("Dragon Slayer I");
+
+		Assert.assertTrue(dragonSlayerNpcs.contains("Oziach"));
+		Assert.assertTrue(dragonSlayerNpcs.contains("General Bentnoze"));
+		Assert.assertFalse(dragonSlayerNpcs.contains("Goblin generals"));
+		Assert.assertTrue(catalog.getQuestsForCard("Cadantine seed")
+			.contains("Barbarian Training"));
+		Assert.assertTrue(catalog.getQuestsForCard("Adamantite bar")
+			.contains("Barbarian Training"));
+		Assert.assertTrue(catalog.getQuestsForCard("Adamantite nails")
+			.contains("Daddy's Home"));
+		Assert.assertTrue(catalog.getQuestsForCard("Oziach")
+			.contains("Dragon Slayer I"));
+		Assert.assertTrue(catalog.getQuestsForCard("Mithril dagger")
+			.contains("Mage Arena I"));
+		Assert.assertTrue(catalog.getQuestsForCard("Kolodion")
+			.contains("Mage Arena I"));
+		Assert.assertTrue(catalog.getQuestMonsterCards().get("Current Affairs")
+			.contains("Mayor of Catherby"));
+
+		Assert.assertTrue(catalog.getQuestsForCard("Cadentine seed").isEmpty());
+		Assert.assertTrue(catalog.getQuestsForCard("Adamant bar").isEmpty());
+		Assert.assertTrue(catalog.getQuestsForCard("Oziarch").isEmpty());
+		Assert.assertTrue(catalog.getQuestsForCard("Ghostspeak amulet").isEmpty());
+		Assert.assertTrue(catalog.getQuestsForCard("Ring of shadows").isEmpty());
+		Assert.assertTrue(catalog.getQuestsForCard("Wyson the gardener").isEmpty());
+	}
+
 	private static QuestCatalog.QuestEntry quest(QuestCatalog catalog, String name)
 	{
 		for (QuestCatalog.QuestEntry entry : catalog.getQuests())
