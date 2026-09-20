@@ -2074,6 +2074,13 @@
 								"Hammer"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Ghostspeak Amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
 						}
 					]
 				},
