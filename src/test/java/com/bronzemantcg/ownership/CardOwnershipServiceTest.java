@@ -255,6 +255,79 @@ public class CardOwnershipServiceTest
 	}
 
 	@Test
+	public void betaParentUnlocksParentAndVariantsWithoutPluginMessageOwnership()
+	{
+		TcgOwnershipSnapshot emptyV1 = TcgOwnershipSnapshot.fromApi(
+			Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), null);
+		BetaCardUnlockSource.View beta = new BetaCardUnlockSource.View(1L,
+			Collections.singleton("sapphire"), Collections.emptySet());
+
+		assertStatus(CardOwnershipService.Status.OWNED,
+			service.decide(CardEntityKind.ITEM, 1607, "Sapphire", emptyV1,
+				beta, null, null));
+		assertStatus(CardOwnershipService.Status.OWNED,
+			service.decide(CardEntityKind.ITEM, 1623, "Uncut sapphire", emptyV1,
+				beta, null, null));
+		assertStatus(CardOwnershipService.Status.OWNED,
+			service.decideCard(CardEntityKind.ITEM, "Sapphire", emptyV1,
+				beta, null, null));
+		assertTrue(service.isCollectedCard(CardEntityKind.ITEM,
+			"Sapphire", emptyV1, beta, null));
+	}
+
+	@Test
+	public void clearingBetaDoesNotRemoveCurrentApiOwnership()
+	{
+		BetaCardUnlockSource.View noBeta = new BetaCardUnlockSource.View(2L,
+			Collections.emptySet(), Collections.emptySet());
+		TcgOwnershipSnapshot apiOwned = TcgOwnershipSnapshot.fromApi(
+			Collections.singletonList("Sapphire"), Collections.singletonList(1607),
+			Collections.emptyList(), null);
+		TcgOwnershipSnapshot apiEmpty = TcgOwnershipSnapshot.fromApi(
+			Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), null);
+
+		assertStatus(CardOwnershipService.Status.OWNED,
+			service.decide(CardEntityKind.ITEM, 1607, "Sapphire", apiOwned,
+				noBeta, null, null));
+		assertStatus(CardOwnershipService.Status.LOCKED,
+			service.decide(CardEntityKind.ITEM, 1607, "Sapphire", apiEmpty,
+				noBeta, null, null));
+	}
+
+	@Test
+	public void unknownBetaParentCannotUnlockTrackedCards()
+	{
+		TcgOwnershipSnapshot emptyV1 = TcgOwnershipSnapshot.fromApi(
+			Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), null);
+		BetaCardUnlockSource.View beta = new BetaCardUnlockSource.View(1L,
+			Collections.singleton("future beta card"), Collections.emptySet());
+
+		assertStatus(CardOwnershipService.Status.LOCKED,
+			service.decide(CardEntityKind.ITEM, 1607, "Sapphire", emptyV1,
+				beta, null, null));
+	}
+
+	@Test
+	public void reviewedBetaParentFollowsAnActiveV1Rename()
+	{
+		CardIdentity renamed = new CardIdentity(CardEntityKind.ITEM,
+			"Renamed water rune", Collections.singleton("Water rune"),
+			Collections.singleton(555));
+		ImmutableCardIdentityCatalog catalog = new ImmutableCardIdentityCatalog(
+			Collections.singletonList(new ImmutableCardIdentityCatalog.Entry(
+				renamed, Collections.singleton("Water rune"))));
+		CardOwnershipService renamedService = new CardOwnershipService(new CardResolver(catalog));
+		TcgOwnershipSnapshot emptyV1 = TcgOwnershipSnapshot.fromApi(
+			Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), null);
+		BetaCardUnlockSource.View beta = new BetaCardUnlockSource.View(1L,
+			Collections.singleton("water rune"), Collections.emptySet());
+
+		assertStatus(CardOwnershipService.Status.OWNED,
+			renamedService.decide(CardEntityKind.ITEM, 555, "Water rune", emptyV1,
+				beta, null, null));
+	}
+
+	@Test
 	public void ambiguousLegacyAndEntityNamesCannotBridgeMissingIds()
 	{
 		CardIdentity firstItem = new CardIdentity(CardEntityKind.ITEM, "First item",

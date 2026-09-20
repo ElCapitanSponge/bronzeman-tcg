@@ -135,8 +135,8 @@ final class SidePanelSettingMetadata
 				+ "<br>Ordinary NPC options remain controlled by NPC Locks."
 				+ "<br>The click is still blocked and chat explains which cards are missing."));
 		entries.add(setting(Section.BETA_CARDS, "showBetaCollectionTab", "Show Beta tab",
-			"Show the confirmed personal Beta collection in the side panel."
-				+ "<br>Hiding the tab does not delete or change the cached Beta names."));
+			"Show the cached personal Beta collection in the side panel."
+				+ "<br>Hiding the tab does not delete the cache or change Beta-derived unlocks."));
 
 		entries.add(setting(Section.VISUALS, "lockedItemMarkMode", "Locked Item Indicator",
 			"Fade items in your inventory and bank while their card is uncollected."

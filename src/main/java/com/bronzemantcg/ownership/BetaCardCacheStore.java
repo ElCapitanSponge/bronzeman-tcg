@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.client.RuneLite;
 
-/** Versioned profile-keyed disk persistence for validated Beta-name classifications. */
+/** Versioned profile-keyed disk persistence for validated historical Beta ownership names. */
 @Singleton
 public final class BetaCardCacheStore
 {

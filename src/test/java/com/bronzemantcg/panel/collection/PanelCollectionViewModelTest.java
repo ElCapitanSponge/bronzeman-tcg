@@ -3,6 +3,7 @@ package com.bronzemantcg.panel.collection;
 import com.bronzemantcg.LiveV1CatalogTestSupport;
 import com.bronzemantcg.ownership.ActiveCardIdentityCatalog;
 import com.bronzemantcg.ownership.BundledCardIdentityCatalog;
+import com.bronzemantcg.ownership.BetaCardUnlockSource;
 import com.bronzemantcg.ownership.CardEntityKind;
 import com.bronzemantcg.ownership.CardIdentity;
 import com.bronzemantcg.ownership.ImmutableCardIdentityCatalog;
@@ -97,6 +98,34 @@ public class PanelCollectionViewModelTest
 			state.getStatus(card(view, CardEntityKind.ITEM, "Water rune")));
 		assertEquals(PanelCollectionViewModel.Status.SHARED,
 			state.getStatus(card(view, CardEntityKind.NPC, "Promoted NPC")));
+	}
+
+	@Test
+	public void betaParentIsPersonalOwnershipWithoutPluginMessageAndBeatsShared()
+	{
+		PanelCollectionViewModel view = view();
+		BetaCardUnlockSource.View beta = new BetaCardUnlockSource.View(1L,
+			Set.of("water rune"), Collections.emptySet());
+		PanelCollectionViewModel.State state = view.prepare(
+			emptyOwnership(), beta, Set.of("Water rune"));
+
+		assertEquals(1, state.getOwnedItems());
+		assertEquals(PanelCollectionViewModel.Status.OWNED,
+			state.getStatus(card(view, CardEntityKind.ITEM, "Water rune")));
+		assertEquals(Set.of("water rune"), state.getOwnedCardNamesLowerCase());
+	}
+
+	@Test
+	public void unknownBetaParentDoesNotCollectAVisibleCard()
+	{
+		PanelCollectionViewModel view = view();
+		BetaCardUnlockSource.View beta = new BetaCardUnlockSource.View(1L,
+			Set.of("future beta card"), Collections.emptySet());
+		PanelCollectionViewModel.State state = view.prepare(
+			emptyOwnership(), beta, Collections.emptySet());
+
+		assertEquals(0, state.getOwnedItems());
+		assertTrue(state.getOwnedCardNamesLowerCase().isEmpty());
 	}
 
 	@Test

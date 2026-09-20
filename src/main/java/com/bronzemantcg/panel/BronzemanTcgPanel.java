@@ -5,6 +5,7 @@ import com.bronzemantcg.catalog.QuestCatalog;
 import com.bronzemantcg.catalog.QuestRequirementCatalog;
 import com.bronzemantcg.interop.TcgCollectionReader;
 import com.bronzemantcg.ownership.BetaCardCacheService;
+import com.bronzemantcg.ownership.BetaCardUnlockSource;
 import com.bronzemantcg.ownership.CardEntityKind;
 import com.bronzemantcg.ownership.SharedUnlockStore;
 import com.bronzemantcg.ownership.TcgOwnershipSnapshot;
@@ -1098,12 +1099,20 @@ public class BronzemanTcgPanel extends PluginPanel
 			}
 		}
 
-		Set<String> owned = Collections.unmodifiableSet(
-			new HashSet<>(personalOwnership.getOwnedCardNamesLowerCase()));
-		Set<String> shared = new HashSet<>(sharedUnlockStore.getSharedCardNamesLowerCase());
+		BetaCardCacheService.State betaCache = betaCardCacheService.getState();
+		BetaCardUnlockSource.View betaUnlocks = betaCardCacheService.getBetaCardUnlocks();
+		Set<String> offeredShared = config.acceptSharedUnlocks()
+			? sharedUnlockStore.getSharedCardNamesLowerCase() : Collections.emptySet();
+		PanelCollectionViewModel.State collection = collectionViewModel.prepare(
+			personalOwnership, betaUnlocks, offeredShared);
+		Set<String> effectiveOwned = new HashSet<>(
+			personalOwnership.getOwnedCardNamesLowerCase());
+		effectiveOwned.addAll(betaUnlocks.getParentNamesLowerCase());
+		effectiveOwned.addAll(collection.getOwnedCardNamesLowerCase());
+		Set<String> owned = Collections.unmodifiableSet(effectiveOwned);
+		Set<String> shared = new HashSet<>(offeredShared);
 		shared.removeAll(owned);
-		Set<String> visibleShared = config.acceptSharedUnlocks()
-			? Collections.unmodifiableSet(shared) : Collections.emptySet();
+		Set<String> visibleShared = Collections.unmodifiableSet(shared);
 		// Readiness asks "can I do this", not "do I own the card", so it counts anything
 		// the plugin will never restrict: shared cards, the exempt list and the Coins
 		// toggle. Kept separate from `owned` because the row indicators still need to
@@ -1119,15 +1128,8 @@ public class BronzemanTcgPanel extends PluginPanel
 		boolean includeSlayerSuperiors = config.restrictSlayerSuperiors();
 		Set<String> completed = completedQuestNames;
 		QuestCatalog.RouteSelection route = questRoute;
-		BetaCardCacheService.State betaCache = betaCardCacheService.getState();
-		// The endpoint classifies Beta provenance; the PluginMessage remains the sole
-		// ownership source. Neither input can populate the Beta tab by itself.
-		Set<String> confirmedBetaNames = betaCardCacheService.confirmedOwnedNames(
-			personalOwnership, collectionReader.hasApiData());
-		PanelCollectionViewModel.State collection = collectionViewModel.prepare(
-			personalOwnership, visibleShared);
 		PanelBetaCollectionViewModel.State betaCollection = betaCollectionViewModel.prepare(
-			confirmedBetaNames, betaCache.getStatus());
+			betaCache.getBetaNamesLowerCase(), betaCache.getStatus());
 		PanelSharedCardsViewModel.State sharedCards = sharedCardsViewModel.prepare(
 			visibleShared, collection);
 
@@ -1135,8 +1137,7 @@ public class BronzemanTcgPanel extends PluginPanel
 			recentUnlocksTracker.getSharedRecent(),
 			Collections.unmodifiableSet(usableCards), includeSlayerSuperiors, completed, route,
 			realSkillLevels, questPoints, collection, betaCollection, sharedCards,
-			v1Presentation, currentNavigationState(v1Presentation),
-			collectionReader.hasApiData());
+			v1Presentation, currentNavigationState(v1Presentation));
 	}
 
 	private PreparedData prepareStaticData(boolean v1Capable)
@@ -2819,12 +2820,12 @@ public class BronzemanTcgPanel extends PluginPanel
 		betaCollectionList.add(mutedRow(String.format("%d/%d beta parents collected",
 			snapshot.betaCollection.getOwnedParents(), betaCollectionViewModel.getParentTotal())));
 		betaCollectionList.add(betaCacheStatusRow(
-			snapshot.betaCollection.getCacheStatus(), snapshot.pluginMessageAvailable));
+			snapshot.betaCollection.getCacheStatus()));
 		Set<String> unmatchedBetaNames = snapshot.betaCollection.getUnmatchedNames();
 		if (!unmatchedBetaNames.isEmpty() && showUnlockedBetaCollection.isSelected())
 		{
 			betaCollectionList.add(mutedRow(unmatchedBetaNames.size()
-				+ " confirmed Beta names outside the catalogue (not in totals)"));
+				+ " cached Beta names outside the catalogue (not in totals)"));
 			int shown = 0;
 			for (String name : unmatchedBetaNames)
 			{
@@ -3047,13 +3048,8 @@ public class BronzemanTcgPanel extends PluginPanel
 		}
 	}
 
-	private static JLabel betaCacheStatusRow(BetaCardCacheService.Status status,
-		boolean pluginMessageAvailable)
+	private static JLabel betaCacheStatusRow(BetaCardCacheService.Status status)
 	{
-		if (!pluginMessageAvailable)
-		{
-			return mutedRow("Beta ownership: waiting for OSRS TCG PluginMessage");
-		}
 		String text;
 		switch (status)
 		{
@@ -4019,7 +4015,6 @@ public class BronzemanTcgPanel extends PluginPanel
 		private final PanelSharedCardsViewModel.State sharedCards;
 		private final boolean v1Presentation;
 		private final PanelNavigationModel.State navigation;
-		private final boolean pluginMessageAvailable;
 
 		private PanelSnapshot(PreparedData data, Set<String> owned, Set<String> shared,
 			List<RecentUnlocksTracker.Unlock> recentUnlocks,
@@ -4030,8 +4025,7 @@ public class BronzemanTcgPanel extends PluginPanel
 			PanelCollectionViewModel.State collection,
 			PanelBetaCollectionViewModel.State betaCollection,
 			PanelSharedCardsViewModel.State sharedCards,
-			boolean v1Presentation, PanelNavigationModel.State navigation,
-			boolean pluginMessageAvailable)
+			boolean v1Presentation, PanelNavigationModel.State navigation)
 		{
 			this.realSkillLevels = realSkillLevels;
 			this.questPoints = questPoints;
@@ -4049,7 +4043,6 @@ public class BronzemanTcgPanel extends PluginPanel
 			this.sharedCards = sharedCards;
 			this.v1Presentation = v1Presentation;
 			this.navigation = navigation;
-			this.pluginMessageAvailable = pluginMessageAvailable;
 		}
 	}
 

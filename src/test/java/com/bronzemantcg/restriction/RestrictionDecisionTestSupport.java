@@ -1,6 +1,7 @@
 package com.bronzemantcg.restriction;
 
 import com.bronzemantcg.ownership.BundledCardIdentityCatalog;
+import com.bronzemantcg.ownership.BetaCardUnlockSource;
 import com.bronzemantcg.ownership.CardOwnershipService;
 import com.bronzemantcg.ownership.CardResolver;
 import com.bronzemantcg.ownership.TcgOwnershipSnapshot;
@@ -33,19 +34,24 @@ public final class RestrictionDecisionTestSupport
 		LongSupplier catalogRevision)
 	{
 		MutableSources sources = new MutableSources();
+		MutableBetaUnlockSource betaUnlocks = new MutableBetaUnlockSource();
 		RestrictionDecisionService service =
-			new RestrictionDecisionService(sources, ownershipService, catalogRevision);
-		return new Harness(sources, service);
+			new RestrictionDecisionService(sources, ownershipService, betaUnlocks,
+				catalogRevision);
+		return new Harness(sources, betaUnlocks, service);
 	}
 
 	public static final class Harness
 	{
 		private final MutableSources sources;
+		private final MutableBetaUnlockSource betaUnlocks;
 		private final RestrictionDecisionService service;
 
-		private Harness(MutableSources sources, RestrictionDecisionService service)
+		private Harness(MutableSources sources, MutableBetaUnlockSource betaUnlocks,
+			RestrictionDecisionService service)
 		{
 			this.sources = sources;
+			this.betaUnlocks = betaUnlocks;
 			this.service = service;
 		}
 
@@ -75,6 +81,20 @@ public final class RestrictionDecisionTestSupport
 		public Harness shared(Set<String> shared)
 		{
 			sources.shared = shared;
+			return this;
+		}
+
+		public Harness betaItems(Set<String> parentNames)
+		{
+			betaUnlocks.items = parentNames;
+			betaUnlocks.update();
+			return this;
+		}
+
+		public Harness betaNpcs(Set<String> parentNames)
+		{
+			betaUnlocks.npcs = parentNames;
+			betaUnlocks.update();
 			return this;
 		}
 
@@ -123,6 +143,25 @@ public final class RestrictionDecisionTestSupport
 		public int getItemNameCalls()
 		{
 			return sources.itemNameCalls;
+		}
+	}
+
+	private static final class MutableBetaUnlockSource implements BetaCardUnlockSource
+	{
+		private long revision;
+		private Set<String> items = Collections.emptySet();
+		private Set<String> npcs = Collections.emptySet();
+		private View view = new View(0L, items, npcs);
+
+		@Override
+		public View getBetaCardUnlocks()
+		{
+			return view;
+		}
+
+		private void update()
+		{
+			view = new View(++revision, items, npcs);
 		}
 	}
 

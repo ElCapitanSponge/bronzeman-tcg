@@ -3,6 +3,7 @@ package com.bronzemantcg.interop;
 import com.bronzemantcg.ownership.CardEntityKind;
 import com.bronzemantcg.ownership.CardOwnershipService;
 import com.bronzemantcg.ownership.CardResolver;
+import com.bronzemantcg.ownership.BetaCardUnlockSource;
 import com.bronzemantcg.ownership.TcgOwnershipSnapshot;
 import com.bronzemantcg.support.SimulatedV1CardIdentityCatalog;
 import java.util.Arrays;
@@ -65,6 +66,25 @@ public class OsrsTcgV1SimulationTest
 			ownershipService.decide(CardEntityKind.ITEM, 12730, "Water rune pack",
 				ownership, null, null));
 		assertTrue(ownershipService.isCollectedCard("Water rune", ownership, null));
+	}
+
+	@Test
+	public void betaCacheUnlocksParentAfterPluginMessageDropsBetaCards()
+	{
+		accept(payload(Collections.emptyList(), Collections.emptyList(),
+			Collections.emptyList(), null));
+		TcgOwnershipSnapshot v1Only = collectionReader.getOwnershipSnapshot();
+		BetaCardUnlockSource.View beta = new BetaCardUnlockSource.View(1L,
+			Collections.singleton("water rune"), Collections.emptySet());
+
+		assertStatus(CardOwnershipService.Status.OWNED,
+			ownershipService.decideCard("Water rune", v1Only, beta, null, null));
+		assertStatus(CardOwnershipService.Status.OWNED,
+			ownershipService.decide(CardEntityKind.ITEM, 555, "Water rune",
+				v1Only, beta, null, null));
+		assertStatus(CardOwnershipService.Status.OWNED,
+			ownershipService.decide(CardEntityKind.ITEM, 12730, "Water rune pack",
+				v1Only, beta, null, null));
 	}
 
 	@Test

@@ -5,6 +5,8 @@ import com.bronzemantcg.interop.TcgCollectionReader;
 import com.bronzemantcg.ownership.CardEntityKind;
 import com.bronzemantcg.ownership.CardOwnershipService;
 import com.bronzemantcg.ownership.ActiveCardIdentityCatalog;
+import com.bronzemantcg.ownership.BetaCardCacheService;
+import com.bronzemantcg.ownership.BetaCardUnlockSource;
 import com.bronzemantcg.ownership.SharedUnlockStore;
 import com.bronzemantcg.ownership.TcgOwnershipSnapshot;
 import java.util.Collections;
@@ -41,6 +43,7 @@ public final class RestrictionDecisionService
 
 	private final Sources sources;
 	private final CardOwnershipService ownershipService;
+	private final BetaCardUnlockSource betaCardUnlockSource;
 	private final LongSupplier catalogRevision;
 	private Set<String> effectiveExemptions = Collections.emptySet();
 	private Set<String> effectiveExemptionsBase;
@@ -53,19 +56,20 @@ public final class RestrictionDecisionService
 	public RestrictionDecisionService(Client client, BronzemanTcgConfig config,
 		TcgCollectionReader collectionReader, CardOwnershipService ownershipService,
 		SharedUnlockStore sharedUnlockStore, ExemptionList exemptionList,
-		ItemManager itemManager,
+		ItemManager itemManager, BetaCardCacheService betaCardCacheService,
 		ActiveCardIdentityCatalog activeCatalog)
 	{
 		this(new RuneLiteSources(client, config, collectionReader, sharedUnlockStore,
-			exemptionList, itemManager), ownershipService,
+			exemptionList, itemManager), ownershipService, betaCardCacheService,
 			activeCatalog::getRevision);
 	}
 
 	RestrictionDecisionService(Sources sources, CardOwnershipService ownershipService,
-		LongSupplier catalogRevision)
+		BetaCardUnlockSource betaCardUnlockSource, LongSupplier catalogRevision)
 	{
 		this.sources = sources;
 		this.ownershipService = ownershipService;
+		this.betaCardUnlockSource = betaCardUnlockSource;
 		this.catalogRevision = catalogRevision;
 	}
 
@@ -113,21 +117,24 @@ public final class RestrictionDecisionService
 	{
 		long revision;
 		TcgOwnershipSnapshot ownership;
+		BetaCardUnlockSource.View betaUnlocks;
 		Set<String> shared;
 		Set<String> exempt;
 		do
 		{
 			revision = catalogRevision.getAsLong();
 			ownership = sources.getOwnershipSnapshot();
+			betaUnlocks = betaCardUnlockSource.getBetaCardUnlocks();
 			shared = sharedCardNames();
 			exempt = effectiveRequirementExemptCardNames();
 		}
 		while (revision != catalogRevision.getAsLong());
 		ItemContext current = itemContext;
-		if (current == null || current.ownership != ownership || current.shared != shared
+		if (current == null || current.ownership != ownership
+			|| current.betaUnlocks != betaUnlocks || current.shared != shared
 			|| current.exempt != exempt || current.catalogRevision != revision)
 		{
-			current = new ItemContext(ownership, shared, exempt, revision);
+			current = new ItemContext(ownership, betaUnlocks, shared, exempt, revision);
 			itemContext = current;
 		}
 		return current;
@@ -157,7 +164,7 @@ public final class RestrictionDecisionService
 		}
 		CardOwnershipService.Decision decision = ownershipService.decide(
 			CardEntityKind.ITEM, sources.canonicalizeItemId(itemId), itemName,
-			context.ownership, context.shared, context.exempt);
+			context.ownership, context.betaUnlocks, context.shared, context.exempt);
 		return !decision.isAllowed() && decision.getIdentity() != null
 			? decision.getIdentity().getCardName() : null;
 	}
@@ -205,8 +212,9 @@ public final class RestrictionDecisionService
 		{
 			return false;
 		}
+		ItemContext context = getItemContext();
 		return !ownershipService.decide(CardEntityKind.NPC, npcId, name,
-			sources.getOwnershipSnapshot(), sharedCardNames(),
+			context.ownership, context.betaUnlocks, context.shared,
 			sources.getConfiguredExemptCardNames()).isAllowed();
 	}
 
@@ -215,7 +223,8 @@ public final class RestrictionDecisionService
 	{
 		ItemContext context = getItemContext();
 		return cardName -> ownershipService.decideCard(cardName,
-			context.ownership, context.shared, context.exempt).isAllowed();
+			context.ownership, context.betaUnlocks, context.shared,
+			context.exempt).isAllowed();
 	}
 
 	/** Stable ownership predicate for requirements authored in one entity namespace. */
@@ -223,7 +232,8 @@ public final class RestrictionDecisionService
 	{
 		ItemContext context = getItemContext();
 		return cardName -> ownershipService.decideCard(kind, cardName,
-			context.ownership, context.shared, context.exempt).isAllowed();
+			context.ownership, context.betaUnlocks, context.shared,
+			context.exempt).isAllowed();
 	}
 
 	private Set<String> sharedCardNames()
@@ -264,14 +274,17 @@ public final class RestrictionDecisionService
 	public static final class ItemContext
 	{
 		private final TcgOwnershipSnapshot ownership;
+		private final BetaCardUnlockSource.View betaUnlocks;
 		private final Set<String> shared;
 		private final Set<String> exempt;
 		private final long catalogRevision;
 
-		private ItemContext(TcgOwnershipSnapshot ownership, Set<String> shared,
+		private ItemContext(TcgOwnershipSnapshot ownership,
+			BetaCardUnlockSource.View betaUnlocks, Set<String> shared,
 			Set<String> exempt, long catalogRevision)
 		{
 			this.ownership = ownership;
+			this.betaUnlocks = betaUnlocks;
 			this.shared = shared;
 			this.exempt = exempt;
 			this.catalogRevision = catalogRevision;
