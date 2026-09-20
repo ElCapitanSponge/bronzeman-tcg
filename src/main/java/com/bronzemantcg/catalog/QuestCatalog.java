@@ -31,8 +31,8 @@ public class QuestCatalog
 {
 	private List<QuestEntry> quests = Collections.emptyList();
 	private List<QuestEntry> miniquests = Collections.emptyList();
-	// Quest name -> kill-required monster CARD names, including miniquests. Feeds
-	// QuestNpcIndex's quest-state override.
+	// Quest name -> quest-linked in-game NPC names, including miniquests. Enemy card
+	// names and explicit NPC labels feed QuestNpcIndex's quest-state override.
 	private Map<String, List<String>> questMonsterCards = Collections.emptyMap();
 	private Map<String, List<String>> cardQuests = Collections.emptyMap();
 
@@ -214,19 +214,31 @@ public class QuestCatalog
 		String questName, Requirement requirement, List<String> monsters)
 	{
 		indexQuestCards(questsByCard, questName, requirement.displayCards);
-		if ("enemy".equals(requirement.type) || "npc".equals(requirement.type))
+		if ("enemy".equals(requirement.type))
 		{
 			for (String card : requirement.displayCards)
 			{
-				if (!monsters.contains(card))
-				{
-					monsters.add(card);
-				}
+				indexQuestNpc(monsters, card);
 			}
+		}
+		else if ("npc".equals(requirement.type))
+		{
+			// A v1 card can represent several named NPCs (for example the
+			// Goblin generals parent). The requirement label is the in-game
+			// NPC identity; the card name remains the ownership requirement.
+			indexQuestNpc(monsters, requirement.label);
 		}
 		for (Requirement child : requirement.children)
 		{
 			indexRequirement(questsByCard, questName, child, monsters);
+		}
+	}
+
+	private static void indexQuestNpc(List<String> monsters, String npcName)
+	{
+		if (npcName != null && !npcName.trim().isEmpty() && !monsters.contains(npcName))
+		{
+			monsters.add(npcName);
 		}
 	}
 

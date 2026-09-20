@@ -123,6 +123,38 @@ public class RestrictionDecisionServiceTest
 	}
 
 	@Test
+	public void betaParentsUnlockItemsVariantsNpcsAndRequirements()
+	{
+		RestrictionDecisionTestSupport.Harness harness = RestrictionDecisionTestSupport.harness()
+			.ownership(emptyIds())
+			.betaItems(Set.of("sapphire"))
+			.betaNpcs(Set.of("monkey"));
+		RestrictionDecisionService service = harness.getService();
+
+		assertFalse(service.isItemLocked(1607, "Sapphire"));
+		assertFalse(service.isItemLocked(1623, "Uncut sapphire"));
+		assertFalse(service.isNpcLocked(2848, "Monkey"));
+		assertTrue(service.requirementOwnership(CardEntityKind.ITEM).test("Sapphire"));
+		assertTrue(service.requirementOwnership().test("Monkey"));
+	}
+
+	@Test
+	public void clearingBetaRelocksOnlyBetaDerivedOwnership()
+	{
+		RestrictionDecisionTestSupport.Harness harness = RestrictionDecisionTestSupport.harness()
+			.ownership(TcgOwnershipSnapshot.fromApi(Collections.singletonList("Dragon axe"),
+				Collections.singletonList(6739), Collections.emptyList(), null))
+			.betaItems(Set.of("sapphire"));
+		RestrictionDecisionService service = harness.getService();
+
+		assertFalse(service.isItemLocked(1607, "Sapphire"));
+		assertFalse(service.isItemLocked(6739, "Dragon axe"));
+		harness.betaItems(Collections.emptySet());
+		assertTrue(service.isItemLocked(1607, "Sapphire"));
+		assertFalse(service.isItemLocked(6739, "Dragon axe"));
+	}
+
+	@Test
 	public void permanentNpcExemptionsBypassCardOwnership()
 	{
 		RestrictionDecisionService service = RestrictionDecisionTestSupport.harness()
@@ -212,6 +244,22 @@ public class RestrictionDecisionServiceTest
 
 		harness.ownership(TcgOwnershipSnapshot.namesOnly(Set.of("dragon axe")));
 		assertFalse(service.isItemLocked(6739));
+		assertEquals(2, harness.getItemNameCalls());
+	}
+
+	@Test
+	public void itemIdCacheInvalidatesWithBetaRevision()
+	{
+		RestrictionDecisionTestSupport.Harness harness = RestrictionDecisionTestSupport.harness()
+			.ownership(emptyIds())
+			.itemName(1607, "Sapphire");
+		RestrictionDecisionService service = harness.getService();
+
+		assertTrue(service.isItemLocked(1607));
+		assertEquals(1, harness.getItemNameCalls());
+
+		harness.betaItems(Set.of("sapphire"));
+		assertFalse(service.isItemLocked(1607));
 		assertEquals(2, harness.getItemNameCalls());
 	}
 

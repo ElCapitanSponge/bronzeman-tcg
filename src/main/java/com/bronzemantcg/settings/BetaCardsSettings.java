@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.runelite.client.ui.ColorScheme;
 
-/** Explicit lookup controls and status for the profile-scoped Beta-name cache. */
+/** Explicit lookup controls and status for the profile-scoped Beta ownership cache. */
 public final class BetaCardsSettings
 {
 	private static final DateTimeFormatter SAVED_AT_FORMAT =
@@ -102,9 +102,9 @@ public final class BetaCardsSettings
 
 	private void confirmClear()
 	{
-		String text = "Clear Bronzeman's cached Beta-name classification for the active profile?\n"
-			+ "The cache can be recreated with another explicit refresh.\n"
-			+ "OSRS TCG ownership and the PluginMessage are not changed.";
+		String text = "Clear Bronzeman's cached Beta cards for the active profile?\n"
+			+ "This removes Beta-derived parent unlocks until another explicit refresh.\n"
+			+ "Current OSRS TCG PluginMessage ownership and shared unlocks are not changed.";
 		if (JOptionPane.showConfirmDialog(panel, text, "Clear Cached Beta Cards?",
 			JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.OK_OPTION)
 		{

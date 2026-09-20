@@ -40,6 +40,9 @@ public class QuestNpcIndex
 	// currently just the CotS Guards (Mark option).
 	private static final Map<String, Quest> INTERACTION_NPCS =
 		Map.of("guard", Quest.CHILDREN_OF_THE_SUN);
+	// Generic names cannot safely identify one quest NPC. Children of the Sun's
+	// Guard is handled explicitly above because that interaction has its own rule.
+	private static final Set<String> NON_UNIQUE_NPC_NAMES = Set.of("guard");
 
 	private final Map<String, List<Quest>> npcQuests = new HashMap<>();
 	private final Set<String> alwaysShown = new HashSet<>();
@@ -66,6 +69,10 @@ public class QuestNpcIndex
 				// NPC name is the bare prefix, same convention as the monster snapshot.
 				String npc = card.replaceAll("\\s*\\([^)]*\\)$", "").trim().toLowerCase(Locale.ROOT);
 				if (npc.isEmpty())
+				{
+					continue;
+				}
+				if (!isIndexableNpcName(npc))
 				{
 					continue;
 				}
@@ -125,5 +132,11 @@ public class QuestNpcIndex
 	private static String normalise(String name)
 	{
 		return name == null ? "" : name.trim().toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]", "");
+	}
+
+	static boolean isIndexableNpcName(String name)
+	{
+		return name != null && !NON_UNIQUE_NPC_NAMES.contains(
+			name.trim().toLowerCase(Locale.ROOT));
 	}
 }

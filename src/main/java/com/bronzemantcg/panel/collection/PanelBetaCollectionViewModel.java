@@ -148,15 +148,17 @@ public final class PanelBetaCollectionViewModel
 		return matches;
 	}
 
-	public State prepare(Set<String> confirmedBetaNames,
+	public State prepare(Set<String> cachedBetaNames,
 		BetaCardCacheService.Status cacheStatus)
 	{
+		Set<String> safeNames = cachedBetaNames == null
+			? Collections.emptySet() : cachedBetaNames;
 		Map<PanelCollectionLayout.BetaCollectionCard, PanelCollectionViewModel.Status>
 			parentStates = new LinkedHashMap<>();
 		Map<PanelCollectionLayout.BetaVariant, PanelCollectionViewModel.Status>
 			variantStates = new LinkedHashMap<>();
 		int ownedParents = 0;
-		Set<String> unmatched = new java.util.TreeSet<>(confirmedBetaNames);
+		Set<String> unmatched = new java.util.TreeSet<>(safeNames);
 		for (PanelCollectionLayout.BetaCollectionCard parent : parents)
 		{
 			boolean parentOwned = false;
@@ -164,7 +166,7 @@ public final class PanelBetaCollectionViewModel
 			{
 				unmatched.remove(normalize(variant.getName()));
 				boolean variantOwned = ownership.isBetaVariantOwnedByNames(
-					variant, confirmedBetaNames);
+					variant, safeNames);
 				PanelCollectionViewModel.Status status = variantOwned
 					? PanelCollectionViewModel.Status.OWNED
 					: PanelCollectionViewModel.Status.LOCKED;

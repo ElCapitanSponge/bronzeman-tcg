@@ -5,7 +5,6 @@ import com.bronzemantcg.interop.BetaCardLookupClient;
 import com.google.gson.Gson;
 import java.lang.reflect.Proxy;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -21,6 +20,7 @@ import org.junit.rules.TemporaryFolder;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class BetaCardCacheServiceTest
@@ -43,7 +43,7 @@ public class BetaCardCacheServiceTest
 		store = new BetaCardCacheStore(gson, temporaryFolder.newFolder().toPath());
 		lookup = new FakeLookupClient();
 		service = new BetaCardCacheService(null, null, config(), profiles, lookup, store,
-			gson, executor, () -> 1234L);
+			new BundledCardIdentityCatalog(gson), gson, executor, () -> 1234L);
 	}
 
 	@After
@@ -68,24 +68,23 @@ public class BetaCardCacheServiceTest
 		profiles.profile = "profile-two";
 		service.onProfileChanged();
 		assertEquals(BetaCardCacheService.Status.NO_CACHE, service.getState().getStatus());
+		assertTrue(service.getBetaCardUnlocks().getParentNamesLowerCase().isEmpty());
 	}
 
 	@Test
-	public void confirmedNamesRequireBothCacheAndCurrentPluginMessage() throws Exception
+	public void cachedBetaNamesProjectToReviewedParentsWithoutPluginMessage() throws Exception
 	{
 		store.save("profile-one", "Player One", 7, 999L,
-			List.of("Water rune pack", "Teak logs"));
+			List.of("Water rune pack", "Teak logs", "Crawling hand",
+				"Future beta card"));
 		service.startUp();
-		TcgOwnershipSnapshot pluginMessage = TcgOwnershipSnapshot.fromApi(
-			List.of("Water rune pack", "Book of the dead"),
-			Collections.emptyList(), Collections.emptyList(), null);
 
-		assertTrue(service.confirmedOwnedNames(pluginMessage, false).isEmpty());
-		assertEquals(Set.of("water rune pack"),
-			service.confirmedOwnedNames(pluginMessage, true));
-		assertTrue(service.confirmedOwnedNames(TcgOwnershipSnapshot.fromApi(
-			Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), null),
-			true).isEmpty());
+		BetaCardUnlockSource.View unlocks = service.getBetaCardUnlocks();
+		assertEquals(Set.of("water rune", "teak logs"),
+			unlocks.getParentNamesLowerCase(CardEntityKind.ITEM));
+		assertTrue(unlocks.getParentNamesLowerCase(CardEntityKind.NPC).isEmpty());
+		assertFalse(unlocks.getParentNamesLowerCase().contains("crawling hand"));
+		assertFalse(unlocks.getParentNamesLowerCase().contains("future beta card"));
 	}
 
 	@Test
@@ -101,6 +100,7 @@ public class BetaCardCacheServiceTest
 		assertEquals(0, service.getState().getCachedCount());
 		assertEquals(56, service.getState().getRevision());
 		assertTrue(store.load("profile-one").getCardNames().isEmpty());
+		assertTrue(service.getBetaCardUnlocks().getParentNamesLowerCase().isEmpty());
 	}
 
 	@Test
@@ -117,6 +117,8 @@ public class BetaCardCacheServiceTest
 
 		assertEquals(Set.of("water rune pack"), service.getState().getBetaNamesLowerCase());
 		assertEquals(List.of("Water rune pack"), store.load("profile-one").getCardNames());
+		assertEquals(Set.of("water rune"),
+			service.getBetaCardUnlocks().getParentNamesLowerCase(CardEntityKind.ITEM));
 	}
 
 	@Test
@@ -162,6 +164,23 @@ public class BetaCardCacheServiceTest
 		assertTrue(handle.isCancelled());
 		assertEquals(BetaCardCacheService.Status.FAILED, service.getState().getStatus());
 		assertFalse(service.getState().getBetaNamesLowerCase().isEmpty());
+		assertEquals(Set.of("water rune"),
+			service.getBetaCardUnlocks().getParentNamesLowerCase(CardEntityKind.ITEM));
+	}
+
+	@Test
+	public void clearRemovesRawNamesAndProjectedUnlocks() throws Exception
+	{
+		store.save("profile-one", "Player One", 7, 999L,
+			List.of("Water rune pack"));
+		service.startUp();
+
+		service.clear();
+
+		assertEquals(BetaCardCacheService.Status.NO_CACHE, service.getState().getStatus());
+		assertTrue(service.getState().getBetaNamesLowerCase().isEmpty());
+		assertTrue(service.getBetaCardUnlocks().getParentNamesLowerCase().isEmpty());
+		assertNull(store.load("profile-one"));
 	}
 
 	private void waitForStatus(BetaCardCacheService.Status expected) throws Exception

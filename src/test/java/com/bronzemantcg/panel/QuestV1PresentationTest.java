@@ -82,18 +82,54 @@ public class QuestV1PresentationTest
 	}
 
 	@Test
-	public void ambiguousUntypedIdentityFailsOpenAtNewCatalogueRevision()
+	public void typedNpcResolvesByKindWhileAmbiguousUntypedIdentityFailsOpen()
 	{
 		List<ImmutableCardIdentityCatalog.Entry> entries = Arrays.asList(
-			entry(CardEntityKind.ITEM, "Guard item", "Guard", 1),
-			entry(CardEntityKind.NPC, "Guard npc", "Guard", 2));
+			entry(CardEntityKind.ITEM, "Icefiend item", "Icefiend", 1),
+			entry(CardEntityKind.NPC, "Icefiend npc", "Icefiend", 2),
+			entry(CardEntityKind.ITEM, "Guard item", "Guard", 3),
+			entry(CardEntityKind.NPC, "Guard npc", "Guard", 4));
 		ImmutableCardIdentityCatalog ambiguous = new ImmutableCardIdentityCatalog(entries);
 		long revision = active.activate(ambiguous, entries, "ambiguous-test");
 
 		QuestV1Presentation.Data projected = presentation.project(source);
 		assertEquals(revision, projected.getRevision());
-		assertFalse(hasRequirement(quest(projected.getQuests(), "Children of the Sun"),
-			"Guard"));
+		assertFalse(hasRequirement(quest(projected.getQuests(), "RFD - Mountain Dwarf"),
+			"Icefiend - For Rock Cake"));
+		QuestCatalog.Requirement guard = requirement(
+			quest(projected.getQuests(), "Children of the Sun"),
+			"Guard (marked during the quest)");
+		assertEquals("npc", guard.type);
+		assertEquals(List.of("Guard npc"), guard.displayCards);
+	}
+
+	@Test
+	public void mergedQuestAlternativesRemainTrackedAtMaintainedRevision()
+	{
+		QuestV1Presentation.Data projected = presentation.project(source);
+		QuestCatalog.Requirement seeds = requirement(
+			quest(projected.getMiniquests(), "Barbarian Training"), "Any Herb Seed");
+		assertTrue(seeds.displayCards.contains("Cadantine seed"));
+		assertTrue(seeds.displayCards.contains("Snapdragon seed"));
+		assertFalse(seeds.displayCards.contains("Potato seed"));
+
+		QuestCatalog.Requirement bars = requirement(
+			quest(projected.getMiniquests(), "Barbarian Training"), "Two metal bars");
+		assertTrue(bars.displayCards.contains("Adamantite bar"));
+		assertTrue(bars.displayCards.contains("Runite bar"));
+
+		assertTrue(hasRequirement(quest(projected.getMiniquests(), "Daddy's Home"),
+			"Any nails"));
+		assertTrue(hasRequirement(quest(projected.getMiniquests(), "Mage Arena I"),
+			"Knife or slash weapon"));
+		assertEquals(List.of("Oziach"), requirement(
+			quest(projected.getQuests(), "Dragon Slayer I"), "Oziach").displayCards);
+		assertEquals(List.of("Kolodion"), requirement(
+			quest(projected.getMiniquests(), "Mage Arena I"), "Kolodion").displayCards);
+		QuestCatalog.Requirement mayor = requirement(
+			quest(projected.getQuests(), "Current Affairs"), "Mayor of Catherby");
+		assertEquals("npc", mayor.type);
+		assertEquals(List.of("Mayor of Catherby"), mayor.displayCards);
 	}
 
 	private static ImmutableCardIdentityCatalog.Entry entry(CardEntityKind kind,

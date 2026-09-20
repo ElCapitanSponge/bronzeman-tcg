@@ -377,7 +377,8 @@ public interface BronzemanTcgConfig extends Config
 		name = "Allow Beta player lookup",
 		description = "Allows the Refresh Beta Cards button to look up your public OSRS TCG album."
 			+ "<br>No request is made automatically. You may disable public album sharing again after "
-			+ "Bronzeman confirms the names were saved.",
+			+ "Bronzeman confirms the names were saved. Saved Beta names provide historical parent unlocks "
+			+ "until you clear them.",
 		warning = "When you click Refresh Beta Cards, this sends your connection IP address and "
 			+ "RuneScape display name to osrs-tcg.net, a 3rd-party server not controlled or "
 			+ "verified by RuneLite developers.",
@@ -450,8 +451,8 @@ public interface BronzemanTcgConfig extends Config
 	@ConfigItem(
 		keyName = "showBetaCollectionTab",
 		name = "Show Beta tab",
-		description = "Show the confirmed personal Beta collection in the side panel."
-			+ "<br>Hiding the tab does not delete or change the cached Beta names.",
+		description = "Show the cached personal Beta collection in the side panel."
+			+ "<br>Hiding the tab does not delete the cache or change Beta-derived unlocks.",
 		section = generalSettings,
 		position = 11
 	)

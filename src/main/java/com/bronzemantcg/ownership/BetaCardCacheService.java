@@ -9,10 +9,13 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicReference;
@@ -25,12 +28,9 @@ import net.runelite.api.Player;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 
-/**
- * Profile-scoped Beta-name classification. The cache never grants ownership: callers must
- * intersect these names with the current OSRS TCG PluginMessage ownership snapshot.
- */
+/** Profile-scoped historical Beta ownership backed only by explicit player refreshes. */
 @Singleton
-public final class BetaCardCacheService
+public final class BetaCardCacheService implements BetaCardUnlockSource
 {
 	static final String PRIVATE_ALBUM_MESSAGE = "Please turn on public album sharing in OSRS TCG, "
 		+ "then refresh again. You can turn sharing off after Bronzeman saves the Beta names.";
@@ -44,6 +44,7 @@ public final class BetaCardCacheService
 	private final Gson gson;
 	private final ScheduledExecutorService executor;
 	private final LongSupplier clock;
+	private final Map<String, ParentResolution> parentByBetaName;
 	private final AtomicReference<BetaCardLookupClient.FetchHandle> activeFetch =
 		new AtomicReference<>();
 
@@ -51,22 +52,26 @@ public final class BetaCardCacheService
 	private long generation;
 	private String loadedProfile;
 	private State state = State.noProfile();
+	private BetaCardUnlockSource.View gameplayView;
 	private volatile Listener listener = Listener.NONE;
 
 	@Inject
 	public BetaCardCacheService(Client client, ClientThread clientThread,
 		BronzemanTcgConfig config, ConfigManager configManager,
 		BetaCardLookupClient lookupClient, BetaCardCacheStore cacheStore,
-		Gson gson, ScheduledExecutorService executor)
+		BundledCardIdentityCatalog bundledCatalog, Gson gson,
+		ScheduledExecutorService executor)
 	{
 		this(client, clientThread, config, new ConfigManagerProfileAccess(configManager),
-			lookupClient, cacheStore, gson, executor, System::currentTimeMillis);
+			lookupClient, cacheStore, bundledCatalog, gson, executor,
+			System::currentTimeMillis);
 	}
 
 	BetaCardCacheService(Client client, ClientThread clientThread,
 		BronzemanTcgConfig config, ProfileAccess profileAccess,
 		BetaCardLookupClient lookupClient, BetaCardCacheStore cacheStore,
-		Gson gson, ScheduledExecutorService executor, LongSupplier clock)
+		BundledCardIdentityCatalog bundledCatalog, Gson gson,
+		ScheduledExecutorService executor, LongSupplier clock)
 	{
 		this.client = client;
 		this.clientThread = clientThread;
@@ -77,6 +82,8 @@ public final class BetaCardCacheService
 		this.gson = gson;
 		this.executor = executor;
 		this.clock = clock;
+		this.parentByBetaName = buildParentIndex(bundledCatalog);
+		this.gameplayView = emptyGameplayView(0L);
 	}
 
 	public void setListener(Listener listener)
@@ -107,6 +114,7 @@ public final class BetaCardCacheService
 			generation++;
 			loadedProfile = null;
 			state = State.noProfile();
+			gameplayView = emptyGameplayView(generation);
 		}
 		cancelActiveFetch();
 	}
@@ -146,6 +154,7 @@ public final class BetaCardCacheService
 			if (!running || blank(profile))
 			{
 				state = State.noProfile();
+				gameplayView = emptyGameplayView(generation);
 			}
 			else
 			{
@@ -153,10 +162,14 @@ public final class BetaCardCacheService
 				{
 					BetaCardCacheStore.Record record = cacheStore.load(profile);
 					state = record == null ? State.noCache() : State.cached(record);
+					gameplayView = record == null
+						? emptyGameplayView(generation)
+						: projectGameplayView(state.betaNamesLowerCase, generation);
 				}
 				catch (IOException | RuntimeException ex)
 				{
 					state = State.corrupt();
+					gameplayView = emptyGameplayView(generation);
 				}
 			}
 		}
@@ -290,11 +303,12 @@ public final class BetaCardCacheService
 			generation++;
 			state = State.cached(lookup.displayName, lookup.revision,
 				savedAt, lookup.cardNames);
+			gameplayView = projectGameplayView(state.betaNamesLowerCase, generation);
 		}
 		notifyChanged();
 	}
 
-	/** Clears only Bronzeman's replaceable local classification cache. */
+	/** Clears only Bronzeman's replaceable local historical Beta ownership cache. */
 	public void clear()
 	{
 		String profile;
@@ -311,6 +325,7 @@ public final class BetaCardCacheService
 			{
 				cacheStore.delete(profile);
 				state = State.noCache("Cached Beta names were cleared.");
+				gameplayView = emptyGameplayView(generation);
 			}
 			catch (IOException | RuntimeException ex)
 			{
@@ -325,21 +340,79 @@ public final class BetaCardCacheService
 		return state;
 	}
 
-	/**
-	 * Returns only names confirmed by both the player endpoint and the current PluginMessage.
-	 * Cached endpoint data alone is classification evidence, never ownership evidence.
-	 */
-	public synchronized Set<String> confirmedOwnedNames(TcgOwnershipSnapshot ownership,
-		boolean pluginMessageAvailable)
+	@Override
+	public synchronized BetaCardUnlockSource.View getBetaCardUnlocks()
 	{
-		if (!pluginMessageAvailable || ownership == null
-			|| state.betaNamesLowerCase.isEmpty())
+		return gameplayView;
+	}
+
+	private BetaCardUnlockSource.View projectGameplayView(Set<String> betaNames,
+		long revision)
+	{
+		Map<CardEntityKind, Set<String>> parents = new EnumMap<>(CardEntityKind.class);
+		for (CardEntityKind kind : CardEntityKind.values())
 		{
-			return Collections.emptySet();
+			parents.put(kind, new LinkedHashSet<>());
 		}
-		Set<String> confirmed = new LinkedHashSet<>(state.betaNamesLowerCase);
-		confirmed.retainAll(ownership.getOwnedCardNamesLowerCase());
-		return Collections.unmodifiableSet(confirmed);
+		for (String betaName : betaNames)
+		{
+			ParentResolution resolution = parentByBetaName.get(normalizeCardName(betaName));
+			if (resolution != null)
+			{
+				parents.get(resolution.kind).add(resolution.parentNameLowerCase);
+			}
+		}
+		return new BetaCardUnlockSource.View(revision,
+			parents.get(CardEntityKind.ITEM), parents.get(CardEntityKind.NPC));
+	}
+
+	private BetaCardUnlockSource.View emptyGameplayView(long revision)
+	{
+		return new BetaCardUnlockSource.View(revision,
+			Collections.emptySet(), Collections.emptySet());
+	}
+
+	private static Map<String, ParentResolution> buildParentIndex(
+		BundledCardIdentityCatalog catalog)
+	{
+		if (catalog == null)
+		{
+			throw new IllegalArgumentException("bundledCatalog is required");
+		}
+		Map<String, ParentResolution> index = new HashMap<>();
+		Set<String> ambiguous = new HashSet<>();
+		for (ImmutableCardIdentityCatalog.Entry entry : catalog.getEntries())
+		{
+			CardIdentity identity = entry.getIdentity();
+			addParentName(index, ambiguous, identity.getCardName(), identity);
+			for (String legacyName : identity.getLegacyCardNames())
+			{
+				addParentName(index, ambiguous, legacyName, identity);
+			}
+		}
+		for (String name : ambiguous)
+		{
+			index.remove(name);
+		}
+		return Collections.unmodifiableMap(index);
+	}
+
+	private static void addParentName(Map<String, ParentResolution> index,
+		Set<String> ambiguous, String betaName, CardIdentity identity)
+	{
+		String normalized = normalizeCardName(betaName);
+		if (normalized.isEmpty() || ambiguous.contains(normalized))
+		{
+			return;
+		}
+		ParentResolution resolution = new ParentResolution(identity.getKind(),
+			normalizeCardName(identity.getCardName()));
+		ParentResolution previous = index.putIfAbsent(normalized, resolution);
+		if (previous != null && !previous.equals(resolution))
+		{
+			ambiguous.add(normalized);
+			index.remove(normalized);
+		}
 	}
 
 	private ValidatedLookup validateLookup(LookupDto dto, String requestedName)
@@ -447,7 +520,7 @@ public final class BetaCardCacheService
 		}
 		catch (RuntimeException ignored)
 		{
-			// A presentation listener must never invalidate cached classification state.
+			// A presentation listener must never invalidate cached Beta ownership state.
 		}
 	}
 
@@ -634,6 +707,40 @@ public final class BetaCardCacheService
 			this.displayName = displayName;
 			this.revision = revision;
 			this.cardNames = List.copyOf(cardNames);
+		}
+	}
+
+	private static final class ParentResolution
+	{
+		private final CardEntityKind kind;
+		private final String parentNameLowerCase;
+
+		private ParentResolution(CardEntityKind kind, String parentNameLowerCase)
+		{
+			this.kind = kind;
+			this.parentNameLowerCase = parentNameLowerCase;
+		}
+
+		@Override
+		public boolean equals(Object other)
+		{
+			if (this == other)
+			{
+				return true;
+			}
+			if (!(other instanceof ParentResolution))
+			{
+				return false;
+			}
+			ParentResolution resolution = (ParentResolution) other;
+			return kind == resolution.kind
+				&& parentNameLowerCase.equals(resolution.parentNameLowerCase);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return 31 * kind.hashCode() + parentNameLowerCase.hashCode();
 		}
 	}
 

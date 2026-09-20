@@ -1,5 +1,6 @@
 package com.bronzemantcg.ownership;
 
+import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Locale;
 import java.util.Set;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 @Singleton
 public final class CardOwnershipService
 {
+	private static final BetaCardUnlockSource.View NO_BETA_UNLOCKS =
+		new BetaCardUnlockSource.View(0L, Collections.emptySet(), Collections.emptySet());
 	private final CardResolver resolver;
 	private final Set<String> reportedFailOpenDecisions = ConcurrentHashMap.newKeySet();
 
@@ -25,9 +28,17 @@ public final class CardOwnershipService
 		TcgOwnershipSnapshot personalOwnership, Set<String> sharedCardNames,
 		Set<String> exemptCardNames)
 	{
+		return decide(kind, entityId, entityName, personalOwnership, NO_BETA_UNLOCKS,
+			sharedCardNames, exemptCardNames);
+	}
+
+	public Decision decide(CardEntityKind kind, int entityId, String entityName,
+		TcgOwnershipSnapshot personalOwnership, BetaCardUnlockSource.View betaUnlocks,
+		Set<String> sharedCardNames, Set<String> exemptCardNames)
+	{
 		CardResolver.Result resolved = resolver.resolve(kind, entityId, entityName);
-		return decideResolved(resolved, personalOwnership, sharedCardNames, exemptCardNames,
-			kind, entityId, entityName);
+		return decideResolved(resolved, personalOwnership, betaUnlocks, sharedCardNames,
+			exemptCardNames, kind, entityId, entityName);
 	}
 
 	/**
@@ -37,6 +48,14 @@ public final class CardOwnershipService
 	 */
 	public Decision decideCard(String cardName, TcgOwnershipSnapshot personalOwnership,
 		Set<String> sharedCardNames, Set<String> exemptCardNames)
+	{
+		return decideCard(cardName, personalOwnership, NO_BETA_UNLOCKS,
+			sharedCardNames, exemptCardNames);
+	}
+
+	public Decision decideCard(String cardName, TcgOwnershipSnapshot personalOwnership,
+		BetaCardUnlockSource.View betaUnlocks, Set<String> sharedCardNames,
+		Set<String> exemptCardNames)
 	{
 		CardResolver.Result item = resolver.resolveCardName(CardEntityKind.ITEM, cardName);
 		CardResolver.Result npc = resolver.resolveCardName(CardEntityKind.NPC, cardName);
@@ -53,7 +72,7 @@ public final class CardOwnershipService
 			logRequirementFailOpenOnce(cardName, Status.UNTRACKED);
 			return new Decision(Status.UNTRACKED, null);
 		}
-		return decideIdentity(resolved.getIdentity(), personalOwnership,
+		return decideIdentity(resolved.getIdentity(), personalOwnership, betaUnlocks,
 			sharedCardNames, exemptCardNames);
 	}
 
@@ -62,6 +81,14 @@ public final class CardOwnershipService
 		TcgOwnershipSnapshot personalOwnership, Set<String> sharedCardNames,
 		Set<String> exemptCardNames)
 	{
+		return decideCard(kind, cardName, personalOwnership, NO_BETA_UNLOCKS,
+			sharedCardNames, exemptCardNames);
+	}
+
+	public Decision decideCard(CardEntityKind kind, String cardName,
+		TcgOwnershipSnapshot personalOwnership, BetaCardUnlockSource.View betaUnlocks,
+		Set<String> sharedCardNames, Set<String> exemptCardNames)
+	{
 		CardResolver.Result resolved = resolver.resolveCardName(kind, cardName);
 		if (!resolved.isTracked())
 		{
@@ -69,7 +96,7 @@ public final class CardOwnershipService
 			logRequirementFailOpenOnce(kind, cardName, status);
 			return new Decision(status, null);
 		}
-		return decideIdentity(resolved.getIdentity(), personalOwnership,
+		return decideIdentity(resolved.getIdentity(), personalOwnership, betaUnlocks,
 			sharedCardNames, exemptCardNames);
 	}
 
@@ -80,6 +107,12 @@ public final class CardOwnershipService
 	 */
 	public boolean isCollectedCard(String cardName, TcgOwnershipSnapshot personalOwnership,
 		Set<String> sharedCardNames)
+	{
+		return isCollectedCard(cardName, personalOwnership, NO_BETA_UNLOCKS, sharedCardNames);
+	}
+
+	public boolean isCollectedCard(String cardName, TcgOwnershipSnapshot personalOwnership,
+		BetaCardUnlockSource.View betaUnlocks, Set<String> sharedCardNames)
 	{
 		String normalizedCardName = normalizeCardName(cardName);
 		if (normalizedCardName.isEmpty())
@@ -111,6 +144,7 @@ public final class CardOwnershipService
 		}
 		CardIdentity identity = resolved.getIdentity();
 		return identity.isCollectedBy(personalOwnership)
+			|| isBetaOwned(identity, betaUnlocks)
 			|| acceptsUnambiguousSharedName(identity, sharedCardNames);
 	}
 
@@ -121,6 +155,14 @@ public final class CardOwnershipService
 	 */
 	public boolean isCollectedCard(CardEntityKind kind, String cardName,
 		TcgOwnershipSnapshot personalOwnership, Set<String> sharedCardNames)
+	{
+		return isCollectedCard(kind, cardName, personalOwnership, NO_BETA_UNLOCKS,
+			sharedCardNames);
+	}
+
+	public boolean isCollectedCard(CardEntityKind kind, String cardName,
+		TcgOwnershipSnapshot personalOwnership, BetaCardUnlockSource.View betaUnlocks,
+		Set<String> sharedCardNames)
 	{
 		String normalizedCardName = normalizeCardName(cardName);
 		if (normalizedCardName.isEmpty())
@@ -135,6 +177,7 @@ public final class CardOwnershipService
 		CardIdentity identity = resolved.getIdentity();
 		return identity.isOwnedBy(personalOwnership)
 			|| acceptsUnambiguousPersonalLegacyName(identity, personalOwnership)
+			|| isBetaOwned(identity, betaUnlocks)
 			|| acceptsUnambiguousSharedName(identity, sharedCardNames);
 	}
 
@@ -158,8 +201,9 @@ public final class CardOwnershipService
 	}
 
 	private Decision decideResolved(CardResolver.Result resolved,
-		TcgOwnershipSnapshot personalOwnership, Set<String> sharedCardNames,
-		Set<String> exemptCardNames, CardEntityKind kind, int entityId, String entityName)
+		TcgOwnershipSnapshot personalOwnership, BetaCardUnlockSource.View betaUnlocks,
+		Set<String> sharedCardNames, Set<String> exemptCardNames, CardEntityKind kind,
+		int entityId, String entityName)
 	{
 		if (!resolved.isTracked())
 		{
@@ -175,20 +219,21 @@ public final class CardOwnershipService
 			}
 			return new Decision(map(resolved.getStatus()), null);
 		}
-		return decideIdentity(resolved.getIdentity(), personalOwnership,
+		return decideIdentity(resolved.getIdentity(), personalOwnership, betaUnlocks,
 			sharedCardNames, exemptCardNames);
 	}
 
 	private Decision decideIdentity(CardIdentity identity,
-		TcgOwnershipSnapshot personalOwnership, Set<String> sharedCardNames,
-		Set<String> exemptCardNames)
+		TcgOwnershipSnapshot personalOwnership, BetaCardUnlockSource.View betaUnlocks,
+		Set<String> sharedCardNames, Set<String> exemptCardNames)
 	{
 		if (identity.acceptsAnyCardName(exemptCardNames))
 		{
 			return new Decision(Status.EXEMPT, identity);
 		}
 		if (identity.isOwnedBy(personalOwnership)
-			|| acceptsUnambiguousPersonalLegacyName(identity, personalOwnership))
+			|| acceptsUnambiguousPersonalLegacyName(identity, personalOwnership)
+			|| isBetaOwned(identity, betaUnlocks))
 		{
 			return new Decision(Status.OWNED, identity);
 		}
@@ -197,6 +242,39 @@ public final class CardOwnershipService
 			return new Decision(Status.SHARED, identity);
 		}
 		return new Decision(Status.LOCKED, identity);
+	}
+
+	private boolean isBetaOwned(CardIdentity identity, BetaCardUnlockSource.View betaUnlocks)
+	{
+		if (identity == null || betaUnlocks == null)
+		{
+			return false;
+		}
+		Set<String> betaParents = betaUnlocks.getParentNamesLowerCase(identity.getKind());
+		if (isMatchingBetaParent(identity, betaParents, identity.getCardName()))
+		{
+			return true;
+		}
+		for (String legacyName : identity.getLegacyCardNames())
+		{
+			if (isMatchingBetaParent(identity, betaParents, legacyName))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isMatchingBetaParent(CardIdentity identity, Set<String> betaParents,
+		String acceptedParentName)
+	{
+		if (!containsCardName(betaParents, normalizeCardName(acceptedParentName)))
+		{
+			return false;
+		}
+		CardResolver.Result parent = resolver.resolveCardName(
+			identity.getKind(), acceptedParentName);
+		return parent.isTracked() && sameIdentity(identity, parent.getIdentity());
 	}
 
 	/**

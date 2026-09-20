@@ -3,6 +3,7 @@ package com.bronzemantcg.panel.collection;
 import com.bronzemantcg.ownership.ActiveCardIdentityCatalog;
 import com.bronzemantcg.ownership.CardEntityKind;
 import com.bronzemantcg.ownership.CardIdentity;
+import com.bronzemantcg.ownership.BetaCardUnlockSource;
 import com.bronzemantcg.ownership.TcgOwnershipSnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -205,6 +206,14 @@ public final class PanelCollectionViewModel
 
 	public State prepare(TcgOwnershipSnapshot personalOwnership, Set<String> sharedCardNames)
 	{
+		return prepare(personalOwnership,
+			new BetaCardUnlockSource.View(0L, Collections.emptySet(), Collections.emptySet()),
+			sharedCardNames);
+	}
+
+	public State prepare(TcgOwnershipSnapshot personalOwnership,
+		BetaCardUnlockSource.View betaUnlocks, Set<String> sharedCardNames)
+	{
 		Prepared current = currentPrepared();
 		Map<PanelCollectionLayout.CollectionCard, Status> states = new LinkedHashMap<>();
 		int ownedItems = 0;
@@ -213,7 +222,7 @@ public final class PanelCollectionViewModel
 		{
 			PanelCollectionLayout.CollectionCard card = searchCard.getCard();
 			Status status;
-			if (ownership.isPersonallyCollected(card, personalOwnership,
+			if (ownership.isPersonallyCollected(card, personalOwnership, betaUnlocks,
 				current.projection))
 			{
 				status = Status.OWNED;
@@ -300,6 +309,7 @@ public final class PanelCollectionViewModel
 		private final Map<PanelCollectionLayout.CollectionCard, Status> states;
 		private final int ownedItems;
 		private final int ownedNpcs;
+		private final Set<String> ownedCardNamesLowerCase;
 
 		private State(Prepared prepared,
 			Map<PanelCollectionLayout.CollectionCard, Status> states,
@@ -309,6 +319,16 @@ public final class PanelCollectionViewModel
 			this.states = Collections.unmodifiableMap(new LinkedHashMap<>(states));
 			this.ownedItems = ownedItems;
 			this.ownedNpcs = ownedNpcs;
+			Set<String> ownedNames = new LinkedHashSet<>();
+			for (Map.Entry<PanelCollectionLayout.CollectionCard, Status> entry
+				: this.states.entrySet())
+			{
+				if (entry.getValue() == Status.OWNED)
+				{
+					ownedNames.add(normalize(entry.getKey().getCardName()));
+				}
+			}
+			ownedCardNamesLowerCase = Collections.unmodifiableSet(ownedNames);
 		}
 
 		public Status getStatus(PanelCollectionLayout.CollectionCard card)
@@ -324,6 +344,11 @@ public final class PanelCollectionViewModel
 		public int getOwnedNpcs()
 		{
 			return ownedNpcs;
+		}
+
+		public Set<String> getOwnedCardNamesLowerCase()
+		{
+			return ownedCardNamesLowerCase;
 		}
 
 		public List<Section> getSections()

@@ -1,6 +1,7 @@
 package com.bronzemantcg.panel.collection;
 
 import com.bronzemantcg.ownership.CardEntityKind;
+import com.bronzemantcg.ownership.BetaCardUnlockSource;
 import com.bronzemantcg.ownership.TcgOwnershipSnapshot;
 import java.util.Locale;
 import java.util.Set;
@@ -20,11 +21,17 @@ public final class PanelCollectionOwnership
 	}
 
 	boolean isPersonallyCollected(PanelCollectionLayout.CollectionCard card,
-		TcgOwnershipSnapshot personalOwnership, PanelCollectionProjection projection)
+		TcgOwnershipSnapshot personalOwnership, BetaCardUnlockSource.View betaUnlocks,
+		PanelCollectionProjection projection)
 	{
 		if (card == null)
 		{
 			return false;
+		}
+		if (betaUnlocks != null && containsUniqueCollectionName(card,
+			betaUnlocks.getParentNamesLowerCase(card.getKind()), projection))
+		{
+			return true;
 		}
 		if (personalOwnership == null)
 		{
