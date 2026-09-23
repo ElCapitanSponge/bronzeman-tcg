@@ -3811,13 +3811,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Chisel",
-							"cards": [
-								"Chisel"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Fire Wave/Surge Runes",
 							"logic": "ANY",
 							"children": [
@@ -3946,6 +3939,13 @@
 								"Adamantite nails",
 								"Rune nails",
 								"Dragon nails"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ghostspeak amulet",
+							"cards": [
+								"Ghostspeak amulet"
 							],
 							"type": "item"
 						}
