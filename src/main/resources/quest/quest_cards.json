@@ -14509,6 +14509,32 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Brundt the Chieftain",
+							"cards": [
+								"Brundt the chieftain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Fossegrimen",
+							"cards": [
+								"Fossegrimen"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Peer the Seer",
+							"cards": [
+								"Peer the seer"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
