@@ -13822,6 +13822,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Hazelmere",
+							"cards": [
+								"Hazelmere"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Narnode Shareen",
+							"cards": [
+								"King narnode shareen"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
