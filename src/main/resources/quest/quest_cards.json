@@ -2654,6 +2654,67 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Elias White",
+							"cards": [
+								"Elias white"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ramarno",
+							"cards": [
+								"Ramarno"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Reldo",
+							"cards": [
+								"Reldo"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Roald",
+							"cards": [
+								"King roald"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Aeonisig Raispher",
+							"cards": [
+								"Aeonisig raispher"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Romeo",
+							"cards": [
+								"Romeo"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Horvik",
+							"cards": [
+								"Horvik"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Arrav",
+							"cards": [
+								"Arrav"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
