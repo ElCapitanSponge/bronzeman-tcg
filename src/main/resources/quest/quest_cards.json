@@ -3655,6 +3655,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Kaqemeex",
+							"cards": [
+								"Kaqemeex"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sanfew",
+							"cards": [
+								"Sanfew"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
