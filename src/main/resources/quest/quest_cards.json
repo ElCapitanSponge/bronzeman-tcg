@@ -15618,6 +15618,13 @@
 								"Ennius Tullus"
 							],
 							"type": "enemy"
+						},
+						{
+							"label": "Augur Metzli",
+							"cards": [
+								"Augur Metzli"
+							],
+							"type": "enemy"
 						}
 					]
 				},
