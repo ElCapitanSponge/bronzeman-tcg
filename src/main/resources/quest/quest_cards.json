@@ -6572,6 +6572,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Veliaf Hurtz",
+							"cards": [
+								"Veliaf hurtz"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Drezel",
+							"cards": [
+								"Drezel"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
