@@ -5383,13 +5383,6 @@
 										"Fire rune"
 									],
 									"type": "item"
-								},
-								{
-									"label": "Death rune",
-									"cards": [
-										"Death rune"
-									],
-									"type": "item"
 								}
 							],
 							"displayCardsOnly": true
