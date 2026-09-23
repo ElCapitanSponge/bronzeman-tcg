@@ -3854,6 +3854,25 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Sanfew",
+							"cards": [
+								"Sanfew"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Berry",
+							"cards": [
+								"Berry"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
