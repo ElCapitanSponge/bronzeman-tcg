@@ -7939,6 +7939,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Narnode Shareen",
+							"cards": [
+								"King narnode shareen"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Kruk",
+							"cards": [
+								"Kruk"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
