@@ -2813,6 +2813,32 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Asgarnia Smith",
+							"cards": [
+								"Asgarnia smith"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Eblis",
+							"cards": [
+								"Eblis"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Azzanadra",
+							"cards": [
+								"Azzanadra"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
