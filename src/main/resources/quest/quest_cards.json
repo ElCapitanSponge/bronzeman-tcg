@@ -6241,6 +6241,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Icthlarin",
+							"cards": [
+								"Icthlarin"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
