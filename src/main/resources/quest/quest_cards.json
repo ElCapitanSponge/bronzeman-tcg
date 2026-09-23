@@ -13022,9 +13022,10 @@
 							"type": "item"
 						},
 						{
-							"label": "Fishing rod",
+							"label": "Fishing rod or Pearl fishing rod",
 							"cards": [
-								"Fishing rod"
+								"Fishing rod",
+								"Pearl fishing rod"
 							],
 							"type": "item"
 						},
@@ -13039,15 +13040,7 @@
 				},
 				{
 					"label": "Enemies",
-					"requirements": [
-						{
-							"label": "Juvenile custodian stalker",
-							"cards": [
-								"Juvenile custodian stalker"
-							],
-							"type": "enemy"
-						}
-					]
+					"requirements": []
 				}
 			],
 			"notes": ""
