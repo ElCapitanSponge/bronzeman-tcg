@@ -8439,6 +8439,46 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Eluned",
+							"cards": [
+								"Eluned"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Arianwyn",
+							"cards": [
+								"Arianwyn"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Essyllt",
+							"cards": [
+								"Essyllt"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Gnome",
+							"cards": [
+								"Gnome"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Elena",
+							"cards": [
+								"Elena"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
