@@ -7611,6 +7611,13 @@
 							"type": "item"
 						},
 						{
+							"label": "Orange dye",
+							"cards": [
+								"Orange dye"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Fishing rod",
 							"cards": [
 								"Fishing rod"
