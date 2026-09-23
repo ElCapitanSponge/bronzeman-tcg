@@ -15232,13 +15232,6 @@
 							"type": "enemy"
 						},
 						{
-							"label": "Small Scarab",
-							"cards": [
-								"Small scarab"
-							],
-							"type": "enemy"
-						},
-						{
 							"label": "Armoured Zombie",
 							"cards": [
 								"Armoured zombie"
