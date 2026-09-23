@@ -15760,24 +15760,11 @@
 							"type": "item"
 						},
 						{
-							"label": "Kegs of beer or Coins",
-							"logic": "ANY",
-							"children": [
-								{
-									"label": "Kegs of beer",
-									"cards": [
-										"Keg of beer"
-									],
-									"type": "item"
-								},
-								{
-									"label": "Coins",
-									"cards": [
-										"Coins"
-									],
-									"type": "item"
-								}
-							]
+							"label": "Kegs of beer",
+							"cards": [
+								"Keg of beer"
+							],
+							"type": "item"
 						},
 						{
 							"label": "Any pickaxe",
@@ -15797,9 +15784,9 @@
 							"type": "item"
 						},
 						{
-							"label": "Rune thrownaxe, or a friend to help enter Waterbirth Isle Dungeon",
+							"label": "Ice gloves",
 							"cards": [
-								"Rune thrownaxe"
+								"Ice gloves"
 							],
 							"type": "item"
 						}
