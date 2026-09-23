@@ -8197,7 +8197,8 @@
 							"label": "Access to the Air Altar",
 							"cards": [
 								"Elemental talisman",
-								"Air talisman"
+								"Air talisman",
+								"Air tiara"
 							],
 							"type": "item"
 						},
@@ -8205,7 +8206,8 @@
 							"label": "Access to the Earth Altar",
 							"cards": [
 								"Elemental talisman",
-								"Earth talisman"
+								"Earth talisman",
+								"Earth tiara"
 							],
 							"type": "item"
 						},
@@ -8213,7 +8215,8 @@
 							"label": "Access to the Fire Altar",
 							"cards": [
 								"Elemental talisman",
-								"Fire talisman"
+								"Fire talisman",
+								"Fire tiara"
 							],
 							"type": "item"
 						},
@@ -8221,7 +8224,8 @@
 							"label": "Access to the Water Altar",
 							"cards": [
 								"Elemental talisman",
-								"Water talisman"
+								"Water talisman",
+								"Water tiara"
 							],
 							"type": "item"
 						}
