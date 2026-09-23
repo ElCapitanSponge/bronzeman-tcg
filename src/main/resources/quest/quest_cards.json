@@ -326,7 +326,7 @@
 						{
 							"label": "Nature Spirit",
 							"cards": [
-								"Nature Spirit"
+								"Nature spirit"
 							],
 							"type": "npc"
 						}
@@ -846,14 +846,14 @@
 						{
 							"label": "Safalaan Hallow",
 							"cards": [
-								"Safalaan Hallow"
+								"Safalaan hallow"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Vertida Sefalatis",
 							"cards": [
-								"Vertida Sefalatis"
+								"Vertida sefalatis"
 							],
 							"type": "npc"
 						}
@@ -9622,7 +9622,7 @@
 						{
 							"label": "Nature Spirit",
 							"cards": [
-								"Nature Spirit"
+								"Nature spirit"
 							],
 							"type": "npc"
 						}
@@ -9908,7 +9908,7 @@
 						{
 							"label": "Fred the Farmer",
 							"cards": [
-								"Fred the Farmer"
+								"Fred the farmer"
 							],
 							"type": "npc"
 						},
@@ -10272,7 +10272,7 @@
 						{
 							"label": "King Roald",
 							"cards": [
-								"King Roald"
+								"King roald"
 							],
 							"type": "npc"
 						},
@@ -11034,7 +11034,7 @@
 						{
 							"label": "Jimmy Dazzler",
 							"cards": [
-								"Jimmy Dazzler"
+								"Jimmy dazzler"
 							],
 							"type": "npc"
 						}
@@ -11300,7 +11300,7 @@
 						{
 							"label": "Pirate Pete",
 							"cards": [
-								"Pirate Pete"
+								"Pirate pete"
 							],
 							"type": "npc"
 						}
@@ -11353,14 +11353,14 @@
 						{
 							"label": "Lumbridge Guide",
 							"cards": [
-								"Lumbridge Guide"
+								"Lumbridge guide"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Wizard Traiborn",
 							"cards": [
-								"Wizard Traiborn"
+								"Wizard traiborn"
 							],
 							"type": "npc"
 						}
@@ -11399,7 +11399,7 @@
 						{
 							"label": "Evil Dave",
 							"cards": [
-								"Evil Dave"
+								"Evil dave"
 							],
 							"type": "npc"
 						}
@@ -11642,14 +11642,14 @@
 						{
 							"label": "Sir Amik Varze",
 							"cards": [
-								"Sir Amik Varze"
+								"Sir amik varze"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Wise Old Man",
 							"cards": [
-								"Wise Old Man"
+								"Wise old man"
 							],
 							"type": "npc"
 						}
@@ -11902,14 +11902,14 @@
 						{
 							"label": "Sir Amik Varze",
 							"cards": [
-								"Sir Amik Varze"
+								"Sir amik varze"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Sir Tiffy Cashien",
 							"cards": [
-								"Sir Tiffy Cashien"
+								"Sir tiffy cashien"
 							],
 							"type": "npc"
 						}
@@ -12127,14 +12127,14 @@
 						{
 							"label": "King Lathas",
 							"cards": [
-								"King Lathas"
+								"King lathas"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Lord Iorwerth",
 							"cards": [
-								"Lord Iorwerth"
+								"Lord iorwerth"
 							],
 							"type": "npc"
 						}
@@ -12275,14 +12275,14 @@
 						{
 							"label": "King Vargas",
 							"cards": [
-								"King Vargas"
+								"King vargas"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Queen Sigrid",
 							"cards": [
-								"Queen Sigrid"
+								"Queen sigrid"
 							],
 							"type": "npc"
 						}
@@ -12353,7 +12353,7 @@
 						{
 							"label": "Pirate Pete",
 							"cards": [
-								"Pirate Pete"
+								"Pirate pete"
 							],
 							"type": "npc"
 						}
@@ -12546,7 +12546,7 @@
 						{
 							"label": "Humphrey Dumphrey",
 							"cards": [
-								"Humphrey Dumphrey"
+								"Humphrey dumphrey"
 							],
 							"type": "npc"
 						}
@@ -12665,7 +12665,7 @@
 						{
 							"label": "General Khazard",
 							"cards": [
-								"General Khazard"
+								"General khazard"
 							],
 							"type": "npc"
 						},
@@ -12867,7 +12867,7 @@
 						{
 							"label": "Evil Dave",
 							"cards": [
-								"Evil Dave"
+								"Evil dave"
 							],
 							"type": "npc"
 						},
@@ -13361,14 +13361,14 @@
 						{
 							"label": "Veliaf Hurtz",
 							"cards": [
-								"Veliaf Hurtz"
+								"Veliaf hurtz"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Vertida Sefalatis",
 							"cards": [
-								"Vertida Sefalatis"
+								"Vertida sefalatis"
 							],
 							"type": "npc"
 						},
@@ -13389,14 +13389,14 @@
 						{
 							"label": "Safalaan Hallow",
 							"cards": [
-								"Safalaan Hallow"
+								"Safalaan hallow"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Vanescula Drakan",
 							"cards": [
-								"Vanescula Drakan"
+								"Vanescula drakan"
 							],
 							"type": "npc"
 						}
@@ -13931,7 +13931,7 @@
 						{
 							"label": "Mysterious Figure",
 							"cards": [
-								"Mysterious Figure"
+								"Mysterious figure"
 							],
 							"type": "npc"
 						}
@@ -14273,14 +14273,14 @@
 						{
 							"label": "Wise Old Man",
 							"cards": [
-								"Wise Old Man"
+								"Wise old man"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Master Crafter",
 							"cards": [
-								"Master Crafter"
+								"Master crafter"
 							],
 							"type": "npc"
 						}
@@ -14604,7 +14604,7 @@
 						{
 							"label": "Lord Shiro Shayzien",
 							"cards": [
-								"Lord Shiro Shayzien"
+								"Lord shiro shayzien"
 							],
 							"type": "npc"
 						}
@@ -14836,21 +14836,21 @@
 						{
 							"label": "Archmage Sedridor",
 							"cards": [
-								"Archmage Sedridor"
+								"Archmage sedridor"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Wizard Traiborn",
 							"cards": [
-								"Wizard Traiborn"
+								"Wizard traiborn"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "The Great Guardian",
 							"cards": [
-								"The Great Guardian"
+								"The great guardian"
 							],
 							"type": "npc"
 						}
@@ -17128,7 +17128,7 @@
 						{
 							"label": "King Bolren",
 							"cards": [
-								"King Bolren"
+								"King bolren"
 							],
 							"type": "npc"
 						},
@@ -17166,7 +17166,7 @@
 						{
 							"label": "Lady Shauna Piscarilius",
 							"cards": [
-								"Lady Shauna Piscarilius"
+								"Lady shauna piscarilius"
 							],
 							"type": "npc"
 						}
@@ -17425,7 +17425,7 @@
 						{
 							"label": "Sir Tiffy Cashien",
 							"cards": [
-								"Sir Tiffy Cashien"
+								"Sir tiffy cashien"
 							],
 							"type": "npc"
 						}
@@ -17639,14 +17639,14 @@
 						{
 							"label": "King Vargas",
 							"cards": [
-								"King Vargas"
+								"King vargas"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Queen Sigrid",
 							"cards": [
-								"Queen Sigrid"
+								"Queen sigrid"
 							],
 							"type": "npc"
 						}
@@ -17734,7 +17734,7 @@
 						{
 							"label": "King Bolren",
 							"cards": [
-								"King Bolren"
+								"King bolren"
 							],
 							"type": "npc"
 						}
@@ -18009,14 +18009,14 @@
 						{
 							"label": "Prince Itzla Arkan",
 							"cards": [
-								"Prince Itzla Arkan"
+								"Prince itzla arkan"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Augur Metzli",
 							"cards": [
-								"Augur Metzli"
+								"Augur metzli"
 							],
 							"type": "npc"
 						},
@@ -18030,8 +18030,8 @@
 						{
 							"label": "Ennius or Furia",
 							"cards": [
-								"Ennius Tullus",
-								"Furia Tullus"
+								"Ennius tullus",
+								"Furia tullus"
 							],
 							"type": "npc"
 						}
@@ -18260,7 +18260,7 @@
 						{
 							"label": "King Lathas",
 							"cards": [
-								"King Lathas"
+								"King lathas"
 							],
 							"type": "npc"
 						}
@@ -18453,21 +18453,21 @@
 						{
 							"label": "Sir Tiffy Cashien",
 							"cards": [
-								"Sir Tiffy Cashien"
+								"Sir tiffy cashien"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Sir Amik Varze",
 							"cards": [
-								"Sir Amik Varze"
+								"Sir amik varze"
 							],
 							"type": "npc"
 						},
 						{
 							"label": "Lord Daquarius",
 							"cards": [
-								"Lord Daquarius"
+								"Lord daquarius"
 							],
 							"type": "npc"
 						}
@@ -18739,7 +18739,7 @@
 						{
 							"label": "Surok Magis",
 							"cards": [
-								"Surok Magis"
+								"Surok magis"
 							],
 							"type": "npc"
 						},
@@ -19143,7 +19143,7 @@
 						{
 							"label": "Ivy Sophista",
 							"cards": [
-								"Ivy Sophista"
+								"Ivy sophista"
 							],
 							"type": "npc"
 						}, 
@@ -19446,7 +19446,7 @@
 						{
 							"label": "Zavistic Rarve",
 							"cards": [
-								"Zavistic Rarve"
+								"Zavistic rarve"
 							],
 							"type": "npc"
 						}
