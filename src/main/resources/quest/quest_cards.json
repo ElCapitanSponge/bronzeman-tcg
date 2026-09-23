@@ -15074,6 +15074,13 @@
 								"Chisel"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Blisterwood logs",
+							"cards": [
+								"Blisterwood logs"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -15121,6 +15128,41 @@
 								"Lowerniel Drakan"
 							],
 							"type": "enemy"
+						},
+						{
+							"label": "Sanguidae",
+							"cards": [
+								"Sanguidae"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Webbed-winged Crow",
+							"cards": [
+								"Webbed-winged Crow"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Venator",
+							"cards": [
+								"Venator"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Ancient feral vyre",
+							"cards": [
+								"Ancient feral vyre"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Wyrd",
+							"cards": [
+								"Wyrd"
+							],
+							"type": "enemy"
 						}
 					]
 				},
@@ -15138,13 +15180,6 @@
 							"label": "Safalaan Hallow",
 							"cards": [
 								"Safalaan hallow"
-							],
-							"type": "npc"
-						},
-						{
-							"label": "Wyrd",
-							"cards": [
-								"Wyrd"
 							],
 							"type": "npc"
 						},
