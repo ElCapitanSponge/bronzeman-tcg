@@ -5637,6 +5637,13 @@
 					"label": "Items",
 					"requirements": [
 						{
+							"label": "Ring of charos",
+							"cards": [
+								"Ring of charos"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Plant cure",
 							"cards": [
 								"Plant cure"
@@ -5741,14 +5748,6 @@
 							"label": "Gardening trowel",
 							"cards": [
 								"Gardening trowel"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Fishing rod",
-							"cards": [
-								"Fishing rod",
-								"Fly fishing rod"
 							],
 							"type": "item"
 						}
