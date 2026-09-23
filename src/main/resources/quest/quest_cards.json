@@ -19380,7 +19380,7 @@
 					]
 				}
 			],
-			"notes": "Mouse Card May Be Needed For Magnet - Prevent Interactions Users."
+			"notes": "Mouse is not a combat kill target per the wiki - it's lured and caught with cheese + magnet to unlock a door, not defeated. Kept in Enemies to track that card interaction rather than as a kill requirement."
 		},
 		{
 			"name": "Witch's Potion",
