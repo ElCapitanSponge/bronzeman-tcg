@@ -5170,6 +5170,20 @@
 								"Spade"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Ghostspeak amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Dramen staff",
+							"cards": [
+								"Dramen staff"
+							],
+							"type": "item"
 						}
 					]
 				},
