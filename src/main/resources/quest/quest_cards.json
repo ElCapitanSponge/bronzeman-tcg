@@ -8518,6 +8518,32 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Narnode Shareen",
+							"cards": [
+								"King narnode shareen"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Nieve",
+							"cards": [
+								"Nieve"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Steve",
+							"cards": [
+								"Steve"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
