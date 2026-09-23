@@ -15716,6 +15716,46 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Prince Itzla Arkan",
+							"cards": [
+								"Prince itzla arkan"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Queen Zyanyi Arkan",
+							"cards": [
+								"Queen zyanyi arkan"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Augur Metzli",
+							"cards": [
+								"Augur metzli"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ennius Tullus",
+							"cards": [
+								"Ennius tullus"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Furia Tullus",
+							"cards": [
+								"Furia tullus"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
