@@ -2369,6 +2369,18 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Denulth",
+							"cards": [
+								"Denulth"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
