@@ -9520,18 +9520,24 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Pot (if using the flour bag)",
-							"cards": [
-								"Pot"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Pot of flour",
-							"cards": [
-								"Pot of flour"
-							],
-							"type": "item"
+							"label": "Pot or Pot of flour",
+							"logic": "ANY",
+							"children": [
+								{
+									"label": "Pot",
+									"cards": [
+										"Pot"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Pot of flour",
+									"cards": [
+										"Pot of flour"
+									],
+									"type": "item"
+								}
+							]
 						}
 					]
 				},
