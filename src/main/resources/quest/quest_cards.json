@@ -3204,9 +3204,27 @@
 							"type": "item"
 						},
 						{
-							"label": "Facemask",
+							"label": "Facemask / Slayer helmet",
 							"cards": [
-								"Facemask"
+								"Facemask",
+								"Slayer helmet"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Any pickaxe",
+							"cards": [
+								"Crystal pickaxe",
+								"3rd age pickaxe",
+								"Dragon pickaxe",
+								"Rune pickaxe",
+								"Gilded pickaxe",
+								"Adamant pickaxe",
+								"Mithril pickaxe",
+								"Black pickaxe",
+								"Steel pickaxe",
+								"Iron pickaxe",
+								"Bronze pickaxe"
 							],
 							"type": "item"
 						},
@@ -3377,13 +3395,6 @@
 							"label": "Ramarno",
 							"cards": [
 								"Ramarno"
-							],
-							"type": "npc"
-						},
-						{
-							"label": "Mysterious Figure",
-							"cards": [
-								"Mysterious figure"
 							],
 							"type": "npc"
 						},
