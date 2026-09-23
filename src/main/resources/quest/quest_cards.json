@@ -9887,11 +9887,24 @@
 							]
 						},
 						{
-							"label": "Hammer",
-							"cards": [
-								"Hammer"
-							],
-							"type": "item"
+							"label": "Hammer or Imcando hammer",
+							"logic": "ANY",
+							"children": [
+								{
+									"label": "Hammer",
+									"cards": [
+										"Hammer"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Imcando hammer",
+									"cards": [
+										"Imcando hammer"
+									],
+									"type": "item"
+								}
+							]
 						},
 						{
 							"label": "Pot",
