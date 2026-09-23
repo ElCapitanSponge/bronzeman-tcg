@@ -5013,6 +5013,18 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Drunken Dwarf",
+							"cards": [
+								"Drunken dwarf"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
