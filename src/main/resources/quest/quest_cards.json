@@ -478,6 +478,47 @@
 								"Costume needle"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Fur",
+							"logic": "ANY",
+							"children": [
+								{
+									"label": "Fur",
+									"cards": [
+										"Fur"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Bear fur",
+									"cards": [
+										"Bear fur"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Grey wolf fur",
+									"cards": [
+										"Grey wolf fur"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Fox fur",
+									"cards": [
+										"Fox fur"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Jaguar fur",
+									"cards": [
+										"Jaguar fur"
+									],
+									"type": "item"
+								}
+							]
 						}
 					]
 				},
