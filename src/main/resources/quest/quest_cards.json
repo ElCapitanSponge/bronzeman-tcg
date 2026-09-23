@@ -697,13 +697,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Vial of water",
-							"cards": [
-								"Vial of water"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Desert shirt / Druid's robe top",
 							"cards": [
 								"Desert shirt",
@@ -723,7 +716,6 @@
 							"label": "Desert Access",
 							"cards": [
 								"Coins",
-								"Necklace of Passage",
 								"Dramen staff",
 								"Lunar staff"
 							],
