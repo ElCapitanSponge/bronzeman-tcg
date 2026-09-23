@@ -11754,6 +11754,21 @@
 								"Pestle and mortar"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Sweetcorn",
+							"cards": [
+								"Sweetcorn"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Dramen staff or Lunar staff (Zanaris access)",
+							"cards": [
+								"Dramen staff",
+								"Lunar staff"
+							],
+							"type": "item"
 						}
 					]
 				},
