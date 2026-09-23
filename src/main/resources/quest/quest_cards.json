@@ -7642,6 +7642,46 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Arthur",
+							"cards": [
+								"King arthur"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Gawain",
+							"cards": [
+								"Sir gawain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Lancelot",
+							"cards": [
+								"Sir lancelot"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Merlin",
+							"cards": [
+								"Merlin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Thrantax the Mighty",
+							"cards": [
+								"Thrantax the mighty"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
