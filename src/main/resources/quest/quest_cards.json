@@ -16713,7 +16713,8 @@
 								"Black nails",
 								"Mithril nails",
 								"Adamantite nails",
-								"Rune nails"
+								"Rune nails",
+								"Dragon nails"
 							],
 							"type": "item"
 						},
@@ -16721,6 +16722,13 @@
 							"label": "Holy symbol material",
 							"cards": [
 								"Holy symbol"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ring of charos",
+							"cards": [
+								"Ring of charos"
 							],
 							"type": "item"
 						}
