@@ -2232,6 +2232,20 @@
 								"Rune nails"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Air rune",
+							"cards": [
+								"Air rune"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Law Rune",
+							"cards": [
+								"Law rune"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -2244,6 +2258,60 @@
 								"Vanstrom Klause"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Veliaf Hurtz",
+							"cards": [
+								"Veliaf hurtz"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Vertida Sefalatis",
+							"cards": [
+								"Vertida sefalatis"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Drezel",
+							"cards": [
+								"Drezel"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Roald",
+							"cards": [
+								"King roald"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Aeonisig Raispher",
+							"cards": [
+								"Aeonisig raispher"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Safalaan Hallow",
+							"cards": [
+								"Safalaan hallow"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Vanstrom Klause",
+							"cards": [
+								"Vanstrom klause"
+							],
+							"type": "npc"
 						}
 					]
 				}
