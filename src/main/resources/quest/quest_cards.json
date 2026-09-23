@@ -7235,6 +7235,39 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Zanik",
+							"cards": [
+								"Zanik"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Oldak",
+							"cards": [
+								"Oldak"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Makeover Mage",
+							"cards": [
+								"Makeover mage"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Goblin guard",
+							"cards": [
+								"Goblin guard"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
