@@ -11112,6 +11112,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Afflicted",
+							"cards": [
+								"Afflicted"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
