@@ -3721,6 +3721,123 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Veos",
+							"cards": [
+								"Veos"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Camorra",
+							"cards": [
+								"Camorra"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Aeonisig Raispher",
+							"cards": [
+								"Aeonisig raispher"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ava",
+							"cards": [
+								"Ava"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Brundt the Chieftain",
+							"cards": [
+								"Brundt the chieftain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Lathas",
+							"cards": [
+								"King lathas"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Roald",
+							"cards": [
+								"King roald"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Thoros",
+							"cards": [
+								"King thoros"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Oneiromancer",
+							"cards": [
+								"Oneiromancer"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Reldo",
+							"cards": [
+								"Reldo"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Amik Varze",
+							"cards": [
+								"Sir amik varze"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Tiffy Cashien",
+							"cards": [
+								"Sir tiffy cashien"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Torfinn",
+							"cards": [
+								"Torfinn"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wise Old Man",
+							"cards": [
+								"Wise old man"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Neite",
+							"cards": [
+								"Neite"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Not Bob",
+							"cards": [
+								"Not bob"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
