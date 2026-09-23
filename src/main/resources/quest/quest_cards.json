@@ -2825,6 +2825,13 @@
 								"Bronze pickaxe"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Barronite deposit",
+							"cards": [
+								"Barronite deposit"
+							],
+							"type": "item"
 						}
 					]
 				},
