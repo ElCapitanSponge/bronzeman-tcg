@@ -6217,7 +6217,8 @@
 						{
 							"label": "Watering can",
 							"cards": [
-								"Watering can"
+								"Watering can",
+								"Gricoller's can"
 							],
 							"type": "item"
 						},
