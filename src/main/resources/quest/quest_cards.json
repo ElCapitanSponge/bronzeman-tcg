@@ -13824,13 +13824,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Vial of water",
-							"cards": [
-								"Vial of water"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Pestle and mortar",
 							"cards": [
 								"Pestle and mortar"
@@ -13966,13 +13959,6 @@
 				{
 					"label": "NPCs",
 					"requirements": [
-						{
-							"label": "King Lathas",
-							"cards": [
-								"Arianwyn"
-							],
-							"type": "npc"
-						},
 						{
 							"label": "Elena",
 							"cards": [
