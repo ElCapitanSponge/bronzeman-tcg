@@ -14498,6 +14498,25 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Thurgo",
+							"cards": [
+								"Thurgo"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Reldo",
+							"cards": [
+								"Reldo"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
