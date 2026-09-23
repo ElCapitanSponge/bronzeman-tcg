@@ -11263,6 +11263,18 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "Enemies",
+					"requirements": [
+						{
+							"label": "Icefiend (if lacking ice gloves)",
+							"cards": [
+								"Icefiend"
+							],
+							"type": "enemy"
+						}
+					]
 				}
 			],
 			"notes": ""
