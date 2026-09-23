@@ -5776,6 +5776,32 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Arthur",
+							"cards": [
+								"King arthur"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Merlin",
+							"cards": [
+								"Merlin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Monk of Entrana",
+							"cards": [
+								"Monk of entrana"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
