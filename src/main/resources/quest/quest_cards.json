@@ -1697,13 +1697,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Hammer",
-							"cards": [
-								"Hammer"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Any axe",
 							"cards": [
 								"Crystal axe",
