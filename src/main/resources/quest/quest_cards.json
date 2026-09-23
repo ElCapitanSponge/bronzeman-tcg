@@ -13568,6 +13568,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Ali Morrisane",
+							"cards": [
+								"Ali morrisane"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Menaphite Thug",
+							"cards": [
+								"Menaphite thug"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": "Steel gauntlets, Lunar gloves, and Klank's gauntlets are non-blocked gloves that can be used as well"
