@@ -16952,6 +16952,23 @@
 								"Coins"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Any pickaxe",
+							"cards": [
+								"Crystal pickaxe",
+								"3rd age pickaxe",
+								"Dragon pickaxe",
+								"Rune pickaxe",
+								"Gilded pickaxe",
+								"Adamant pickaxe",
+								"Mithril pickaxe",
+								"Black pickaxe",
+								"Steel pickaxe",
+								"Iron pickaxe",
+								"Bronze pickaxe"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -16991,13 +17008,6 @@
 				{
 					"label": "NPCs",
 					"requirements": [
-						{
-							"label": "Prince Itzla Arkan",
-							"cards": [
-								"Prince itzla arkan"
-							],
-							"type": "npc"
-						},
 						{
 							"label": "Queen Zyanyi Arkan",
 							"cards": [
