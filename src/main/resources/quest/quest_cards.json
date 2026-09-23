@@ -17574,16 +17574,6 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Desert Access",
-							"cards": [
-								"Coins",
-								"Necklace of Passage",
-								"Dramen staff",
-								"Lunar staff"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Desert shirt",
 							"cards": [
 								"Desert shirt"
