@@ -8956,6 +8956,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "My Arm",
+							"cards": [
+								"My arm"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Tool Leprechaun",
+							"cards": [
+								"Tool leprechaun"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
