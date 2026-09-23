@@ -6570,6 +6570,32 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Vanstrom Klause",
+							"cards": [
+								"Vanstrom klause"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Veliaf Hurtz",
+							"cards": [
+								"Veliaf hurtz"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Stranger",
+							"cards": [
+								"Stranger"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
