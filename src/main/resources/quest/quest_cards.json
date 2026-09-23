@@ -1026,20 +1026,6 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Tinderbox",
-							"cards": [
-								"Tinderbox"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Rope",
-							"cards": [
-								"Rope"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Any light source",
 							"cards": [
 								"Abyssal lantern",
