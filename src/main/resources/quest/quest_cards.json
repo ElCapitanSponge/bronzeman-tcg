@@ -829,6 +829,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Oldak",
+							"cards": [
+								"Oldak"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Zanik",
+							"cards": [
+								"Zanik"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
