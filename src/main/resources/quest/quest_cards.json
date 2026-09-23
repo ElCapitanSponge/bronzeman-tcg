@@ -8604,9 +8604,29 @@
 							"type": "item"
 						},
 						{
-							"label": "Sapphire amulet",
+							"label": "Ghostspeak amulet or Morytania legs",
+							"logic": "ANY",
+							"children": [
+								{
+									"label": "Ghostspeak amulet",
+									"cards": [
+										"Ghostspeak amulet"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Morytania legs",
+									"cards": [
+										"Morytania legs"
+									],
+									"type": "item"
+								}
+							]
+						},
+						{
+							"label": "Ecto-token",
 							"cards": [
-								"Sapphire amulet"
+								"Ecto-token"
 							],
 							"type": "item"
 						}
