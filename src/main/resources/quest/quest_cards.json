@@ -7086,7 +7086,10 @@
 							"label": "Silver weapon (including Silverlight + varieties), blessed axe or Efaritay's Aid to damage vampyres",
 							"cards": [
 								"Arclight",
-								"Silver sickle"
+								"Silver sickle",
+								"Darklight",
+								"Emberlight",
+								"Efaritay's aid"
 							],
 							"type": "item"
 						},
