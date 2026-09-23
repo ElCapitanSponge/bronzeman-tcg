@@ -1127,13 +1127,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Clockwork",
-							"cards": [
-								"Clockwork"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Jerboa tails or Box trap",
 							"logic": "ANY",
 							"children": [
