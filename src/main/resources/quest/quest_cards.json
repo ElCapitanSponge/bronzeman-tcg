@@ -12954,7 +12954,6 @@
 							"label": "Desert Access",
 							"cards": [
 								"Coins",
-								"Necklace of Passage",
 								"Dramen staff",
 								"Lunar staff"
 							],
@@ -12986,13 +12985,6 @@
 								"Black gloves",
 								"Shade robe",
 								"Shade robe top"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Darklight",
-							"cards": [
-								"Darklight"
 							],
 							"type": "item"
 						}
