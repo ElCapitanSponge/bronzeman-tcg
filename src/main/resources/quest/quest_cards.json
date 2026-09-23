@@ -14298,6 +14298,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Gjuki Sorvott IV",
+							"cards": [
+								"King gjuki sorvott iv"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Mawnis Burowgar",
+							"cards": [
+								"Mawnis burowgar"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
