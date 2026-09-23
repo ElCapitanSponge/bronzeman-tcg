@@ -9631,6 +9631,13 @@
 								"Spade"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Climbing boots",
+							"cards": [
+								"Climbing boots"
+							],
+							"type": "item"
 						}
 					]
 				},
