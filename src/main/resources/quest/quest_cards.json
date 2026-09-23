@@ -3801,6 +3801,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Cyrisus",
+							"cards": [
+								"Cyrisus"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Oneiromancer",
+							"cards": [
+								"Oneiromancer"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
