@@ -7041,6 +7041,32 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Guard",
+							"cards": [
+								"Guard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Merlin",
+							"cards": [
+								"Merlin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Arthur",
+							"cards": [
+								"King arthur"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
