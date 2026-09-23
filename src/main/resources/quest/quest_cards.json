@@ -7678,6 +7678,46 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Brundt the Chieftain",
+							"cards": [
+								"Brundt the chieftain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wilson",
+							"cards": [
+								"Wilson"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Jake",
+							"cards": [
+								"Jake"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Palmer",
+							"cards": [
+								"Palmer"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Oneiromancer",
+							"cards": [
+								"Oneiromancer"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
