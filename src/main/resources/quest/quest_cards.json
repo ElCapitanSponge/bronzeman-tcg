@@ -7312,7 +7312,8 @@
 						{
 							"label": "Hammer",
 							"cards": [
-								"Hammer"
+								"Hammer",
+								"Imcando hammer"
 							],
 							"type": "item"
 						},
