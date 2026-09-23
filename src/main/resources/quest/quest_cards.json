@@ -5540,6 +5540,32 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Clivet",
+							"cards": [
+								"Clivet"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Alomone",
+							"cards": [
+								"Alomone"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Hazeel",
+							"cards": [
+								"Hazeel"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
