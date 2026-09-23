@@ -5667,6 +5667,18 @@
 							]
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Monk",
+							"cards": [
+								"Monk"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
