@@ -7769,7 +7769,8 @@
 						{
 							"label": "Hammer",
 							"cards": [
-								"Hammer"
+								"Hammer",
+								"Imcando hammer"
 							],
 							"type": "item"
 						},
@@ -7792,13 +7793,6 @@
 							"label": "Lockpick",
 							"cards": [
 								"Lockpick"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Vial of water",
-							"cards": [
-								"Vial of water"
 							],
 							"type": "item"
 						},
