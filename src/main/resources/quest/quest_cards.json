@@ -7081,6 +7081,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Monk of Entrana",
+							"cards": [
+								"Monk of entrana"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
