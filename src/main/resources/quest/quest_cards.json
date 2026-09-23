@@ -2519,6 +2519,53 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Zanik",
+							"cards": [
+								"Zanik"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Juna",
+							"cards": [
+								"Juna"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Duke Horacio",
+							"cards": [
+								"Duke horacio"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lumbridge Guide",
+							"cards": [
+								"Lumbridge guide"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Dwarf",
+							"cards": [
+								"Dwarf"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "H.A.M. Member",
+							"cards": [
+								"H.a.m. member"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
