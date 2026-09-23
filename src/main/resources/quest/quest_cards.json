@@ -238,6 +238,20 @@
 								"Bronze axe"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Blisterwood flail",
+							"cards": [
+								"Blisterwood flail"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ghostspeak amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
 						}
 					]
 				},
