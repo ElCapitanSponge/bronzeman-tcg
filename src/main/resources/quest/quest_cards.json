@@ -2113,23 +2113,9 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Coins",
-							"cards": [
-								"Coins"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Tinderbox",
 							"cards": [
 								"Tinderbox"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Prayer potions",
-							"cards": [
-								"Prayer potion"
 							],
 							"type": "item"
 						},
