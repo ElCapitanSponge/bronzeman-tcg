@@ -14337,6 +14337,25 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Lady Vulcana Lovakengj",
+							"cards": [
+								"Lady vulcana lovakengj"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ignisia",
+							"cards": [
+								"Ignisia"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
