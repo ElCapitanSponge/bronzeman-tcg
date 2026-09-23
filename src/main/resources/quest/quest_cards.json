@@ -4424,6 +4424,13 @@
 							"logic": "ANY",
 							"children": [
 								{
+									"label": "Climbing boots",
+									"cards": [
+										"Climbing boots"
+									],
+									"type": "item"
+								},
+								{
 									"label": "Coins",
 									"cards": [
 										"Coins"
