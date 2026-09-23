@@ -11132,6 +11132,13 @@
 							"type": "item"
 						},
 						{
+							"label": "Greenman's ale",
+							"cards": [
+								"Greenman's ale"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Rotten tomato",
 							"cards": [
 								"Rotten tomato"
