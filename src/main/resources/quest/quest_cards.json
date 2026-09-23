@@ -8258,6 +8258,39 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Ragnar",
+							"cards": [
+								"Ragnar"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Brundt the Chieftain",
+							"cards": [
+								"Brundt the chieftain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Guard",
+							"cards": [
+								"Guard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Camp dweller",
+							"cards": [
+								"Camp dweller"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
