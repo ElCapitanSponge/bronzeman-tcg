@@ -5571,6 +5571,13 @@
 							"type": "item"
 						},
 						{
+							"label": "Pot",
+							"cards": [
+								"Pot"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Kebab",
 							"cards": [
 								"Kebab"
