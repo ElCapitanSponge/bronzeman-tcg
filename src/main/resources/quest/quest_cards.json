@@ -12648,13 +12648,6 @@
 								"Swamp paste"
 							],
 							"type": "item"
-						},
-						{
-							"label": "Torch",
-							"cards": [
-								"Torch"
-							],
-							"type": "item"
 						}
 					]
 				}
