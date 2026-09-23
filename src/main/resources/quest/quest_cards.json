@@ -14294,6 +14294,46 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Narnode Shareen",
+							"cards": [
+								"King narnode shareen"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Hazelmere",
+							"cards": [
+								"Hazelmere"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Glough",
+							"cards": [
+								"Glough"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Foreman",
+							"cards": [
+								"Foreman"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Shipyard worker",
+							"cards": [
+								"Shipyard worker"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
