@@ -4821,6 +4821,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Head Guard",
+							"cards": [
+								"Head guard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Khazard Guard",
+							"cards": [
+								"Khazard guard"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
