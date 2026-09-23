@@ -17489,7 +17489,9 @@
 								"Willow logs",
 								"Maple logs",
 								"Yew logs",
-								"Magic logs"
+								"Magic logs",
+								"Teak logs",
+								"Mahogany logs"
 							],
 							"type": "item"
 						},
