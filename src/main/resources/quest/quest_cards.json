@@ -3204,6 +3204,60 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Asgarnia Smith",
+							"cards": [
+								"Asgarnia smith"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ramarno",
+							"cards": [
+								"Ramarno"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Mysterious Figure",
+							"cards": [
+								"Mysterious figure"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Assassin",
+							"cards": [
+								"Assassin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Azzanadra",
+							"cards": [
+								"Azzanadra"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Hazeel",
+							"cards": [
+								"Hazeel"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sliske",
+							"cards": [
+								"Sliske"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
