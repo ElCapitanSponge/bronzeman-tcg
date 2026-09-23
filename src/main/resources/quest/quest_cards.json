@@ -7114,6 +7114,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Radimus Erkle",
+							"cards": [
+								"Radimus erkle"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ungadulu",
+							"cards": [
+								"Ungadulu"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
