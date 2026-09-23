@@ -5405,6 +5405,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Necrovarus",
+							"cards": [
+								"Necrovarus"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Pirate captain",
+							"cards": [
+								"Pirate captain"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
