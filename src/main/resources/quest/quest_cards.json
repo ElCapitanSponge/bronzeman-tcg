@@ -809,13 +809,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Vial of water",
-							"cards": [
-								"Vial of water"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Potion",
 							"cards": [
 								"Potion"
