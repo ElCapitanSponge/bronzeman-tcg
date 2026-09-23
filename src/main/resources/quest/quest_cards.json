@@ -8954,6 +8954,13 @@
 							"type": "item"
 						},
 						{
+							"label": "M'speak amulet",
+							"cards": [
+								"M'speak amulet"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Monkey talisman or Coins",
 							"logic": "ANY",
 							"children": [
