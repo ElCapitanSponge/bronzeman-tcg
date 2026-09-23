@@ -19401,13 +19401,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Comp ogre bow",
-							"cards": [
-								"Comp ogre bow"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Papyrus",
 							"cards": [
 								"Papyrus"
@@ -19415,9 +19408,9 @@
 							"type": "item"
 						},
 						{
-							"label": "Empty cup",
+							"label": "Sample bottle",
 							"cards": [
-								"Empty cup"
+								"Sample bottle"
 							],
 							"type": "item"
 						},
@@ -19425,6 +19418,13 @@
 							"label": "Brutal arrows or Crumble Undead (optional)",
 							"logic": "ANY",
 							"children": [
+								{
+									"label": "Comp ogre bow",
+									"cards": [
+										"Comp ogre bow"
+									],
+									"type": "item"
+								},
 								{
 									"label": "Any brutal arrows",
 									"cards": [
