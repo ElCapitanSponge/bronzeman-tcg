@@ -10478,13 +10478,6 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Coins (without ring of charos(a))",
-							"cards": [
-								"Coins"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Hammer",
 							"cards": [
 								"Hammer"
