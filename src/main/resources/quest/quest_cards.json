@@ -18711,8 +18711,7 @@
 						{
 							"label": "Guam potion (unf)",
 							"cards": [
-								"Guam leaf",
-								"Vial of water"
+								"Guam leaf"
 							],
 							"type": "item"
 						}
@@ -18740,13 +18739,6 @@
 				{
 					"label": "NPCs",
 					"requirements": [
-						{
-							"label": "Gorad",
-							"cards": [
-								"Gorad"
-							],
-							"type": "npc"
-						},
 						{
 							"label": "City guard",
 							"cards": [
