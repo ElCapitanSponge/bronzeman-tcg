@@ -14507,6 +14507,18 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Clay golem",
+							"cards": [
+								"Clay golem"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
