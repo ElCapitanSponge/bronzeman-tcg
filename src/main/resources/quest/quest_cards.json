@@ -5207,9 +5207,10 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Vial of water",
+							"label": "Dramen staff or Lunar staff",
 							"cards": [
-								"Vial of water"
+								"Dramen staff",
+								"Lunar staff"
 							],
 							"type": "item"
 						},
