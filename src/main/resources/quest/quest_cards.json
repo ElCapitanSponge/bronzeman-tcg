@@ -5139,20 +5139,7 @@
 		{
 			"name": "Ethically Acquired Antiquities",
 			"miniquest": false,
-			"sections": [
-				{
-					"label": "Items",
-					"requirements": [
-						{
-							"label": "Coins",
-							"cards": [
-								"Coins"
-							],
-							"type": "item"
-						}
-					]
-				}
-			],
+			"sections": [],
 			"notes": ""
 		},
 		{
