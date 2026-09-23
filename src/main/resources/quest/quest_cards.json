@@ -6036,6 +6036,20 @@
 							"type": "item"
 						},
 						{
+							"label": "Ghostspeak amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Nettle tea",
+							"cards": [
+								"Nettle tea"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Dyes",
 							"logic": "ALL",
 							"children": [
