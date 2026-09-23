@@ -5153,6 +5153,46 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Queen Ellamaria",
+							"cards": [
+								"Queen ellamaria"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wise Old Man",
+							"cards": [
+								"Wise old man"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "PKMaster0036",
+							"cards": [
+								"Pkmaster0036"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Bob",
+							"cards": [
+								"Bob"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Roald",
+							"cards": [
+								"King roald"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
