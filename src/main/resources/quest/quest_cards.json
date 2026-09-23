@@ -133,6 +133,60 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Martin Holt",
+							"cards": [
+								"Martin holt"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Commander Fullore",
+							"cards": [
+								"Commander fullore"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lady Vulcana Lovakengj",
+							"cards": [
+								"Lady vulcana lovakengj"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lord Shiro Shayzien",
+							"cards": [
+								"Lord shiro shayzien"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lord Trobin Arceuus",
+							"cards": [
+								"Lord trobin arceuus"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lady Shauna Piscarilius",
+							"cards": [
+								"Lady shauna piscarilius"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Veos",
+							"cards": [
+								"Veos"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
