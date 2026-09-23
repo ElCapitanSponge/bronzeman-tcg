@@ -14992,6 +14992,46 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Sigmund",
+							"cards": [
+								"Sigmund"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Duke Horacio",
+							"cards": [
+								"Duke horacio"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Hans",
+							"cards": [
+								"Hans"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Bob",
+							"cards": [
+								"Bob"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Reldo",
+							"cards": [
+								"Reldo"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
