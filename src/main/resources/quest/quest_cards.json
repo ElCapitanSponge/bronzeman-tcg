@@ -17670,6 +17670,14 @@
 								"Chocolate cake"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Shortbow or Longbow (if courting Astrid)",
+							"cards": [
+								"Shortbow",
+								"Longbow"
+							],
+							"type": "item"
 						}
 					]
 				}, 
