@@ -16451,9 +16451,10 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Secateurs",
+							"label": "Secateurs or Magic secateurs",
 							"cards": [
-								"Secateurs"
+								"Secateurs",
+								"Magic secateurs"
 							],
 							"type": "item"
 						}
