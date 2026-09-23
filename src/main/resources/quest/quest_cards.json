@@ -18825,13 +18825,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Bullseye lantern",
-							"cards": [
-								"Bullseye lantern"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Unpowered orb",
 							"cards": [
 								"Unpowered orb"
@@ -18953,6 +18946,13 @@
 							"label": "Coins",
 							"cards": [
 								"Coins"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ring of charos",
+							"cards": [
+								"Ring of charos"
 							],
 							"type": "item"
 						},
