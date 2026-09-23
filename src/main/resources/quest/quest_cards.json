@@ -4641,6 +4641,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Martin the Master Gardener",
+							"cards": [
+								"Martin the master gardener"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Fairy Queen",
+							"cards": [
+								"Fairy queen"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
