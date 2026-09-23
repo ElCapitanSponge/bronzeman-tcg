@@ -3057,6 +3057,32 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Doric",
+							"cards": [
+								"Doric"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Assassin",
+							"cards": [
+								"Assassin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Tiffy Cashien",
+							"cards": [
+								"Sir tiffy cashien"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
