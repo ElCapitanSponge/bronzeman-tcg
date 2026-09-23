@@ -5117,6 +5117,18 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Gertrude",
+							"cards": [
+								"Gertrude"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
