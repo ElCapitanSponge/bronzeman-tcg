@@ -6557,6 +6557,18 @@
 			"miniquest": false,
 			"sections": [
 				{
+					"label": "Items",
+					"requirements": [
+						{
+							"label": "Excalibur",
+							"cards": [
+								"Excalibur"
+							],
+							"type": "item"
+						}
+					]
+				},
+				{
 					"label": "Enemies",
 					"requirements": [
 						{
