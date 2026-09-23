@@ -10319,6 +10319,13 @@
 									"type": "item"
 								}
 							]
+						},
+						{
+							"label": "Picture of Elena",
+							"cards": [
+								"Elena portrait"
+							],
+							"type": "item"
 						}
 					]
 				},
