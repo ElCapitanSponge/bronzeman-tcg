@@ -8195,6 +8195,39 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "My Arm",
+							"cards": [
+								"My arm"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Mother",
+							"cards": [
+								"Mother"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wise Old Man",
+							"cards": [
+								"Wise old man"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Larry",
+							"cards": [
+								"Larry"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
