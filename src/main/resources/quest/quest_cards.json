@@ -14487,6 +14487,39 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Queen Zyanyi Arkan",
+							"cards": [
+								"Queen zyanyi arkan"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Prince Itzla Arkan",
+							"cards": [
+								"Prince itzla arkan"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Eyatlalli",
+							"cards": [
+								"Eyatlalli"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Furia Tullus",
+							"cards": [
+								"Furia tullus"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
