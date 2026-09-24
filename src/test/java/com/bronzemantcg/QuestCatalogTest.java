@@ -25,8 +25,8 @@ public class QuestCatalogTest
 	public void loadsFullQuestsAndMiniquestsWithoutCountingLeadingTheForSorting()
 	{
 		QuestCatalog catalog = new QuestCatalog(new Gson());
-		// 189, not 180: Recipe for Disaster is carried as its ten subquests, not one entry.
-		Assert.assertEquals(189, catalog.getQuests().size());
+		// 190, not 181: Recipe for Disaster is carried as its ten subquests, not one entry.
+		Assert.assertEquals(190, catalog.getQuests().size());
 		// 19: four miniquests removed from the game (Architectural Alliance, Lost Lover,
 		// Rogue Trader, Spirit of Adventure) - none had a RuneLite Quest constant either.
 		Assert.assertEquals(19, catalog.getMiniquests().size());
@@ -53,7 +53,7 @@ public class QuestCatalogTest
 		Assert.assertNotNull(child(spells.children.get(0), "Blood rune"));
 		Assert.assertNotNull(child(spells.children.get(1), "Wrath rune"));
 		Assert.assertEquals("Items", dragonSlayer.sections.get(0).label);
-		Assert.assertNotNull(requirement(dragonSlayer, "Chisel"));
+		Assert.assertNotNull(requirement(dragonSlayer, "Ghostspeak amulet"));
 		assertNoQuestHelperSections(catalog.getQuests());
 		assertNoQuestHelperSections(catalog.getMiniquests());
 
@@ -152,13 +152,14 @@ public class QuestCatalogTest
 			.contains("Mage Arena I"));
 		Assert.assertTrue(catalog.getQuestsForCard("Kolodion")
 			.contains("Mage Arena I"));
-		Assert.assertTrue(catalog.getQuestMonsterCards().get("Current Affairs")
-			.contains("Mayor of Catherby"));
+		Assert.assertTrue(catalog.getQuestsForCard("Ghostspeak amulet")
+			.contains("Dragon Slayer II"));
+		Assert.assertTrue(catalog.getQuestMonsterCards().get("A Ruff Situation")
+			.contains("Gertrude"));
 
 		Assert.assertTrue(catalog.getQuestsForCard("Cadentine seed").isEmpty());
 		Assert.assertTrue(catalog.getQuestsForCard("Adamant bar").isEmpty());
 		Assert.assertTrue(catalog.getQuestsForCard("Oziarch").isEmpty());
-		Assert.assertTrue(catalog.getQuestsForCard("Ghostspeak amulet").isEmpty());
 		Assert.assertTrue(catalog.getQuestsForCard("Ring of shadows").isEmpty());
 		Assert.assertTrue(catalog.getQuestsForCard("Wyson the gardener").isEmpty());
 	}

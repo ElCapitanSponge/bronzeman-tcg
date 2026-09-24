@@ -126,10 +126,10 @@ public class QuestV1PresentationTest
 			quest(projected.getQuests(), "Dragon Slayer I"), "Oziach").displayCards);
 		assertEquals(List.of("Kolodion"), requirement(
 			quest(projected.getMiniquests(), "Mage Arena I"), "Kolodion").displayCards);
-		QuestCatalog.Requirement mayor = requirement(
-			quest(projected.getQuests(), "Current Affairs"), "Mayor of Catherby");
-		assertEquals("npc", mayor.type);
-		assertEquals(List.of("Mayor of Catherby"), mayor.displayCards);
+		QuestCatalog.Requirement gertrude = requirement(
+			quest(projected.getQuests(), "A Ruff Situation"), "Gertrude");
+		assertEquals("npc", gertrude.type);
+		assertEquals(List.of("Gertrude"), gertrude.displayCards);
 	}
 
 	private static ImmutableCardIdentityCatalog.Entry entry(CardEntityKind kind,

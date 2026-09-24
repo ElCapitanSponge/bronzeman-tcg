@@ -11898,7 +11898,7 @@
 									"type": "item"
 								}
 							]
-						}						
+						}
 					]
 				},
 				{
@@ -12864,14 +12864,14 @@
 							"label": "Hammer or Flamtaer hammer",
 							"cards": [
 								"Hammer",
-								"Flamtaer hammer"								
+								"Flamtaer hammer"
 							],
 							"type": "item"
 						},
 						{
 							"label": "Limestone brick",
 							"cards": [
-								"Limestone brick"								
+								"Limestone brick"
 							],
 							"type": "item"
 						},
@@ -12885,7 +12885,7 @@
 							"label": "Loar remains",
 							"cards": [
 								"Shade remains"
-								
+
 							],
 							"type": "item"
 						}
@@ -17641,7 +17641,7 @@
 							"type": "enemy"
 						}
 					]
-				}, 
+				},
 				{
 					"label": "NPCs",
 					"requirements": [
@@ -17768,7 +17768,7 @@
 							"type": "item"
 						}
 					]
-				}, 
+				},
 				{
 					"label": "NPCs",
 					"requirements": [
@@ -19275,7 +19275,7 @@
 								"Ivy sophista"
 							],
 							"type": "npc"
-						}, 
+						},
 						{
 							"label": "Hunting expert",
 							"cards": [
