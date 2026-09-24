@@ -52,6 +52,23 @@
 							"type": "item"
 						},
 						{
+							"label": "Any pickaxe",
+							"cards": [
+								"Crystal pickaxe",
+								"3rd age pickaxe",
+								"Dragon pickaxe",
+								"Rune pickaxe",
+								"Gilded pickaxe",
+								"Adamant pickaxe",
+								"Mithril pickaxe",
+								"Black pickaxe",
+								"Steel pickaxe",
+								"Iron pickaxe",
+								"Bronze pickaxe"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Any axe",
 							"cards": [
 								"Crystal axe",
@@ -133,6 +150,60 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Martin Holt",
+							"cards": [
+								"Martin holt"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Commander Fullore",
+							"cards": [
+								"Commander fullore"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lady Vulcana Lovakengj",
+							"cards": [
+								"Lady vulcana lovakengj"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lord Shiro Shayzien",
+							"cards": [
+								"Lord shiro shayzien"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lord Trobin Arceuus",
+							"cards": [
+								"Lord trobin arceuus"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lady Shauna Piscarilius",
+							"cards": [
+								"Lady shauna piscarilius"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Veos",
+							"cards": [
+								"Veos"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -167,6 +238,20 @@
 								"Bronze axe"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Blisterwood flail",
+							"cards": [
+								"Blisterwood flail"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ghostspeak amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -177,13 +262,6 @@
 							"label": "Vyrewatch",
 							"cards": [
 								"Vyrewatch"
-							],
-							"type": "enemy"
-						},
-						{
-							"label": "Araxyte",
-							"cards": [
-								"Araxyte"
 							],
 							"type": "enemy"
 						},
@@ -272,6 +350,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Nature Spirit",
+							"cards": [
+								"Nature spirit"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -343,6 +433,118 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Spria",
+							"cards": [
+								"Spria"
+							],
+							"type": "npc"
+						}
+					]
+				}
+			],
+			"notes": ""
+		},
+		{
+			"name": "A Ruff Situation",
+			"miniquest": false,
+			"sections": [
+				{
+					"label": "Items",
+					"requirements": [
+						{
+							"label": "Grain",
+							"cards": [
+								"Grain"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Needle",
+							"cards": [
+								"Needle",
+								"Costume needle"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Thread",
+							"cards": [
+								"Thread",
+								"Costume needle"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Fur",
+							"logic": "ANY",
+							"children": [
+								{
+									"label": "Fur",
+									"cards": [
+										"Fur"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Bear fur",
+									"cards": [
+										"Bear fur"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Grey wolf fur",
+									"cards": [
+										"Grey wolf fur"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Fox fur",
+									"cards": [
+										"Fox fur"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Jaguar fur",
+									"cards": [
+										"Jaguar fur"
+									],
+									"type": "item"
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Enemies",
+					"requirements": [
+						{
+							"label": "Outlaw",
+							"cards": [
+								"Outlaw"
+							],
+							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Gertrude",
+							"cards": [
+								"Gertrude"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -367,29 +569,11 @@
 					"label": "Enemies",
 					"requirements": [
 						{
-							"label": "Angry unicorn",
+							"label": "Any angry creature",
 							"cards": [
-								"Angry unicorn"
-							],
-							"type": "enemy"
-						},
-						{
-							"label": "Angry bear",
-							"cards": [
-								"Angry bear"
-							],
-							"type": "enemy"
-						},
-						{
-							"label": "Angry giant rat",
-							"cards": [
-								"Angry giant rat"
-							],
-							"type": "enemy"
-						},
-						{
-							"label": "Angry goblin",
-							"cards": [
+								"Angry unicorn",
+								"Angry bear",
+								"Angry giant rat",
 								"Angry goblin"
 							],
 							"type": "enemy"
@@ -513,13 +697,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Vial of water",
-							"cards": [
-								"Vial of water"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Desert shirt / Druid's robe top",
 							"cards": [
 								"Desert shirt",
@@ -528,17 +705,52 @@
 							"type": "item"
 						},
 						{
-							"label": "Any robe",
+							"label": "Desert robe / druid robe",
 							"cards": [
 								"Desert robe",
 								"Druid's robe"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Desert Access",
+							"cards": [
+								"Coins",
+								"Dramen staff",
+								"Lunar staff"
+							],
+							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Bob",
+							"cards": [
+								"Bob"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Gertrude",
+							"cards": [
+								"Gertrude"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Reldo",
+							"cards": [
+								"Reldo"
+							],
+							"type": "npc"
 						}
 					]
 				}
 			],
-			"notes": ""
+			"notes": "Nardah teleport scrolls can also be used to reach the Desert."
 		},
 		{
 			"name": "A Taste of Hope",
@@ -558,6 +770,20 @@
 							"label": "Knife",
 							"cards": [
 								"Knife"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Silver sickle",
+							"cards": [
+								"Silver sickle"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Chain",
+							"cards": [
+								"Chain"
 							],
 							"type": "item"
 						},
@@ -583,9 +809,16 @@
 							"type": "item"
 						},
 						{
-							"label": "Vial of water",
+							"label": "Potion",
 							"cards": [
-								"Vial of water"
+								"Potion"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Vial of blood",
+							"cards": [
+								"Vial of blood"
 							],
 							"type": "item"
 						},
@@ -663,6 +896,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Safalaan Hallow",
+							"cards": [
+								"Safalaan hallow"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Vertida Sefalatis",
+							"cards": [
+								"Vertida sefalatis"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -727,6 +979,39 @@
 								"Hard leather"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Ghostspeak Amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Holy Symbol",
+							"cards": [
+								"Holy symbol"
+							],
+							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Ava",
+							"cards": [
+								"Ava"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Turael",
+							"cards": [
+								"Turael"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -740,20 +1025,6 @@
 				{
 					"label": "Items",
 					"requirements": [
-						{
-							"label": "Tinderbox",
-							"cards": [
-								"Tinderbox"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Rope",
-							"cards": [
-								"Rope"
-							],
-							"type": "item"
-						},
 						{
 							"label": "Any light source",
 							"cards": [
@@ -796,6 +1067,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Oldak",
+							"cards": [
+								"Oldak"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Zanik",
+							"cards": [
+								"Zanik"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -823,13 +1113,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Clockwork",
-							"cards": [
-								"Clockwork"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Jerboa tails or Box trap",
 							"logic": "ANY",
 							"children": [
@@ -848,6 +1131,18 @@
 									"type": "item"
 								}
 							]
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Guildmaster Apatura",
+							"cards": [
+								"Guildmaster apatura"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -878,7 +1173,10 @@
 								"Mithril axe",
 								"Adamant axe",
 								"Rune axe",
-								"Dragon axe"
+								"Dragon axe",
+								"Crystal axe",
+								"3rd age axe",
+								"Gilded axe"
 							],
 							"type": "item"
 						},
@@ -1201,6 +1499,39 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Maisa",
+							"cards": [
+								"Maisa"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Zahur",
+							"cards": [
+								"Zahur"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Osman",
+							"cards": [
+								"Osman"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Pharaoh Kemesis",
+							"cards": [
+								"Pharaoh kemesis"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -1352,13 +1683,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Hammer",
-							"cards": [
-								"Hammer"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Any axe",
 							"cards": [
 								"Crystal axe",
@@ -1395,6 +1719,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Rantz",
+							"cards": [
+								"Rantz"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -1412,6 +1748,25 @@
 								"Mourner"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Elena",
+							"cards": [
+								"Elena"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Lathas",
+							"cards": [
+								"King lathas"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -1542,6 +1897,18 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Veos",
+							"cards": [
+								"Veos"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -1556,7 +1923,10 @@
 						{
 							"label": "Bucket of water",
 							"cards": [
-								"Bucket of water"
+								"Bucket of water",
+								"Jug of water",
+								"Ice gloves",
+								"Smiths gloves"
 							],
 							"type": "item"
 						}
@@ -1629,9 +1999,10 @@
 							"type": "item"
 						},
 						{
-							"label": "Raw cod",
+							"label": "Raw cod/Ring of Charos",
 							"cards": [
-								"Raw cod"
+								"Raw cod",
+								"Ring of charos"
 							],
 							"type": "item"
 						},
@@ -1676,6 +2047,60 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Larry",
+							"cards": [
+								"Larry"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Fred the Farmer",
+							"cards": [
+								"Fred the farmer"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ping",
+							"cards": [
+								"Ping"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Pong",
+							"cards": [
+								"Pong"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Noodle",
+							"cards": [
+								"Noodle"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Penguin",
+							"cards": [
+								"Penguin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sheep",
+							"cards": [
+								"Sheep"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -1688,23 +2113,9 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Coins",
-							"cards": [
-								"Coins"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Tinderbox",
 							"cards": [
 								"Tinderbox"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Prayer potions",
-							"cards": [
-								"Prayer potion"
 							],
 							"type": "item"
 						},
@@ -1748,6 +2159,25 @@
 								"Scarab Mage"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Maisa",
+							"cards": [
+								"Maisa"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Osman",
+							"cards": [
+								"Osman"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -1851,9 +2281,9 @@
 							"type": "item"
 						},
 						{
-							"label": "Hammer",
+							"label": "Ghostspeak Amulet",
 							"cards": [
-								"Hammer"
+								"Ghostspeak amulet"
 							],
 							"type": "item"
 						}
@@ -1887,32 +2317,6 @@
 								"Coins"
 							],
 							"type": "item"
-						},
-						{
-							"label": "Tiny net",
-							"cards": [
-								"Tiny net"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Current Duck",
-							"cards": [
-								"Current Duck"
-							],
-							"type": "item"
-						}
-					]
-				},
-				{
-					"label": "NPCs",
-					"requirements": [
-						{
-							"label": "Mayor of Catherby",
-							"cards": [
-								"Mayor of Catherby"
-							],
-							"type": "npc"
 						}
 					]
 				}
@@ -2029,7 +2433,22 @@
 								"Black nails",
 								"Mithril nails",
 								"Adamantite nails",
-								"Rune nails"
+								"Rune nails",
+								"Dragon nails"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Air rune",
+							"cards": [
+								"Air rune"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Law Rune",
+							"cards": [
+								"Law rune"
 							],
 							"type": "item"
 						}
@@ -2044,6 +2463,60 @@
 								"Vanstrom Klause"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Veliaf Hurtz",
+							"cards": [
+								"Veliaf hurtz"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Vertida Sefalatis",
+							"cards": [
+								"Vertida sefalatis"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Drezel",
+							"cards": [
+								"Drezel"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Roald",
+							"cards": [
+								"King roald"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Aeonisig Raispher",
+							"cards": [
+								"Aeonisig raispher"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Safalaan Hallow",
+							"cards": [
+								"Safalaan hallow"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Vanstrom Klause",
+							"cards": [
+								"Vanstrom klause"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -2091,14 +2564,18 @@
 								"Asgarnian ale"
 							],
 							"type": "item"
-						},
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
 						{
-							"label": "Premade blurb' sp.",
+							"label": "Denulth",
 							"cards": [
-								"Premade blurb' sp.",
-								"Blurberry special"
+								"Denulth"
 							],
-							"type": "item"
+							"type": "npc"
 						}
 					]
 				}
@@ -2239,6 +2716,53 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Zanik",
+							"cards": [
+								"Zanik"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Juna",
+							"cards": [
+								"Juna"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Duke Horacio",
+							"cards": [
+								"Duke horacio"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lumbridge Guide",
+							"cards": [
+								"Lumbridge guide"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Dwarf",
+							"cards": [
+								"Dwarf"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "H.A.M. Member",
+							"cards": [
+								"H.a.m. member"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -2271,6 +2795,13 @@
 								"Steel pickaxe",
 								"Iron pickaxe",
 								"Bronze pickaxe"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Barronite deposit",
+							"cards": [
+								"Barronite deposit"
 							],
 							"type": "item"
 						}
@@ -2306,6 +2837,67 @@
 								"Chaos Golem"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Elias White",
+							"cards": [
+								"Elias white"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ramarno",
+							"cards": [
+								"Ramarno"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Reldo",
+							"cards": [
+								"Reldo"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Roald",
+							"cards": [
+								"King roald"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Aeonisig Raispher",
+							"cards": [
+								"Aeonisig raispher"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Romeo",
+							"cards": [
+								"Romeo"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Horvik",
+							"cards": [
+								"Horvik"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Arrav",
+							"cards": [
+								"Arrav"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -2491,6 +3083,13 @@
 								"Garlic"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Climbing boots",
+							"cards": [
+								"Climbing boots"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -2533,6 +3132,32 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Asgarnia Smith",
+							"cards": [
+								"Asgarnia smith"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Eblis",
+							"cards": [
+								"Eblis"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Azzanadra",
+							"cards": [
+								"Azzanadra"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -2559,9 +3184,27 @@
 							"type": "item"
 						},
 						{
-							"label": "Facemask",
+							"label": "Facemask / Slayer helmet",
 							"cards": [
-								"Facemask"
+								"Facemask",
+								"Slayer helmet"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Any pickaxe",
+							"cards": [
+								"Crystal pickaxe",
+								"3rd age pickaxe",
+								"Dragon pickaxe",
+								"Rune pickaxe",
+								"Gilded pickaxe",
+								"Adamant pickaxe",
+								"Mithril pickaxe",
+								"Black pickaxe",
+								"Steel pickaxe",
+								"Iron pickaxe",
+								"Bronze pickaxe"
 							],
 							"type": "item"
 						},
@@ -2717,6 +3360,53 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Asgarnia Smith",
+							"cards": [
+								"Asgarnia smith"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ramarno",
+							"cards": [
+								"Ramarno"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Assassin",
+							"cards": [
+								"Assassin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Azzanadra",
+							"cards": [
+								"Azzanadra"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Hazeel",
+							"cards": [
+								"Hazeel"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sliske",
+							"cards": [
+								"Sliske"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -2749,6 +3439,32 @@
 								"Colossal pouch"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Doric",
+							"cards": [
+								"Doric"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Assassin",
+							"cards": [
+								"Assassin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Tiffy Cashien",
+							"cards": [
+								"Sir tiffy cashien"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -3075,13 +3791,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Chisel",
-							"cards": [
-								"Chisel"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Fire Wave/Surge Runes",
 							"logic": "ANY",
 							"children": [
@@ -3208,7 +3917,15 @@
 								"Black nails",
 								"Mithril nails",
 								"Adamantite nails",
-								"Rune nails"
+								"Rune nails",
+								"Dragon nails"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ghostspeak amulet",
+							"cards": [
+								"Ghostspeak amulet"
 							],
 							"type": "item"
 						}
@@ -3323,6 +4040,123 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Veos",
+							"cards": [
+								"Veos"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Camorra",
+							"cards": [
+								"Camorra"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Aeonisig Raispher",
+							"cards": [
+								"Aeonisig raispher"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ava",
+							"cards": [
+								"Ava"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Brundt the Chieftain",
+							"cards": [
+								"Brundt the chieftain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Lathas",
+							"cards": [
+								"King lathas"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Roald",
+							"cards": [
+								"King roald"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Thoros",
+							"cards": [
+								"King thoros"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Oneiromancer",
+							"cards": [
+								"Oneiromancer"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Reldo",
+							"cards": [
+								"Reldo"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Amik Varze",
+							"cards": [
+								"Sir amik varze"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Tiffy Cashien",
+							"cards": [
+								"Sir tiffy cashien"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Torfinn",
+							"cards": [
+								"Torfinn"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wise Old Man",
+							"cards": [
+								"Wise old man"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Neite",
+							"cards": [
+								"Neite"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Not Bob",
+							"cards": [
+								"Not bob"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -3403,6 +4237,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Cyrisus",
+							"cards": [
+								"Cyrisus"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Oneiromancer",
+							"cards": [
+								"Oneiromancer"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -3453,6 +4306,25 @@
 								"Suit of armour"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Kaqemeex",
+							"cards": [
+								"Kaqemeex"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sanfew",
+							"cards": [
+								"Sanfew"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -3532,6 +4404,13 @@
 							"logic": "ANY",
 							"children": [
 								{
+									"label": "Climbing boots",
+									"cards": [
+										"Climbing boots"
+									],
+									"type": "item"
+								},
+								{
 									"label": "Coins",
 									"cards": [
 										"Coins"
@@ -3553,6 +4432,25 @@
 								"Ranarr weed"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Sanfew",
+							"cards": [
+								"Sanfew"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Berry",
+							"cards": [
+								"Berry"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -4221,20 +5119,7 @@
 		{
 			"name": "Ethically Acquired Antiquities",
 			"miniquest": false,
-			"sections": [
-				{
-					"label": "Items",
-					"requirements": [
-						{
-							"label": "Coins",
-							"cards": [
-								"Coins"
-							],
-							"type": "item"
-						}
-					]
-				}
-			],
+			"sections": [],
 			"notes": ""
 		},
 		{
@@ -4257,6 +5142,20 @@
 								"Spade"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Ghostspeak amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Dramen staff",
+							"cards": [
+								"Dramen staff"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -4271,6 +5170,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Martin the Master Gardener",
+							"cards": [
+								"Martin the master gardener"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Fairy Queen",
+							"cards": [
+								"Fairy queen"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -4283,9 +5201,10 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Vial of water",
+							"label": "Dramen staff or Lunar staff",
 							"cards": [
-								"Vial of water"
+								"Dramen staff",
+								"Lunar staff"
 							],
 							"type": "item"
 						},
@@ -4307,6 +5226,25 @@
 								"Gorak"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Martin the Master Gardener",
+							"cards": [
+								"Martin the master gardener"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Fairy Queen",
+							"cards": [
+								"Fairy queen"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -4439,13 +5377,6 @@
 										"Fire rune"
 									],
 									"type": "item"
-								},
-								{
-									"label": "Death rune",
-									"cards": [
-										"Death rune"
-									],
-									"type": "item"
 								}
 							],
 							"displayCardsOnly": true
@@ -4534,6 +5465,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Head Guard",
+							"cards": [
+								"Head guard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Khazard Guard",
+							"cards": [
+								"Khazard guard"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -4615,6 +5565,13 @@
 							"type": "item"
 						},
 						{
+							"label": "Pot",
+							"cards": [
+								"Pot"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Kebab",
 							"cards": [
 								"Kebab"
@@ -4650,6 +5607,18 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Drunken Dwarf",
+							"cards": [
+								"Drunken dwarf"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -4661,6 +5630,13 @@
 				{
 					"label": "Items",
 					"requirements": [
+						{
+							"label": "Ring of charos",
+							"cards": [
+								"Ring of charos"
+							],
+							"type": "item"
+						},
 						{
 							"label": "Plant cure",
 							"cards": [
@@ -4768,14 +5744,46 @@
 								"Gardening trowel"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Queen Ellamaria",
+							"cards": [
+								"Queen ellamaria"
+							],
+							"type": "npc"
 						},
 						{
-							"label": "Fishing rod",
+							"label": "Wise Old Man",
 							"cards": [
-								"Fishing rod",
-								"Fly fishing rod"
+								"Wise old man"
 							],
-							"type": "item"
+							"type": "npc"
+						},
+						{
+							"label": "PKMaster0036",
+							"cards": [
+								"Pkmaster0036"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Bob",
+							"cards": [
+								"Bob"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Roald",
+							"cards": [
+								"King roald"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -4809,6 +5817,18 @@
 								"Raw sardine"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Gertrude",
+							"cards": [
+								"Gertrude"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -4892,13 +5912,6 @@
 							"label": "Thread",
 							"cards": [
 								"Thread"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Costume needle",
-							"cards": [
-								"Costume needle"
 							],
 							"type": "item"
 						},
@@ -5017,6 +6030,20 @@
 							"type": "item"
 						},
 						{
+							"label": "Ghostspeak amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Nettle tea",
+							"cards": [
+								"Nettle tea"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Dyes",
 							"logic": "ALL",
 							"children": [
@@ -5054,6 +6081,25 @@
 								"Giant lobster"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Necrovarus",
+							"cards": [
+								"Necrovarus"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Pirate captain",
+							"cards": [
+								"Pirate captain"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -5143,7 +6189,8 @@
 						{
 							"label": "Watering can",
 							"cards": [
-								"Watering can"
+								"Watering can",
+								"Gricoller's can"
 							],
 							"type": "item"
 						},
@@ -5229,9 +6276,35 @@
 						{
 							"label": "Alomone (siding with Ceril)",
 							"cards": [
-								"Clivet"
+								"Alomone"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Clivet",
+							"cards": [
+								"Clivet"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Alomone",
+							"cards": [
+								"Alomone"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Hazeel",
+							"cards": [
+								"Hazeel"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -5380,6 +6453,18 @@
 							]
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Monk",
+							"cards": [
+								"Monk"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -5467,6 +6552,18 @@
 			"miniquest": false,
 			"sections": [
 				{
+					"label": "Items",
+					"requirements": [
+						{
+							"label": "Excalibur",
+							"cards": [
+								"Excalibur"
+							],
+							"type": "item"
+						}
+					]
+				},
+				{
 					"label": "Enemies",
 					"requirements": [
 						{
@@ -5475,6 +6572,32 @@
 								"Black Knight Titan"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Arthur",
+							"cards": [
+								"King arthur"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Merlin",
+							"cards": [
+								"Merlin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Monk of Entrana",
+							"cards": [
+								"Monk of entrana"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -5783,6 +6906,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Icthlarin",
+							"cards": [
+								"Icthlarin"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -5946,7 +7081,10 @@
 							"label": "Silver weapon (including Silverlight + varieties), blessed axe or Efaritay's Aid to damage vampyres",
 							"cards": [
 								"Arclight",
-								"Silver sickle"
+								"Silver sickle",
+								"Darklight",
+								"Emberlight",
+								"Efaritay's aid"
 							],
 							"type": "item"
 						},
@@ -5959,7 +7097,8 @@
 								"Black nails",
 								"Mithril nails",
 								"Adamantite nails",
-								"Rune nails"
+								"Rune nails",
+								"Dragon nails"
 							],
 							"type": "item"
 						},
@@ -6003,6 +7142,25 @@
 								"Vampyre Juvinate"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Veliaf Hurtz",
+							"cards": [
+								"Veliaf hurtz"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Drezel",
+							"cards": [
+								"Drezel"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -6126,7 +7284,8 @@
 						{
 							"label": "Hammer",
 							"cards": [
-								"Hammer"
+								"Hammer",
+								"Imcando hammer"
 							],
 							"type": "item"
 						},
@@ -6155,6 +7314,32 @@
 								"Skeleton Hellhound"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Vanstrom Klause",
+							"cards": [
+								"Vanstrom klause"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Veliaf Hurtz",
+							"cards": [
+								"Veliaf hurtz"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Stranger",
+							"cards": [
+								"Stranger"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -6325,6 +7510,32 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Guard",
+							"cards": [
+								"Guard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Merlin",
+							"cards": [
+								"Merlin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Arthur",
+							"cards": [
+								"King arthur"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -6392,6 +7603,13 @@
 							"label": "Purple dye",
 							"cards": [
 								"Purple dye"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Orange dye",
+							"cards": [
+								"Orange dye"
 							],
 							"type": "item"
 						},
@@ -6493,6 +7711,39 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Zanik",
+							"cards": [
+								"Zanik"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Oldak",
+							"cards": [
+								"Oldak"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Makeover Mage",
+							"cards": [
+								"Makeover mage"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Goblin guard",
+							"cards": [
+								"Goblin guard"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -6514,7 +7765,8 @@
 						{
 							"label": "Hammer",
 							"cards": [
-								"Hammer"
+								"Hammer",
+								"Imcando hammer"
 							],
 							"type": "item"
 						},
@@ -6537,13 +7789,6 @@
 							"label": "Lockpick",
 							"cards": [
 								"Lockpick"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Vial of water",
-							"cards": [
-								"Vial of water"
 							],
 							"type": "item"
 						},
@@ -6732,6 +7977,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Radimus Erkle",
+							"cards": [
+								"Radimus erkle"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ungadulu",
+							"cards": [
+								"Ungadulu"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -6792,6 +8056,18 @@
 								"Zombie"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Monk of Entrana",
+							"cards": [
+								"Monk of entrana"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -6921,7 +8197,8 @@
 							"label": "Access to the Air Altar",
 							"cards": [
 								"Elemental talisman",
-								"Air talisman"
+								"Air talisman",
+								"Air tiara"
 							],
 							"type": "item"
 						},
@@ -6929,7 +8206,8 @@
 							"label": "Access to the Earth Altar",
 							"cards": [
 								"Elemental talisman",
-								"Earth talisman"
+								"Earth talisman",
+								"Earth tiara"
 							],
 							"type": "item"
 						},
@@ -6937,7 +8215,8 @@
 							"label": "Access to the Fire Altar",
 							"cards": [
 								"Elemental talisman",
-								"Fire talisman"
+								"Fire talisman",
+								"Fire tiara"
 							],
 							"type": "item"
 						},
@@ -6945,7 +8224,8 @@
 							"label": "Access to the Water Altar",
 							"cards": [
 								"Elemental talisman",
-								"Water talisman"
+								"Water talisman",
+								"Water tiara"
 							],
 							"type": "item"
 						}
@@ -6967,6 +8247,46 @@
 								"Me"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Brundt the Chieftain",
+							"cards": [
+								"Brundt the chieftain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wilson",
+							"cards": [
+								"Wilson"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Jake",
+							"cards": [
+								"Jake"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Palmer",
+							"cards": [
+								"Palmer"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Oneiromancer",
+							"cards": [
+								"Oneiromancer"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -7211,6 +8531,23 @@
 								"Hammer"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Any pickaxe",
+							"cards": [
+								"Crystal pickaxe",
+								"3rd age pickaxe",
+								"Dragon pickaxe",
+								"Rune pickaxe",
+								"Gilded pickaxe",
+								"Adamant pickaxe",
+								"Mithril pickaxe",
+								"Black pickaxe",
+								"Steel pickaxe",
+								"Iron pickaxe",
+								"Bronze pickaxe"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -7232,6 +8569,32 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "My Arm",
+							"cards": [
+								"My arm"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wise Old Man",
+							"cards": [
+								"Wise old man"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Larry",
+							"cards": [
+								"Larry"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -7251,11 +8614,43 @@
 							"type": "item"
 						},
 						{
-							"label": "Sapphire amulet",
+							"label": "Ghostspeak amulet or Morytania legs",
+							"logic": "ANY",
+							"children": [
+								{
+									"label": "Ghostspeak amulet",
+									"cards": [
+										"Ghostspeak amulet"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Morytania legs",
+									"cards": [
+										"Morytania legs"
+									],
+									"type": "item"
+								}
+							]
+						},
+						{
+							"label": "Ecto-token",
 							"cards": [
-								"Sapphire amulet"
+								"Ecto-token"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Lathas",
+							"cards": [
+								"King lathas"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -7341,6 +8736,46 @@
 								"Giant bat"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Arthur",
+							"cards": [
+								"King arthur"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Gawain",
+							"cards": [
+								"Sir gawain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Lancelot",
+							"cards": [
+								"Sir lancelot"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Merlin",
+							"cards": [
+								"Merlin"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Thrantax the Mighty",
+							"cards": [
+								"Thrantax the mighty"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -7431,7 +8866,8 @@
 						{
 							"label": "Monkey bones or Monkey corpse",
 							"cards": [
-								"Monkey bones"
+								"Monkey bones",
+								"Monkey corpse"
 							],
 							"type": "item"
 						},
@@ -7453,6 +8889,25 @@
 								"Jungle Demon"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Narnode Shareen",
+							"cards": [
+								"King narnode shareen"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Kruk",
+							"cards": [
+								"Kruk"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -7505,6 +8960,13 @@
 							"label": "Chisel",
 							"cards": [
 								"Chisel"
+							],
+							"type": "item"
+						},
+						{
+							"label": "M'speak amulet",
+							"cards": [
+								"M'speak amulet"
 							],
 							"type": "item"
 						},
@@ -7599,6 +9061,32 @@
 								"Glough"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Narnode Shareen",
+							"cards": [
+								"King narnode shareen"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Nieve",
+							"cards": [
+								"Nieve"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Steve",
+							"cards": [
+								"Steve"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -7710,6 +9198,39 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Ragnar",
+							"cards": [
+								"Ragnar"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Brundt the Chieftain",
+							"cards": [
+								"Brundt the chieftain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Guard",
+							"cards": [
+								"Guard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Camp dweller",
+							"cards": [
+								"Camp dweller"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -7779,10 +9300,9 @@
 							"type": "item"
 						},
 						{
-							"label": "Toad crunchies / Premade t'd crunch",
+							"label": "Toad crunchies",
 							"cards": [
-								"Toad crunchies",
-								"Premade t'd crunch"
+								"Toad crunchies"
 							],
 							"type": "item"
 						},
@@ -7818,6 +9338,46 @@
 								"Mourner"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Eluned",
+							"cards": [
+								"Eluned"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Arianwyn",
+							"cards": [
+								"Arianwyn"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Essyllt",
+							"cards": [
+								"Essyllt"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Gnome",
+							"cards": [
+								"Gnome"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Elena",
+							"cards": [
+								"Elena"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -7909,7 +9469,6 @@
 										"Thread",
 										"Tinderbox",
 										"Unicorn horn",
-										"Vial of water",
 										"White apron",
 										"White berries",
 										"Archery ticket",
@@ -7933,6 +9492,32 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Arianwyn",
+							"cards": [
+								"Arianwyn"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Essyllt",
+							"cards": [
+								"Essyllt"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Eluned",
+							"cards": [
+								"Eluned"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": "Death talisman has no restriction\nSkull, Slashed/battered book, Prifddinas' history, and Door key are items Klank can ask for, but has no restriction for it"
@@ -7945,18 +9530,24 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Pot (if using the flour bag)",
-							"cards": [
-								"Pot"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Pot of flour",
-							"cards": [
-								"Pot of flour"
-							],
-							"type": "item"
+							"label": "Pot or Pot of flour",
+							"logic": "ANY",
+							"children": [
+								{
+									"label": "Pot",
+									"cards": [
+										"Pot"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Pot of flour",
+									"cards": [
+										"Pot of flour"
+									],
+									"type": "item"
+								}
+							]
 						}
 					]
 				},
@@ -8016,6 +9607,13 @@
 								"Spade"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Climbing boots",
+							"cards": [
+								"Climbing boots"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -8037,6 +9635,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "My Arm",
+							"cards": [
+								"My arm"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Tool Leprechaun",
+							"cards": [
+								"Tool leprechaun"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -8054,6 +9671,13 @@
 								"Silver sickle"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Ghostspeak amulet",
+							"cards": [
+								"Ghostspeak amulet"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -8066,6 +9690,25 @@
 								"Ghast"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Drezel",
+							"cards": [
+								"Drezel"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Nature Spirit",
+							"cards": [
+								"Nature spirit"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -8111,6 +9754,18 @@
 								"Goblin guard"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Observatory professor",
+							"cards": [
+								"Observatory professor"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -8249,11 +9904,24 @@
 							]
 						},
 						{
-							"label": "Hammer",
-							"cards": [
-								"Hammer"
-							],
-							"type": "item"
+							"label": "Hammer or Imcando hammer",
+							"logic": "ANY",
+							"children": [
+								{
+									"label": "Hammer",
+									"cards": [
+										"Hammer"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Imcando hammer",
+									"cards": [
+										"Imcando hammer"
+									],
+									"type": "item"
+								}
+							]
 						},
 						{
 							"label": "Pot",
@@ -8330,6 +9998,39 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Fred the Farmer",
+							"cards": [
+								"Fred the farmer"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Horvik",
+							"cards": [
+								"Horvik"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sanfew",
+							"cards": [
+								"Sanfew"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Rantz",
+							"cards": [
+								"Rantz"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -8394,6 +10095,34 @@
 								"Pestle and mortar"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Hammer",
+							"cards": [
+								"Hammer"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Saw",
+							"cards": [
+								"Saw"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Water Talisman",
+							"cards": [
+								"Water Talisman"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Earth Talisman",
+							"cards": [
+								"Earth Talisman"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -8429,6 +10158,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Eyatlalli",
+							"cards": [
+								"Eyatlalli"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -8457,7 +10198,6 @@
 						{
 							"label": "Bananas",
 							"cards": [
-								"Bananas",
 								"Banana"
 							],
 							"type": "item"
@@ -8515,6 +10255,13 @@
 							"type": "item"
 						},
 						{
+							"label": "Dwellberries",
+							"cards": [
+								"Dwellberries"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Hangover cure materials",
 							"logic": "ALL",
 							"children": [
@@ -8547,6 +10294,32 @@
 									"type": "item"
 								}
 							]
+						},
+						{
+							"label": "Picture of Elena",
+							"cards": [
+								"Elena portrait"
+							],
+							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Mourner",
+							"cards": [
+								"Mourner"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Elena",
+							"cards": [
+								"Elena"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -8593,6 +10366,25 @@
 								"Monk of Zamorak"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Roald",
+							"cards": [
+								"King roald"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Drezel",
+							"cards": [
+								"Drezel"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -8709,13 +10501,6 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Coins (without ring of charos(a))",
-							"cards": [
-								"Coins"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Hammer",
 							"cards": [
 								"Hammer"
@@ -8747,6 +10532,18 @@
 								"Drink troll"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Thurgo",
+							"cards": [
+								"Thurgo"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -8782,7 +10579,10 @@
 								"Willow logs",
 								"Maple logs",
 								"Yew logs",
-								"Magic logs"
+								"Magic logs",
+								"Teak logs",
+								"Mahogany logs",
+								"Redwood logs"
 							],
 							"type": "item"
 						},
@@ -8865,6 +10665,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Fortunato",
+							"cards": [
+								"Fortunato"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -8891,7 +10703,10 @@
 								"Willow logs",
 								"Maple logs",
 								"Yew logs",
-								"Magic logs"
+								"Magic logs",
+								"Teak logs",
+								"Mahogany logs",
+								"Redwood logs"
 							],
 							"type": "item"
 						},
@@ -8931,7 +10746,7 @@
 							"type": "item"
 						},
 						{
-							"label": "Mirror shield",
+							"label": "Mirror shield (optional)",
 							"cards": [
 								"Mirror shield"
 							],
@@ -9147,7 +10962,8 @@
 								"Stick",
 								"Thrower troll",
 								"Troll general",
-								"Twig"
+								"Twig",
+								"The rocks"
 							],
 							"type": "enemy"
 						},
@@ -9205,6 +11021,18 @@
 								"Zombie swab"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Fortunato",
+							"cards": [
+								"Fortunato"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -9274,14 +11102,37 @@
 								"Coins"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "Enemies",
+					"requirements": [
+						{
+							"label": "Rat",
+							"cards": [
+								"Rat"
+							],
+							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Gertrude",
+							"cards": [
+								"Gertrude"
+							],
+							"type": "npc"
 						},
 						{
-							"label": "Rat poison materials (if making)",
+							"label": "Jimmy Dazzler",
 							"cards": [
-								"Vial",
-								"Red spiders' eggs",
-								"Kwuarm"
-							]
+								"Jimmy dazzler"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -9304,6 +11155,13 @@
 							"type": "item"
 						},
 						{
+							"label": "Greenman's ale",
+							"cards": [
+								"Greenman's ale"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Rotten tomato",
 							"cards": [
 								"Rotten tomato"
@@ -9311,7 +11169,7 @@
 							"type": "item"
 						},
 						{
-							"label": "Fruit blast (not premade)",
+							"label": "Fruit blast",
 							"cards": [
 								"Fruit blast"
 							],
@@ -9364,6 +11222,20 @@
 								"Asgarnian ale"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Bucket of milk",
+							"cards": [
+								"Bucket of milk"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Pot of flour",
+							"cards": [
+								"Pot of flour"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -9371,10 +11243,11 @@
 					"label": "Enemies",
 					"requirements": [
 						{
-							"label": "Icefiend - For Rock Cake",
+							"label": "Icefiend (if lacking ice gloves)",
 							"cards": [
 								"Icefiend"
-							]
+							],
+							"type": "enemy"
 						}
 					]
 				}
@@ -9395,7 +11268,8 @@
 								"Blue dye",
 								"Green dye",
 								"Purple dye"
-							]
+							],
+							"type": "item"
 						},
 						{
 							"label": "Bucket of water",
@@ -9405,7 +11279,7 @@
 							"type": "item"
 						},
 						{
-							"label": "Orange",
+							"label": "Orange slices",
 							"cards": [
 								"Orange"
 							],
@@ -9432,13 +11306,18 @@
 								"Bread"
 							],
 							"type": "item"
-						},
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
 						{
-							"label": "Knife",
+							"label": "Goblin generals",
 							"cards": [
-								"Knife"
+								"Goblin generals"
 							],
-							"type": "item"
+							"type": "npc"
 						}
 					]
 				}
@@ -9468,6 +11347,20 @@
 							"type": "item"
 						},
 						{
+							"label": "Knife",
+							"cards": [
+								"Knife"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Bread",
+							"cards": [
+								"Bread"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Needle (Costume needle does not work)",
 							"cards": [
 								"Needle"
@@ -9485,6 +11378,13 @@
 							"label": "Raw cod",
 							"cards": [
 								"Raw cod"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Diving apparatus",
+							"cards": [
+								"Diving apparatus"
 							],
 							"type": "item"
 						}
@@ -9506,6 +11406,18 @@
 								"Crab"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Pirate Pete",
+							"cards": [
+								"Pirate pete"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -9549,6 +11461,25 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Lumbridge Guide",
+							"cards": [
+								"Lumbridge guide"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wizard Traiborn",
+							"cards": [
+								"Wizard traiborn"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -9574,6 +11505,18 @@
 								"Stew"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Evil Dave",
+							"cards": [
+								"Evil dave"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -9608,19 +11551,73 @@
 								"Rope"
 							],
 							"type": "item"
+						},
+						{
+							"label": "M'speak amulet",
+							"cards": [
+								"M'speak amulet"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Monkey nuts",
+							"cards": [
+								"Monkey nuts"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Pestle and morater",
+							"cards": [
+								"Pestle and mortar"
+							],
+							"type": "item"
+						},
+						{
+							"label": "A knife or slash weapon",
+							"logic": "ANY",
+							"children": [
+								{
+									"label": "Knife",
+									"cards": [
+										"Knife"
+									],
+									"type": "item"
+								},
+								{
+									"label": "Slash weapon",
+									"cards": [
+										"Dragon scimitar",
+										"Rune scimitar",
+										"Adamant scimitar",
+										"Mithril scimitar",
+										"Steel scimitar",
+										"Iron scimitar",
+										"Bronze scimitar",
+										"Dragon longsword",
+										"Rune longsword",
+										"Adamant longsword",
+										"Mithril longsword",
+										"Steel longsword",
+										"Iron longsword",
+										"Bronze longsword",
+										"Bronze sword",
+										"Iron sword",
+										"Steel sword",
+										"Mithril sword",
+										"Adamant sword",
+										"Rune sword",
+										"Dragon sword"
+									],
+									"type": "item"
+								}
+							]
 						}
 					]
 				},
 				{
 					"label": "Enemies",
 					"requirements": [
-						{
-							"label": "Pestle and mortar",
-							"cards": [
-								"Pestle and mortar"
-							],
-							"type": "item"
-						},
 						{
 							"label": "Big Snake",
 							"cards": [
@@ -9648,6 +11645,18 @@
 								"Monkey Zombie"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Awowogei",
+							"cards": [
+								"Awowogei"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -9713,12 +11722,7 @@
 								"Pot of cream"
 							],
 							"type": "item"
-						}
-					]
-				},
-				{
-					"label": "Enemies",
-					"requirements": [
+						},
 						{
 							"label": "Pestle and mortar",
 							"cards": [
@@ -9726,6 +11730,26 @@
 							],
 							"type": "item"
 						},
+						{
+							"label": "Sweetcorn",
+							"cards": [
+								"Sweetcorn"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Dramen staff or Lunar staff (Zanaris access)",
+							"cards": [
+								"Dramen staff",
+								"Lunar staff"
+							],
+							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "Enemies",
+					"requirements": [
 						{
 							"label": "Evil Chicken",
 							"cards": [
@@ -9739,6 +11763,25 @@
 								"Black dragon"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Sir Amik Varze",
+							"cards": [
+								"Sir amik varze"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wise Old Man",
+							"cards": [
+								"Wise old man"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -9788,9 +11831,9 @@
 							"type": "item"
 						},
 						{
-							"label": "Cooked chompy",
+							"label": "Comp ogre bow",
 							"cards": [
-								"Cooked chompy"
+								"Comp ogre bow"
 							],
 							"type": "item"
 						},
@@ -9855,13 +11898,37 @@
 									"type": "item"
 								}
 							]
-						},
+						}						
+					]
+				},
+				{
+					"label": "Enemies",
+					"requirements": [
 						{
 							"label": "Jubbly bird",
 							"cards": [
 								"Jubbly bird"
 							],
 							"type": "enemy"
+						},
+						{
+							"label": "Chompy bird (if getting your own)",
+							"cards": [
+								"Chompy bird"
+							],
+							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Rantz",
+							"cards": [
+								"Rantz"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -9928,6 +11995,26 @@
 			"miniquest": false,
 			"sections": [
 				{
+					"label": "Items",
+					"requirements": [
+						{
+							"label": "Grain",
+							"cards": [
+								"Grain"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Method to get Key",
+							"cards": [
+								"Bronze wire",
+								"Knife",
+								"Chisel"
+							]
+						}
+					]
+				},
+				{
 					"label": "Enemies",
 					"requirements": [
 						{
@@ -9936,6 +12023,25 @@
 								"Sir Leye"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Sir Amik Varze",
+							"cards": [
+								"Sir amik varze"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Tiffy Cashien",
+							"cards": [
+								"Sir tiffy cashien"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -9971,6 +12077,13 @@
 							"type": "item"
 						},
 						{
+							"label": "Plank",
+							"cards": [
+								"Plank"
+							],
+							"type": "item"
+						},
+						{
 							"label": "Limestone",
 							"cards": [
 								"Limestone"
@@ -9978,9 +12091,9 @@
 							"type": "item"
 						},
 						{
-							"label": "Limestone brick",
+							"label": "Ball of wool",
 							"cards": [
-								"Limestone brick"
+								"Ball of wool"
 							],
 							"type": "item"
 						},
@@ -10029,8 +12142,7 @@
 									"label": "Iron arrow/fire",
 									"logic": "ALL",
 									"cards": [
-										"Iron arrow",
-										"Steel arrow"
+										"Iron arrow"
 									],
 									"type": "item"
 								},
@@ -10046,8 +12158,7 @@
 									"label": "Mithril arrow/fire",
 									"logic": "ALL",
 									"cards": [
-										"Mithril arrow",
-										"Steel arrow"
+										"Mithril arrow"
 									],
 									"type": "item"
 								},
@@ -10063,8 +12174,7 @@
 									"label": "Rune arrow/fire",
 									"logic": "ALL",
 									"cards": [
-										"Rune arrow",
-										"Steel arrow"
+										"Rune arrow"
 									],
 									"type": "item"
 								},
@@ -10140,7 +12250,27 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Lathas",
+							"cards": [
+								"King lathas"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lord Iorwerth",
+							"cards": [
+								"Lord iorwerth"
+							],
+							"type": "npc"
+						}
+					]
 				}
+
 			],
 			"notes": ""
 		},
@@ -10211,6 +12341,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Eluned",
+							"cards": [
+								"Eluned"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -10256,6 +12398,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Vargas",
+							"cards": [
+								"King vargas"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Queen Sigrid",
+							"cards": [
+								"Queen sigrid"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -10289,9 +12450,9 @@
 							"type": "item"
 						},
 						{
-							"label": "Slayer gloves",
+							"label": "Holy wrench",
 							"cards": [
-								"Slayer gloves"
+								"Holy wrench"
 							],
 							"type": "item"
 						}
@@ -10313,6 +12474,18 @@
 								"Fever spider"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Pirate Pete",
+							"cards": [
+								"Pirate pete"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -10384,11 +12557,23 @@
 					"label": "Enemies",
 					"requirements": [
 						{
-							"label": "Jailer",
+							"label": "Jailer or 70 Agility",
 							"cards": [
 								"Jailer"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Seer",
+							"cards": [
+								"Seer"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -10406,6 +12591,20 @@
 							"label": "Bowl of water",
 							"cards": [
 								"Bowl of water"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Damiana tea",
+							"cards": [
+								"Damiana tea"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Empty cup",
+							"cards": [
+								"Empty cup"
 							],
 							"type": "item"
 						},
@@ -10439,7 +12638,8 @@
 								"Black nails",
 								"Mithril nails",
 								"Adamantite nails",
-								"Rune nails"
+								"Rune nails",
+								"Dragon nails"
 							],
 							"type": "item"
 						}
@@ -10470,6 +12670,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Humphrey Dumphrey",
+							"cards": [
+								"Humphrey dumphrey"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -10485,13 +12697,6 @@
 							"label": "Swamp paste",
 							"cards": [
 								"Swamp paste"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Torch",
-							"cards": [
-								"Torch"
 							],
 							"type": "item"
 						}
@@ -10555,6 +12760,47 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Guard",
+							"cards": [
+								"Guard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Hazeel",
+							"cards": [
+								"Hazeel"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Alomone or Clivet",
+							"cards": [
+								"Alomone",
+								"Clivet"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "General Khazard",
+							"cards": [
+								"General khazard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Jhallan",
+							"cards": [
+								"Jhallan"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -10595,7 +12841,14 @@
 							"type": "item"
 						},
 						{
-							"label": "A log whose pyre version you can burn",
+							"label": "Sacred Oil",
+							"cards": [
+								"Sacred Oil"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Pyre logs",
 							"cards": [
 								"Logs",
 								"Oak logs",
@@ -10608,10 +12861,31 @@
 							"type": "item"
 						},
 						{
-							"label": "Hammer or Flamtaer Hammer",
+							"label": "Hammer or Flamtaer hammer",
 							"cards": [
 								"Hammer",
-								"Flamtaer hammer"
+								"Flamtaer hammer"								
+							],
+							"type": "item"
+						},
+						{
+							"label": "Limestone brick",
+							"cards": [
+								"Limestone brick"								
+							],
+							"type": "item"
+						},
+						{
+							"label": "Swamp paste",
+							"cards": [
+								"Swamp paste"
+							]
+						},
+						{
+							"label": "Loar remains",
+							"cards": [
+								"Shade remains"
+								
 							],
 							"type": "item"
 						}
@@ -10628,6 +12902,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Afflicted",
+							"cards": [
+								"Afflicted"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -10639,6 +12925,15 @@
 				{
 					"label": "Items",
 					"requirements": [
+						{
+							"label": "Desert Access",
+							"cards": [
+								"Coins",
+								"Dramen staff",
+								"Lunar staff"
+							],
+							"type": "item"
+						},
 						{
 							"label": "Silver bar",
 							"cards": [
@@ -10667,13 +12962,6 @@
 								"Shade robe top"
 							],
 							"type": "item"
-						},
-						{
-							"label": "Coins (for buying Shantay passes)",
-							"cards": [
-								"Coins"
-							],
-							"type": "item"
 						}
 					]
 				},
@@ -10688,9 +12976,28 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Evil Dave",
+							"cards": [
+								"Evil dave"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Clay golem",
+							"cards": [
+								"Clay golem"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
-			"notes": "Black desert robes, black priest outfit, dark mystic, ghostly robes, black wizard robes, black Christmas pieces, and dark dye Graceful pieces count"
+			"notes": "Black desert robes, black priest outfit, dark mystic, ghostly robes, black wizard robes, black Christmas pieces, and dark dye Graceful pieces count. Nardah teleport scrolls can also be used to reach the Desert."
 		},
 		{
 			"name": "Shadows of Custodia",
@@ -10714,9 +13021,10 @@
 							"type": "item"
 						},
 						{
-							"label": "Fishing rod",
+							"label": "Fishing rod or Pearl fishing rod",
 							"cards": [
-								"Fishing rod"
+								"Fishing rod",
+								"Pearl fishing rod"
 							],
 							"type": "item"
 						},
@@ -10731,22 +13039,7 @@
 				},
 				{
 					"label": "Enemies",
-					"requirements": [
-						{
-							"label": "Phantom Muspah",
-							"cards": [
-								"Phantom Muspah"
-							],
-							"type": "enemy"
-						},
-						{
-							"label": "Juvenile custodian stalker",
-							"cards": [
-								"Juvenile custodian stalker"
-							],
-							"type": "enemy"
-						}
-					]
+					"requirements": []
 				}
 			],
 			"notes": ""
@@ -10898,7 +13191,7 @@
 							"type": "item"
 						},
 						{
-							"label": "Torch, lit candle, candle lantern, lit black candle, or bruma torch",
+							"label": "Candle or torch",
 							"cards": [
 								"Torch",
 								"Candle",
@@ -10981,44 +13274,29 @@
 							"type": "item"
 						},
 						{
-							"label": "Vyrewatch outfit or Coins",
-							"logic": "ANY",
-							"children": [
-								{
-									"label": "Vyrewatch outfit",
-									"logic": "ALL",
-									"children": [
-										{
-											"label": "Vyrewatch top",
-											"cards": [
-												"Vyrewatch top"
-											],
-											"type": "item"
-										},
-										{
-											"label": "Vyrewatch legs",
-											"cards": [
-												"Vyrewatch legs"
-											],
-											"type": "item"
-										},
-										{
-											"label": "Vyrewatch shoes",
-											"cards": [
-												"Vyrewatch shoes"
-											],
-											"type": "item"
-										}
-									]
-								},
-								{
-									"label": "Coins",
-									"cards": [
-										"Coins"
-									],
-									"type": "item"
-								}
-							]
+							"label": "Silver sickle",
+							"cards": [
+								"Silver sickle"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Vyrewatch outfit",
+							"cards": [
+								"Vyrewatch top",
+								"Vyrewatch legs",
+								"Vyrewatch shoes"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Vyre noble outfit",
+							"cards": [
+								"Vyre noble top",
+								"Vyre noble legs",
+								"Vyre noble shoes"
+							],
+							"type": "item"
 						},
 						{
 							"label": "Enchant Ruby Runes/Tablet",
@@ -11068,8 +13346,9 @@
 							]
 						},
 						{
-							"label": "Any axe",
+							"label": "Hammer or any axe",
 							"cards": [
+								"Hammer",
 								"Crystal axe",
 								"3rd age axe",
 								"Dragon axe",
@@ -11081,6 +13360,44 @@
 								"Steel axe",
 								"Iron axe",
 								"Bronze axe"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Any pickaxe",
+							"cards": [
+								"Crystal pickaxe",
+								"3rd age pickaxe",
+								"Dragon pickaxe",
+								"Rune pickaxe",
+								"Gilded pickaxe",
+								"Adamant pickaxe",
+								"Mithril pickaxe",
+								"Black pickaxe",
+								"Steel pickaxe",
+								"Iron pickaxe",
+								"Bronze pickaxe"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Daeyalt ore",
+							"cards": [
+								"Daeyalt ore"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Blisterwood logs",
+							"cards": [
+								"Blisterwood logs"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Blisterwood flail",
+							"cards": [
+								"Blisterwood flail"
 							],
 							"type": "item"
 						}
@@ -11118,16 +13435,16 @@
 							"type": "enemy"
 						},
 						{
-							"label": "Damien Leucurte",
+							"label": "Acidic Bloodveld (optional)",
 							"cards": [
-								"Damien Leucurte"
+								"Acidic Bloodveld"
 							],
 							"type": "enemy"
 						},
 						{
-							"label": "Vampyre Juvenile",
+							"label": "Damien Leucurte",
 							"cards": [
-								"Vampyre Juvenile"
+								"Damien Leucurte"
 							],
 							"type": "enemy"
 						},
@@ -11137,6 +13454,53 @@
 								"Vanstrom Klause"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Veliaf Hurtz",
+							"cards": [
+								"Veliaf hurtz"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Vertida Sefalatis",
+							"cards": [
+								"Vertida sefalatis"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Drezel",
+							"cards": [
+								"Drezel"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Vyrewatch",
+							"cards": [
+								"Vyrewatch"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Safalaan Hallow",
+							"cards": [
+								"Safalaan hallow"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Vanescula Drakan",
+							"cards": [
+								"Vanescula drakan"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -11248,7 +13612,8 @@
 						{
 							"label": "Bucket of water or ice gloves",
 							"cards": [
-								"Bucket of water"
+								"Bucket of water",
+								"Ice gloves"
 							]
 						},
 						{
@@ -11263,6 +13628,58 @@
 								"Rune nails"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Any bronze items",
+							"cards": [
+								"Bronze bar",
+								"Bronze platebody",
+								"Bronze platelegs",
+								"Bronze plateskirt",
+								"Bronze full helm",
+								"Bronze kiteshield",
+								"Bronze chainbody",
+								"Bronze sq shield",
+								"Bronze scimitar",
+								"Bronze longsword",
+								"Bronze claws",
+								"Bronze warhammer",
+								"Bronze battleaxe",
+								"Bronze 2h sword"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Any iron items",
+							"cards": [
+								"Iron bar",
+								"Iron platebody",
+								"Iron platelegs",
+								"Iron plateskirt",
+								"Iron full helm",
+								"Iron kiteshield",
+								"Iron chainbody",
+								"Iron sq shield",
+								"Iron scimitar",
+								"Iron longsword",
+								"Iron claws",
+								"Iron warhammer",
+								"Iron battleaxe",
+								"Iron 2h sword"
+							],
+							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Kovac",
+							"cards": [
+								"Kovac"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -11443,13 +13860,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Vial of water",
-							"cards": [
-								"Vial of water"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Pestle and mortar",
 							"cards": [
 								"Pestle and mortar"
@@ -11571,6 +13981,47 @@
 								"Fragment of Seren"
 							],
 							"type": "enemy"
+						},
+						{
+							"label": "Barricade Fight",
+							"cards": [
+								"Elf Warrior",
+								"Elf Archer"
+							],
+							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Elena",
+							"cards": [
+								"Elena"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Baxtorian",
+							"cards": [
+								"Baxtorian"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Eluned",
+							"cards": [
+								"Eluned"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Mysterious Figure",
+							"cards": [
+								"Mysterious figure"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -11584,6 +14035,15 @@
 				{
 					"label": "Items",
 					"requirements": [
+						{
+							"label": "Desert Access",
+							"cards": [
+								"Coins",
+								"Dramen staff",
+								"Lunar staff"
+							],
+							"type": "item"
+						},
 						{
 							"label": "Needle",
 							"cards": [
@@ -11713,17 +14173,15 @@
 											]
 										},
 										{
-											"label": "Any elemental rune",
+											"label": "Air rune/Air staff",
 											"cards": [
 												"Air rune",
-												"Water rune",
-												"Earth rune",
-												"Fire rune",
-												"Mist rune",
-												"Dust rune",
-												"Mud rune",
-												"Smoke rune",
-												"Lava rune"
+												"Staff of air",
+												"Air battlestaff",
+												"Mystic air staff",
+												"Smoke battlestaff",
+												"Mist battlestaff",
+												"Dust battlestaff"
 											]
 										}
 									]
@@ -11757,9 +14215,21 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Genie",
+							"cards": [
+								"Genie"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
-			"notes": ""
+			"notes": "Nardah teleport scrolls can also be used to reach the Desert."
 		},
 		{
 			"name": "Swan Song",
@@ -11768,6 +14238,16 @@
 				{
 					"label": "Items",
 					"requirements": [
+						{
+							"label": "Piscatoris Access",
+							"cards": [
+								"Coins",
+								"Ring of Charos",
+								"Dramen staff",
+								"Lunar staff"
+							],
+							"type": "item"
+						},
 						{
 							"label": "Mist rune",
 							"cards": [
@@ -11873,9 +14353,28 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Wise Old Man",
+							"cards": [
+								"Wise old man"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Master Crafter",
+							"cards": [
+								"Master crafter"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
-			"notes": ""
+			"notes": "Piscatoris teleport scrolls can also be used to access Piscatoris."
 		},
 		{
 			"name": "Tai Bwo Wannai Trio",
@@ -11892,9 +14391,16 @@
 							"type": "item"
 						},
 						{
-							"label": "Sliced banana",
+							"label": "Banana",
 							"cards": [
-								"Sliced banana"
+								"Banana"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Karamjan rum",
+							"cards": [
+								"Karamjan rum"
 							],
 							"type": "item"
 						},
@@ -11924,13 +14430,6 @@
 								"Mahogany logs",
 								"Yew logs",
 								"Magic logs"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Cooked karambwan",
-							"cards": [
-								"Cooked karambwan"
 							],
 							"type": "item"
 						},
@@ -11985,6 +14484,34 @@
 							"label": "Raw karambwan",
 							"cards": [
 								"Raw karambwan"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Cooked karambwan",
+							"cards": [
+								"Cooked karambwan"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Raw karambwanji",
+							"cards": [
+								"Raw karambwanji"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Karambwan vessel",
+							"cards": [
+								"Karambwan vessel"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Monkey corpse",
+							"cards": [
+								"Monkey corpse"
 							],
 							"type": "item"
 						}
@@ -12051,17 +14578,15 @@
 									]
 								},
 								{
-									"label": "Any elemental rune",
+									"label": "Air rune/Air staff",
 									"cards": [
 										"Air rune",
-										"Water rune",
-										"Earth rune",
-										"Fire rune",
-										"Mist rune",
-										"Dust rune",
-										"Mud rune",
-										"Smoke rune",
-										"Lava rune"
+										"Staff of air",
+										"Air battlestaff",
+										"Mystic air staff",
+										"Smoke battlestaff",
+										"Mist battlestaff",
+										"Dust battlestaff"
 									]
 								}
 							]
@@ -12159,9 +14684,21 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Lord Shiro Shayzien",
+							"cards": [
+								"Lord shiro shayzien"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
-			"notes": ""
+			"notes": "Salamanders can be used as an option for all 3 combat styles."
 		},
 		{
 			"name": "Tears of Guthix",
@@ -12174,13 +14711,6 @@
 							"label": "Chisel",
 							"cards": [
 								"Chisel"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Rope",
-							"cards": [
-								"Rope"
 							],
 							"type": "item"
 						},
@@ -12230,6 +14760,18 @@
 							"displayCardsOnly": true
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Juna",
+							"cards": [
+								"Juna"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -12249,24 +14791,23 @@
 							"type": "item"
 						},
 						{
-							"label": "Any light source to get the boots of lightness",
+							"label": "Weight-reducing clothing",
 							"cards": [
-								"Abyssal lantern",
-								"Bruma torch",
-								"Bullseye lantern",
-								"Candle lantern",
-								"Candle",
-								"Mining helmet",
-								"Oil lamp",
-								"Oil lantern",
-								"Torch"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Knife to get the boots of lightness",
-							"cards": [
-								"Knife"
+								"Boots of lightness",
+								"Graceful hood",
+								"Graceful top",
+								"Graceful legs",
+								"Graceful gloves",
+								"Graceful boots",
+								"Spotted cape",
+								"Spottier cape",
+								"Penance gloves",
+								"Polar camo top",
+								"Polar camo legs",
+								"Wood camo top",
+								"Wood camo legs",
+								"Desert camo top",
+								"Desert camo legs"
 							],
 							"type": "item"
 						},
@@ -12375,6 +14916,32 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Archmage Sedridor",
+							"cards": [
+								"Archmage sedridor"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Wizard Traiborn",
+							"cards": [
+								"Wizard traiborn"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "The Great Guardian",
+							"cards": [
+								"The great guardian"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -12399,6 +14966,18 @@
 								"Trapped Soul"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Lord Trobin Arceuus",
+							"cards": [
+								"Lord trobin arceuus"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -12463,6 +15042,13 @@
 								"Chisel"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Blisterwood logs",
+							"cards": [
+								"Blisterwood logs"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -12510,6 +15096,81 @@
 								"Lowerniel Drakan"
 							],
 							"type": "enemy"
+						},
+						{
+							"label": "Sanguidae",
+							"cards": [
+								"Sanguidae"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Webbed-winged Crow",
+							"cards": [
+								"Webbed-winged Crow"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Venator",
+							"cards": [
+								"Venator"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Ancient feral vyre",
+							"cards": [
+								"Ancient feral vyre"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Wyrd",
+							"cards": [
+								"Wyrd"
+							],
+							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Vanescula Drakan",
+							"cards": [
+								"Vanescula drakan"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Safalaan Hallow",
+							"cards": [
+								"Safalaan hallow"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Veliaf Hurtz",
+							"cards": [
+								"Veliaf hurtz"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Drezel",
+							"cards": [
+								"Drezel"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Efaritay Hallow",
+							"cards": [
+								"Efaritay hallow"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -12613,6 +15274,13 @@
 								"Dragon crossbow"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Dwellberries",
+							"cards": [
+								"Dwellberries"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -12632,6 +15300,32 @@
 								"Arrav"
 							],
 							"type": "enemy"
+						},
+						{
+							"label": "Armoured Zombie",
+							"cards": [
+								"Armoured zombie"
+							],
+							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Elias White",
+							"cards": [
+								"Elias white"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Killerwatt",
+							"cards": [
+								"Killerwatt"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -12792,6 +15486,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Hazelmere",
+							"cards": [
+								"Hazelmere"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "King Narnode Shareen",
+							"cards": [
+								"King narnode shareen"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -12855,6 +15568,13 @@
 								"Graceful gloves"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Oak Blackjack",
+							"cards": [
+								"Oak blackjack"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -12874,6 +15594,25 @@
 								"Tough Guy"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Ali Morrisane",
+							"cards": [
+								"Ali morrisane"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Menaphite Thug",
+							"cards": [
+								"Menaphite thug"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -12956,6 +15695,46 @@
 								"Ennius Tullus"
 							],
 							"type": "enemy"
+						},
+						{
+							"label": "Augur Metzli",
+							"cards": [
+								"Augur Metzli"
+							],
+							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Queen Zyanyi Arkan",
+							"cards": [
+								"Queen zyanyi arkan"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Prince Itzla Arkan",
+							"cards": [
+								"Prince itzla arkan"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Eyatlalli",
+							"cards": [
+								"Eyatlalli"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Furia Tullus",
+							"cards": [
+								"Furia tullus"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -12975,6 +15754,25 @@
 								"Tinderbox"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Lady Vulcana Lovakengj",
+							"cards": [
+								"Lady vulcana lovakengj"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ignisia",
+							"cards": [
+								"Ignisia"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -13039,24 +15837,11 @@
 							"type": "item"
 						},
 						{
-							"label": "Kegs of beer or Coins",
-							"logic": "ANY",
-							"children": [
-								{
-									"label": "Kegs of beer",
-									"cards": [
-										"Keg of beer"
-									],
-									"type": "item"
-								},
-								{
-									"label": "Coins",
-									"cards": [
-										"Coins"
-									],
-									"type": "item"
-								}
-							]
+							"label": "Kegs of beer",
+							"cards": [
+								"Keg of beer"
+							],
+							"type": "item"
 						},
 						{
 							"label": "Any pickaxe",
@@ -13076,9 +15861,9 @@
 							"type": "item"
 						},
 						{
-							"label": "Rune thrownaxe, or a friend to help enter Waterbirth Isle Dungeon",
+							"label": "Ice gloves",
 							"cards": [
-								"Rune thrownaxe"
+								"Ice gloves"
 							],
 							"type": "item"
 						}
@@ -13128,6 +15913,32 @@
 								"The Jormungand"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Brundt the Chieftain",
+							"cards": [
+								"Brundt the chieftain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Fossegrimen",
+							"cards": [
+								"Fossegrimen"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Peer the Seer",
+							"cards": [
+								"Peer the seer"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -13190,6 +16001,13 @@
 								"Coins"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Yak-hide armour",
+							"cards": [
+								"Yak-hide armour"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -13209,6 +16027,25 @@
 								"Ice Troll King"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Gjuki Sorvott IV",
+							"cards": [
+								"King gjuki sorvott iv"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Mawnis Burowgar",
+							"cards": [
+								"Mawnis burowgar"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -13343,6 +16180,60 @@
 								"The Draugen"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Askeladden",
+							"cards": [
+								"Askeladden"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Fossegrimen",
+							"cards": [
+								"Fossegrimen"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Yrsa",
+							"cards": [
+								"Yrsa"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Brundt the Chieftain",
+							"cards": [
+								"Brundt the chieftain"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Olaf the Bard",
+							"cards": [
+								"Olaf the bard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Peer the Seer",
+							"cards": [
+								"Peer the seer"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Torfinn",
+							"cards": [
+								"Torfinn"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -13535,9 +16426,10 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Secateurs",
+							"label": "Secateurs or Magic secateurs",
 							"cards": [
-								"Secateurs"
+								"Secateurs",
+								"Magic secateurs"
 							],
 							"type": "item"
 						}
@@ -13695,6 +16587,25 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Thurgo",
+							"cards": [
+								"Thurgo"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Reldo",
+							"cards": [
+								"Reldo"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -13742,6 +16653,18 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Clay golem",
+							"cards": [
+								"Clay golem"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -13771,6 +16694,46 @@
 								"Black demon"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Narnode Shareen",
+							"cards": [
+								"King narnode shareen"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Hazelmere",
+							"cards": [
+								"Hazelmere"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Glough",
+							"cards": [
+								"Glough"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Foreman",
+							"cards": [
+								"Foreman"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Shipyard worker",
+							"cards": [
+								"Shipyard worker"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -13835,7 +16798,8 @@
 								"Black nails",
 								"Mithril nails",
 								"Adamantite nails",
-								"Rune nails"
+								"Rune nails",
+								"Dragon nails"
 							],
 							"type": "item"
 						},
@@ -13843,6 +16807,13 @@
 							"label": "Holy symbol material",
 							"cards": [
 								"Holy symbol"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ring of charos",
+							"cards": [
+								"Ring of charos"
 							],
 							"type": "item"
 						}
@@ -13913,13 +16884,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Bullseye lantern",
-							"cards": [
-								"Bullseye lantern"
-							],
-							"type": "item"
-						},
-						{
 							"label": "Earth rune",
 							"cards": [
 								"Earth rune"
@@ -13932,6 +16896,18 @@
 								"Bucket of sand"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Zavistic Rarve",
+							"cards": [
+								"Zavistic rarve"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -13949,6 +16925,23 @@
 							"label": "Coins",
 							"cards": [
 								"Coins"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Any pickaxe",
+							"cards": [
+								"Crystal pickaxe",
+								"3rd age pickaxe",
+								"Dragon pickaxe",
+								"Rune pickaxe",
+								"Gilded pickaxe",
+								"Adamant pickaxe",
+								"Mithril pickaxe",
+								"Black pickaxe",
+								"Steel pickaxe",
+								"Iron pickaxe",
+								"Bronze pickaxe"
 							],
 							"type": "item"
 						}
@@ -13984,6 +16977,39 @@
 								"Amoxliatl"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Queen Zyanyi Arkan",
+							"cards": [
+								"Queen zyanyi arkan"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Augur Metzli",
+							"cards": [
+								"Augur metzli"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ennius Tullus",
+							"cards": [
+								"Ennius tullus"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Furia Tullus",
+							"cards": [
+								"Furia tullus"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -14137,6 +17163,46 @@
 							"type": "item"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Sigmund",
+							"cards": [
+								"Sigmund"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Duke Horacio",
+							"cards": [
+								"Duke horacio"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Hans",
+							"cards": [
+								"Hans"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Bob",
+							"cards": [
+								"Bob"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Reldo",
+							"cards": [
+								"Reldo"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -14190,6 +17256,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Bolren",
+							"cards": [
+								"King bolren"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Hazelmere",
+							"cards": [
+								"Hazelmere"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -14207,6 +17292,18 @@
 								"Stew"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Lady Shauna Piscarilius",
+							"cards": [
+								"Lady shauna piscarilius"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -14240,6 +17337,74 @@
 								"Giant lobster"
 							],
 							"type": "enemy"
+						},
+						{
+							"label": "Captain Jack",
+							"cards": [
+								"Captain Jack"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Captain Ruban Acer",
+							"cards": [
+								"Captain Ruban Acer"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Bloody Jack",
+							"cards": [
+								"Bloody Jack"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Mister U.",
+							"cards": [
+								"Mister U."
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Old Jack",
+							"cards": [
+								"Old Jack"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Mute Jack",
+							"cards": [
+								"Mute Jack"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Oaky Doak",
+							"cards": [
+								"Oaky Doak"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Boatswain Bill Teak",
+							"cards": [
+								"Boatswain Bill Teak"
+							],
+							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Floopa",
+							"cards": [
+								"Floopa"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -14339,7 +17504,8 @@
 							"label": "Access to the Air Altar",
 							"cards": [
 								"Elemental talisman",
-								"Air talisman"
+								"Air talisman",
+								"Air tiara"
 							],
 							"type": "item"
 						},
@@ -14347,7 +17513,8 @@
 							"label": "Access to the Earth Altar",
 							"cards": [
 								"Elemental talisman",
-								"Earth talisman"
+								"Earth talisman",
+								"Earth tiara"
 							],
 							"type": "item"
 						},
@@ -14371,7 +17538,8 @@
 							"label": "Access to the Water Altar",
 							"cards": [
 								"Elemental talisman",
-								"Water talisman"
+								"Water talisman",
+								"Water tiara"
 							],
 							"type": "item"
 						}
@@ -14388,6 +17556,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Sir Tiffy Cashien",
+							"cards": [
+								"Sir tiffy cashien"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -14399,13 +17579,6 @@
 				{
 					"label": "Items",
 					"requirements": [
-						{
-							"label": "Coins (to buy Shantay Passes)",
-							"cards": [
-								"Coins"
-							],
-							"type": "item"
-						},
 						{
 							"label": "Desert shirt",
 							"cards": [
@@ -14447,6 +17620,13 @@
 								"Feather"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Ana in a barrel",
+							"cards": [
+								"Ana in a barrel"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -14461,9 +17641,21 @@
 							"type": "enemy"
 						}
 					]
+				}, 
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Guard",
+							"cards": [
+								"Guard"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
-			"notes": ""
+			"notes": "Nardah teleport scrolls can also be used to reach the Desert."
 		},
 		{
 			"name": "Throne of Miscellania",
@@ -14568,25 +17760,36 @@
 							"type": "item"
 						},
 						{
-							"label": "Any normal/oak/willow/maple/yew shortbow or longbow (if courting Astrid)",
+							"label": "Shortbow or Longbow (if courting Astrid)",
 							"cards": [
 								"Shortbow",
-								"Longbow",
-								"Oak shortbow",
-								"Oak longbow",
-								"Willow shortbow",
-								"Willow longbow",
-								"Maple shortbow",
-								"Maple longbow",
-								"Yew shortbow",
-								"Yew longbow"
+								"Longbow"
 							],
 							"type": "item"
 						}
 					]
+				}, 
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Vargas",
+							"cards": [
+								"King vargas"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Queen Sigrid",
+							"cards": [
+								"Queen sigrid"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
-			"notes": ""
+			"notes": "Jester row emotes can be used to court Astrid without flowers or a bow."
 		},
 		{
 			"name": "Tower of Life",
@@ -14615,6 +17818,18 @@
 								"Beer"
 							],
 							"type": "item"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Homunculus",
+							"cards": [
+								"Homunculus"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -14646,6 +17861,18 @@
 								"Khazard warlord"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Bolren",
+							"cards": [
+								"King bolren"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -14707,6 +17934,13 @@
 								"Swamp tar"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Climbing boots",
+							"cards": [
+								"Climbing boots"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -14733,9 +17967,9 @@
 					"label": "Items",
 					"requirements": [
 						{
-							"label": "Coins",
+							"label": "Climbing boots",
 							"cards": [
-								"Coins"
+								"Climbing boots"
 							],
 							"type": "item"
 						}
@@ -14773,6 +18007,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Denulth",
+							"cards": [
+								"Denulth"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": "Berry and Twig are only required if you fail to pickpocket with 30+ Thieving or just simply attack them."
@@ -14802,6 +18048,13 @@
 							"label": "Sea shell",
 							"cards": [
 								"Sea shell"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Seaweed",
+							"cards": [
+								"Seaweed"
 							],
 							"type": "item"
 						},
@@ -14842,6 +18095,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Floopa",
+							"cards": [
+								"Floopa"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -14878,6 +18143,40 @@
 								"Cultist"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Prince Itzla Arkan",
+							"cards": [
+								"Prince itzla arkan"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Augur Metzli",
+							"cards": [
+								"Augur metzli"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Renu",
+							"cards": [
+								"Renu"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ennius or Furia",
+							"cards": [
+								"Ennius tullus",
+								"Furia tullus"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -14920,9 +18219,9 @@
 							"type": "item"
 						},
 						{
-							"label": "Plank",
+							"label": "Unicorn horn",
 							"cards": [
-								"Plank"
+								"Unicorn horn"
 							],
 							"type": "item"
 						},
@@ -14942,8 +18241,7 @@
 									"label": "Iron arrow/fire",
 									"logic": "ALL",
 									"cards": [
-										"Iron arrow",
-										"Steel arrow"
+										"Iron arrow"
 									],
 									"type": "item"
 								},
@@ -14959,8 +18257,7 @@
 									"label": "Mithril arrow/fire",
 									"logic": "ALL",
 									"cards": [
-										"Mithril arrow",
-										"Steel arrow"
+										"Mithril arrow"
 									],
 									"type": "item"
 								},
@@ -14976,8 +18273,7 @@
 									"label": "Rune arrow/fire",
 									"logic": "ALL",
 									"cards": [
-										"Rune arrow",
-										"Steel arrow"
+										"Rune arrow"
 									],
 									"type": "item"
 								},
@@ -15016,6 +18312,20 @@
 								"Longbow"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Zamorak monk top",
+							"cards": [
+								"Zamorak monk top"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Zamorak monk bottom",
+							"cards": [
+								"Zamorak monk bottom"
+							],
+							"type": "item"
 						}
 					]
 				},
@@ -15044,9 +18354,23 @@
 							"type": "enemy"
 						},
 						{
-							"label": "Paladin",
+							"label": "Sir Carl",
 							"cards": [
-								"Paladin"
+								"Sir Carl"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Sir Jerro",
+							"cards": [
+								"Sir Jerro"
+							],
+							"type": "enemy"
+						},
+						{
+							"label": "Sir Harry",
+							"cards": [
+								"Sir Harry"
 							],
 							"type": "enemy"
 						},
@@ -15065,12 +18389,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "King Lathas",
+							"cards": [
+								"King lathas"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
 		},
 		{
 			"name": "Vale Totems (miniquest)",
+			"runeliteQuest": "VALE_TOTEMS",
 			"miniquest": true,
 			"sections": [
 				{
@@ -15232,13 +18569,6 @@
 								"Torch"
 							],
 							"type": "item"
-						},
-						{
-							"label": "A rope",
-							"cards": [
-								"Rope"
-							],
-							"type": "item"
 						}
 					]
 				},
@@ -15251,6 +18581,32 @@
 								"Black Knight"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Sir Tiffy Cashien",
+							"cards": [
+								"Sir tiffy cashien"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sir Amik Varze",
+							"cards": [
+								"Sir amik varze"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Lord Daquarius",
+							"cards": [
+								"Lord daquarius"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -15328,20 +18684,6 @@
 							"type": "item"
 						},
 						{
-							"label": "Ogre shaman",
-							"cards": [
-								"Ogre shaman"
-							],
-							"type": "enemy"
-						},
-						{
-							"label": "Enclave guard",
-							"cards": [
-								"Enclave guard"
-							],
-							"type": "enemy"
-						},
-						{
 							"label": "Any light source",
 							"cards": [
 								"Abyssal lantern",
@@ -15398,6 +18740,32 @@
 								"Giant bat"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "City guard",
+							"cards": [
+								"City guard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Enclave guard",
+							"cards": [
+								"Enclave guard"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ogre shaman",
+							"cards": [
+								"Ogre shaman"
+							],
+							"type": "npc"
 						}
 					]
 				}
@@ -15493,6 +18861,25 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Surok Magis",
+							"cards": [
+								"Surok magis"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Zaff",
+							"cards": [
+								"Zaff"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -15515,13 +18902,6 @@
 							"label": "Seed dibber",
 							"cards": [
 								"Seed dibber"
-							],
-							"type": "item"
-						},
-						{
-							"label": "Bullseye lantern",
-							"cards": [
-								"Bullseye lantern"
 							],
 							"type": "item"
 						},
@@ -15637,7 +19017,9 @@
 								"Willow logs",
 								"Maple logs",
 								"Yew logs",
-								"Magic logs"
+								"Magic logs",
+								"Teak logs",
+								"Mahogany logs"
 							],
 							"type": "item"
 						},
@@ -15645,6 +19027,13 @@
 							"label": "Coins",
 							"cards": [
 								"Coins"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Ring of charos",
+							"cards": [
+								"Ring of charos"
 							],
 							"type": "item"
 						},
@@ -15876,6 +19265,81 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Ivy Sophista",
+							"cards": [
+								"Ivy sophista"
+							],
+							"type": "npc"
+						}, 
+						{
+							"label": "Hunting expert",
+							"cards": [
+								"Hunting expert"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Idria",
+							"cards": [
+								"Idria"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Akrisae",
+							"cards": [
+								"Akrisae"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Turael",
+							"cards": [
+								"Turael"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Mazchna",
+							"cards": [
+								"Mazchna"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Duradel",
+							"cards": [
+								"Duradel"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Cyrisus",
+							"cards": [
+								"Cyrisus"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Ghommal",
+							"cards": [
+								"Ghommal"
+							],
+							"type": "npc"
+						},
+						{
+							"label": "Sloane",
+							"cards": [
+								"Sloane"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
@@ -15923,7 +19387,7 @@
 					]
 				}
 			],
-			"notes": "Mouse Card May Be Needed For Magnet - Prevent Interactions Users."
+			"notes": "Mouse is not a combat kill target per the wiki - it's lured and caught with cheese + magnet to unlock a door, not defeated. Kept in Enemies to track that card interaction rather than as a kill requirement."
 		},
 		{
 			"name": "Witch's Potion",
@@ -16018,16 +19482,30 @@
 							"type": "item"
 						},
 						{
-							"label": "Comp ogre bow",
+							"label": "Papyrus",
 							"cards": [
-								"Comp ogre bow"
+								"Papyrus"
 							],
 							"type": "item"
 						},
 						{
-							"label": "Brutal arrows or Crumble Undead",
+							"label": "Sample bottle",
+							"cards": [
+								"Sample bottle"
+							],
+							"type": "item"
+						},
+						{
+							"label": "Brutal arrows or Crumble Undead (optional)",
 							"logic": "ANY",
 							"children": [
+								{
+									"label": "Comp ogre bow",
+									"cards": [
+										"Comp ogre bow"
+									],
+									"type": "item"
+								},
 								{
 									"label": "Any brutal arrows",
 									"cards": [
@@ -16088,6 +19566,18 @@
 								"Zombie"
 							],
 							"type": "enemy"
+						}
+					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Zavistic Rarve",
+							"cards": [
+								"Zavistic rarve"
+							],
+							"type": "npc"
 						}
 					]
 				}
