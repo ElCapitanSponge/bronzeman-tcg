@@ -15568,6 +15568,13 @@
 								"Graceful gloves"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Oak Blackjack",
+							"cards": [
+								"Oak blackjack"
+							],
+							"type": "item"
 						}
 					]
 				},
