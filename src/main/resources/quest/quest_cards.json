@@ -10198,7 +10198,6 @@
 						{
 							"label": "Bananas",
 							"cards": [
-								"Bananas",
 								"Banana"
 							],
 							"type": "item"
@@ -18401,6 +18400,7 @@
 		},
 		{
 			"name": "Vale Totems (miniquest)",
+			"runeliteQuest": "VALE_TOTEMS",
 			"miniquest": true,
 			"sections": [
 				{
