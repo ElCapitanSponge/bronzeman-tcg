@@ -4519,6 +4519,18 @@
 							"type": "enemy"
 						}
 					]
+				},
+				{
+					"label": "NPCs",
+					"requirements": [
+						{
+							"label": "Ferret",
+							"cards": [
+								"Ferret"
+							],
+							"type": "npc"
+						}
+					]
 				}
 			],
 			"notes": ""
