@@ -5177,6 +5177,14 @@
 								"Dramen staff"
 							],
 							"type": "item"
+						},
+						{
+							"label": "Magic Secateurs or Ring of Recoil",
+							"cards": [
+								"Magic secateurs",
+								"Ring of recoil"
+							],
+							"type": "item"
 						}
 					]
 				},
