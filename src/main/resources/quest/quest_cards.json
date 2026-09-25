@@ -14776,6 +14776,13 @@
 										"Sapphire"
 									],
 									"type": "item"
+								},
+								{
+									"label": "Swamp Tar",
+									"cards": [
+										"Swamp tar"
+									],
+									"type": "item"
 								}
 							],
 							"displayCardsOnly": true
